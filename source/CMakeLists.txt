@@ -1,0 +1,33 @@
+set(CAVE_HEADERS 
+				Core/Common.hpp 
+				Core/Log.hpp
+				Core/Config.hpp
+				Core/RootDirectory.hpp
+				Core/AssimpTransformations.hpp
+				Platform/Window.hpp
+				Platform/Input.hpp
+				Platform/KeyCodes.hpp
+				Event/EventManager.hpp
+				Event/Events.hpp
+				Engine.hpp
+				Application.hpp
+				Utilities/BasicCameraControllers.hpp)
+set(CAVE_SOURCES 
+				Core/Config.cpp
+				Event/EventManager.cpp
+				Platform/Window.cpp
+				Platform/Input.cpp
+				Application.cpp)
+file(GLOB_RECURSE Shaders  "${CMAKE_SOURCE_DIR}/Assets/Shaders/*")
+source_group("Shaders" FILES ${Shaders})
+
+add_library(caveEngine STATIC ${CAVE_SOURCES} ${CAVE_HEADERS} caveEngine.hpp ${Shaders})
+if (MSVC)
+    target_compile_options(caveEngine PUBLIC /wd5033)
+endif(MSVC)
+target_include_directories(caveEngine PRIVATE ${THIRD_PARTY_INCLUDE_DIRECTORIES} CAVE_INCLUDE_DIRECTORY)
+target_link_libraries(caveEngine PRIVATE ${THIRD_PARTY_LIBRARIES})
+set_property(TARGET caveEngine PROPERTY CXX_STANDARD 20)
+source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} FILES ${CAVE_SOURCES} ${CAVE_HEADERS})
+
+
