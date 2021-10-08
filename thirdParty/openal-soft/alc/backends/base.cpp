@@ -3,39 +3,38 @@
 
 #include "base.h"
 
+#include <algorithm>
+#include <array>
 #include <atomic>
-#include <thread>
 
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <mmreg.h>
+
+#include "albit.h"
+#include "core/logging.h"
+#include "aloptional.h"
 #endif
 
-#include "AL/al.h"
-
-#include "alcmain.h"
-#include "alexcpt.h"
-#include "alnumeric.h"
-#include "aloptional.h"
 #include "atomic.h"
-#include "logging.h"
+#include "core/devformat.h"
 
 
 bool BackendBase::reset()
-{ throw al::backend_exception{ALC_INVALID_DEVICE, "Invalid BackendBase call"}; }
+{ throw al::backend_exception{al::backend_error::DeviceError, "Invalid BackendBase call"}; }
 
-ALCenum BackendBase::captureSamples(al::byte*, ALCuint)
-{ return ALC_INVALID_DEVICE; }
+void BackendBase::captureSamples(al::byte*, uint)
+{ }
 
-ALCuint BackendBase::availableSamples()
+uint BackendBase::availableSamples()
 { return 0; }
 
 ClockLatency BackendBase::getClockLatency()
 {
     ClockLatency ret;
 
-    ALuint refcount;
+    uint refcount;
     do {
         refcount = mDevice->waitForMix();
         ret.ClockTime = GetDeviceClockTime(mDevice);
@@ -80,14 +79,6 @@ void BackendBase::setDefaultWFXChannelOrder()
         mDevice->RealOut.ChannelIndex[SideLeft]    = 4;
         mDevice->RealOut.ChannelIndex[SideRight]   = 5;
         break;
-    case DevFmtX51Rear:
-        mDevice->RealOut.ChannelIndex[FrontLeft]   = 0;
-        mDevice->RealOut.ChannelIndex[FrontRight]  = 1;
-        mDevice->RealOut.ChannelIndex[FrontCenter] = 2;
-        mDevice->RealOut.ChannelIndex[LFE]         = 3;
-        mDevice->RealOut.ChannelIndex[BackLeft]    = 4;
-        mDevice->RealOut.ChannelIndex[BackRight]   = 5;
-        break;
     case DevFmtX61:
         mDevice->RealOut.ChannelIndex[FrontLeft]   = 0;
         mDevice->RealOut.ChannelIndex[FrontRight]  = 1;
@@ -118,11 +109,11 @@ void BackendBase::setDefaultChannelOrder()
 
     switch(mDevice->FmtChans)
     {
-    case DevFmtX51Rear:
+    case DevFmtX51:
         mDevice->RealOut.ChannelIndex[FrontLeft]   = 0;
         mDevice->RealOut.ChannelIndex[FrontRight]  = 1;
-        mDevice->RealOut.ChannelIndex[BackLeft]    = 2;
-        mDevice->RealOut.ChannelIndex[BackRight]   = 3;
+        mDevice->RealOut.ChannelIndex[SideLeft]    = 2;
+        mDevice->RealOut.ChannelIndex[SideRight]   = 3;
         mDevice->RealOut.ChannelIndex[FrontCenter] = 4;
         mDevice->RealOut.ChannelIndex[LFE]         = 5;
         return;
@@ -141,7 +132,6 @@ void BackendBase::setDefaultChannelOrder()
     case DevFmtMono:
     case DevFmtStereo:
     case DevFmtQuad:
-    case DevFmtX51:
     case DevFmtX61:
     case DevFmtAmbi3D:
         setDefaultWFXChannelOrder();
@@ -150,8 +140,15 @@ void BackendBase::setDefaultChannelOrder()
 }
 
 #ifdef _WIN32
-void BackendBase::setChannelOrderFromWFXMask(ALuint chanmask)
+void BackendBase::setChannelOrderFromWFXMask(uint chanmask)
 {
+    constexpr uint x51{SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT | SPEAKER_FRONT_CENTER
+        | SPEAKER_LOW_FREQUENCY | SPEAKER_SIDE_LEFT | SPEAKER_SIDE_RIGHT};
+    constexpr uint x51rear{SPEAKER_FRONT_LEFT | SPEAKER_FRONT_RIGHT | SPEAKER_FRONT_CENTER
+        | SPEAKER_LOW_FREQUENCY | SPEAKER_BACK_LEFT | SPEAKER_BACK_RIGHT};
+    /* Swap a 5.1 mask using the back channels for one with the sides. */
+    if(chanmask == x51rear) chanmask = x51;
+
     auto get_channel = [](const DWORD chanbit) noexcept -> al::optional<Channel>
     {
         switch(chanbit)
@@ -179,12 +176,12 @@ void BackendBase::setChannelOrderFromWFXMask(ALuint chanmask)
         return al::nullopt;
     };
 
-    const ALuint numchans{mDevice->channelsFromFmt()};
-    ALuint idx{0};
+    const uint numchans{mDevice->channelsFromFmt()};
+    uint idx{0};
     while(chanmask)
     {
-        const int bit{CTZ32(chanmask)};
-        const ALuint mask{1u << bit};
+        const int bit{al::countr_zero(chanmask)};
+        const uint mask{1u << bit};
         chanmask &= ~mask;
 
         if(auto label = get_channel(mask))

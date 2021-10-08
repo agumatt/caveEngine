@@ -9,25 +9,6 @@
 extern "C" {
 #endif
 
-#ifndef ALC_SOFT_loopback_bformat
-#define ALC_SOFT_loopback_bformat 1
-#define ALC_AMBISONIC_LAYOUT_SOFT                0x1997
-#define ALC_AMBISONIC_SCALING_SOFT               0x1998
-#define ALC_AMBISONIC_ORDER_SOFT                 0x1999
-#define ALC_MAX_AMBISONIC_ORDER_SOFT             0x199B
-
-#define ALC_BFORMAT3D_SOFT                       0x1508
-
-/* Ambisonic layouts */
-#define ALC_FUMA_SOFT                            0x0000
-#define ALC_ACN_SOFT                             0x0001
-
-/* Ambisonic scalings (normalization) */
-/*#define ALC_FUMA_SOFT*/
-#define ALC_SN3D_SOFT                            0x0001
-#define ALC_N3D_SOFT                             0x0002
-#endif
-
 #ifndef AL_SOFT_map_buffer
 #define AL_SOFT_map_buffer 1
 typedef unsigned int ALbitfieldSOFT;
@@ -45,33 +26,6 @@ AL_API void* AL_APIENTRY alMapBufferSOFT(ALuint buffer, ALsizei offset, ALsizei 
 AL_API void AL_APIENTRY alUnmapBufferSOFT(ALuint buffer);
 AL_API void AL_APIENTRY alFlushMappedBufferSOFT(ALuint buffer, ALsizei offset, ALsizei length);
 #endif
-#endif
-
-#ifndef AL_SOFT_events
-#define AL_SOFT_events 1
-#define AL_EVENT_CALLBACK_FUNCTION_SOFT          0x1220
-#define AL_EVENT_CALLBACK_USER_PARAM_SOFT        0x1221
-#define AL_EVENT_TYPE_BUFFER_COMPLETED_SOFT      0x1222
-#define AL_EVENT_TYPE_SOURCE_STATE_CHANGED_SOFT  0x1223
-#define AL_EVENT_TYPE_DISCONNECTED_SOFT          0x1224
-typedef void (AL_APIENTRY*ALEVENTPROCSOFT)(ALenum eventType, ALuint object, ALuint param,
-                                           ALsizei length, const ALchar *message,
-                                           void *userParam);
-typedef void (AL_APIENTRY*LPALEVENTCONTROLSOFT)(ALsizei count, const ALenum *types, ALboolean enable);
-typedef void (AL_APIENTRY*LPALEVENTCALLBACKSOFT)(ALEVENTPROCSOFT callback, void *userParam);
-typedef void* (AL_APIENTRY*LPALGETPOINTERSOFT)(ALenum pname);
-typedef void (AL_APIENTRY*LPALGETPOINTERVSOFT)(ALenum pname, void **values);
-#ifdef AL_ALEXT_PROTOTYPES
-AL_API void AL_APIENTRY alEventControlSOFT(ALsizei count, const ALenum *types, ALboolean enable);
-AL_API void AL_APIENTRY alEventCallbackSOFT(ALEVENTPROCSOFT callback, void *userParam);
-AL_API void* AL_APIENTRY alGetPointerSOFT(ALenum pname);
-AL_API void AL_APIENTRY alGetPointervSOFT(ALenum pname, void **values);
-#endif
-#endif
-
-#ifndef AL_SOFT_effect_target
-#define AL_SOFT_effect_target
-#define AL_EFFECTSLOT_TARGET_SOFT                0x199C
 #endif
 
 #ifndef AL_SOFT_callback_buffer
@@ -110,6 +64,34 @@ AL_API void AL_APIENTRY alAuxiliaryEffectSlotPlayvSOFT(ALsizei n, const ALuint *
 AL_API void AL_APIENTRY alAuxiliaryEffectSlotStopSOFT(ALuint slotid);
 AL_API void AL_APIENTRY alAuxiliaryEffectSlotStopvSOFT(ALsizei n, const ALuint *slotids);
 #endif
+#endif
+
+#ifndef ALC_SOFT_reopen_device
+#define ALC_SOFT_reopen_device
+typedef ALCboolean (ALC_APIENTRY*LPALCREOPENDEVICESOFT)(ALCdevice *device,
+    const ALCchar *deviceName, const ALCint *attribs);
+#ifdef AL_ALEXT_PROTOTYPES
+ALCboolean ALC_APIENTRY alcReopenDeviceSOFT(ALCdevice *device, const ALCchar *deviceName,
+    const ALCint *attribs);
+#endif
+#endif
+
+#ifndef AL_SOFT_UHJ
+#define AL_SOFT_UHJ
+#define AL_FORMAT_UHJ2CHN8_SOFT                  0x19A2
+#define AL_FORMAT_UHJ2CHN16_SOFT                 0x19A3
+#define AL_FORMAT_UHJ2CHN_FLOAT32_SOFT           0x19A4
+#define AL_FORMAT_UHJ3CHN8_SOFT                  0x19A5
+#define AL_FORMAT_UHJ3CHN16_SOFT                 0x19A6
+#define AL_FORMAT_UHJ3CHN_FLOAT32_SOFT           0x19A7
+#define AL_FORMAT_UHJ4CHN8_SOFT                  0x19A8
+#define AL_FORMAT_UHJ4CHN16_SOFT                 0x19A9
+#define AL_FORMAT_UHJ4CHN_FLOAT32_SOFT           0x19AA
+#endif
+
+#ifndef AL_SOFT_hold_on_disconnect
+#define AL_SOFT_hold_on_disconnect
+#define AL_STOP_SOURCES_ON_DISCONNECT_SOFT       0x19AB
 #endif
 
 #ifdef __cplusplus
