@@ -10,7 +10,7 @@ set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/glad
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/openal-soft/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/dr_wav"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/stb"
-									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre")
+									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/OgreMain/include")
 
 set(CAVE_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/source")
 if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
@@ -18,9 +18,9 @@ if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 	set(CAVE_INCLUDE_DIRECTORY ${CAVE_INCLUDE_DIRECTORY} PARENT_SCOPE)
 endif()
 if(MSVC)
-	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} OpenAL dr_wav stb)
+	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} OpenAL dr_wav stb ogre)
 else()
-	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} stdc++fs OpenAL dr_wav stb)
+	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} stdc++fs OpenAL dr_wav stb ogre)
 endif(MSVC)
 configure_file(CMakeConfigFiles/RootDirectory.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/source/Core/RootDirectory.hpp")
 add_subdirectory(thirdParty)
