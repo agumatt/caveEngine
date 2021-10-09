@@ -6,7 +6,7 @@
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 
-namespace Mona {
+namespace cave {
 	class Log {
 	public:
 		//TODO(Byron) Maybe move StartUp and ShutDown to private and make caller friend class

@@ -6,7 +6,7 @@
 #include <sstream>
 #include "Log.hpp"
 
-namespace Mona {
+namespace cave {
 	class Config {
 	public:
 		Config(Config const&) = delete;

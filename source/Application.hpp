@@ -2,7 +2,7 @@
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
 #include <memory>
-namespace Mona {
+namespace cave {
 	class Window;
 	class Input;
 	class World;

@@ -1,7 +1,6 @@
 #pragma once
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
-#include "World/World.hpp"
 #include <memory>
 #include "Application.hpp"
 namespace Mona {
@@ -13,13 +12,13 @@ namespace Mona {
 		Engine(const Engine&) = delete;
 		Engine& operator=(const Engine&) = delete;
 		/*
-		* Funci�n que comienza el main loop del motor.
+		* Funcion que comienza el main loop del motor.
 		*/
 		void StartMainLoop() noexcept {
 			m_world.StartMainLoop();
 		}
 	private:
-		World m_world;
+		//World m_world;
 	};
 }
 

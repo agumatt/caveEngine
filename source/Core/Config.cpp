@@ -2,7 +2,7 @@
 #include "Log.hpp"
 #include "RootDirectory.hpp"
 #include <fstream>
-namespace Mona
+namespace cave
 {
 	void Config::readFile(const std::string& path)
 	{
@@ -19,7 +19,7 @@ namespace Mona
 				auto delimeterPos = line.find_first_of("=");
 				if (delimeterPos == 0 || delimeterPos == std::string::npos)
 				{
-					MONA_LOG_ERROR("Configuration: Incorrect line format (Line = {0}, Content = \"{1}\")", lineNumber, line);
+					CAVE_LOG_ERROR("Configuration: Incorrect line format (Line = {0}, Content = \"{1}\")", lineNumber, line);
 					continue;
 				}
 				
@@ -30,7 +30,7 @@ namespace Mona
 				
 				if (keyStart == delimeterPos || (keyEnd - keyStart) < 0 || (valueEnd - valueStart) < 0)
 				{
-					MONA_LOG_ERROR("Configuration: Incorrect line format (Line = {0}, Content = \"{1}\")", lineNumber, line);
+					CAVE_LOG_ERROR("Configuration: Incorrect line format (Line = {0}, Content = \"{1}\")", lineNumber, line);
 					continue;
 				}
 				m_configurations[line.substr(keyStart, keyEnd - keyStart + 1)] = line.substr(valueStart, valueEnd -  valueStart +1);
@@ -39,7 +39,7 @@ namespace Mona
 		}
 		else
 		{
-			MONA_LOG_ERROR("Configuration: Failed to open file {0}", path);
+			CAVE_LOG_ERROR("Configuration: Failed to open file {0}", path);
 		}
 		
 		return;

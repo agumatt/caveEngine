@@ -7,7 +7,7 @@
 #include <type_traits>
 #define NOMINMAX
 
-namespace Mona {
+namespace cave {
 
 	template <typename T, typename... Rest>
 	inline constexpr bool is_any = (std::is_same_v<T, Rest> || ...);

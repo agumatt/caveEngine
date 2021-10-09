@@ -1,6 +1,7 @@
 #bat files
 *.bat
 CMakeFiles/
+out/
 .vscode/
 source/Core/RootDirectory.hpp
 ToDo_Future_Work.txt

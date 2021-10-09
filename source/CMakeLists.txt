@@ -3,20 +3,10 @@ set(CAVE_HEADERS
 				Core/Log.hpp
 				Core/Config.hpp
 				Core/RootDirectory.hpp
-				Core/AssimpTransformations.hpp
-				Platform/Window.hpp
-				Platform/Input.hpp
-				Platform/KeyCodes.hpp
-				Event/EventManager.hpp
-				Event/Events.hpp
 				Engine.hpp
-				Application.hpp
-				Utilities/BasicCameraControllers.hpp)
+				Application.hpp)
 set(CAVE_SOURCES 
 				Core/Config.cpp
-				Event/EventManager.cpp
-				Platform/Window.cpp
-				Platform/Input.cpp
 				Application.cpp)
 file(GLOB_RECURSE Shaders  "${CMAKE_SOURCE_DIR}/Assets/Shaders/*")
 source_group("Shaders" FILES ${Shaders})
