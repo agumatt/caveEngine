@@ -2,6 +2,7 @@
 #ifndef WORLD_HPP
 #define WORLD_HPP
 #include "../Application.hpp"
+#include "../Rendering/RenderingManager.hpp"
 
 #include <memory>
 #include <array>
@@ -28,6 +29,7 @@ namespace cave {
 
 		Application& m_application;
 		bool m_running;
+		RenderingManager m_renderingManager;
 				
 	};
 

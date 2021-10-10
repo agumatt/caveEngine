@@ -9,3 +9,5 @@ function(Add_Example TARGETNAME FILENAME)
         $<TARGET_FILE:OpenAL> $<TARGET_FILE_DIR:${TARGETNAME}>)
 
 endfunction(Add_Example)
+
+Add_Example(Example1 Example1.cpp)

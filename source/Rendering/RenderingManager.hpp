@@ -19,7 +19,9 @@ namespace cave {
 
 			void loadTerrain();
 
-			void setUpScene();
+			void StartUp();
+
+			void render();
 
 		}
 

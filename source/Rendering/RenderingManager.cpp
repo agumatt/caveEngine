@@ -1,4 +1,4 @@
-#include RenderingManager.h
+#include "RenderingManager.hpp"
 
 
 namespace cave {
@@ -6,11 +6,7 @@ namespace cave {
 	RenderingManager::RenderingManager() {
 
 		m_root = new Ogre::Root();
-		if (!root.showConfigDialog()) {
-			return -1;
-		}
-		//create render window
-		m_window = m_root.initialize(true);
+		
 		//sceneManager represents the octtree
 		m_sceneManager = m_root->createSceneManager(Ogre::ST_GENERIC);
 		
@@ -19,20 +15,34 @@ namespace cave {
 		cameraNode = sceneManager->getRootSceneNode()->createChildSceneNode();
 		cameraNode->attachObject(m_camera);
 
-		m_viewport = m_window->addViewport(m_camera);
 	}
 	RenderingManager::~RenderingManager() {
 	}
 
 
-	void RenderingManager::setUpScene() {
-		
-		
-		//configure camera
-		m_camera->setNearClipDistance(10);
-		m_camera->setFarClipDistance(1000);
+	void RenderingManager::StartUp() {
+		try {
+			if (!root.showConfigDialog()) {
+				return -1;
+			}
+			//create render window
+			m_window = m_root.initialize(true);
 
-		m_viewport->setClearEveryFrame(true);
+			//configure camera
+			m_camera->setNearClipDistance(10);
+			m_camera->setFarClipDistance(1000);
+
+			m_viewport = m_window->addViewport(m_camera);
+			m_viewport->setClearEveryFrame(true);
+		}
+		catch(Ogre::Exception &ex){
+			std::cerr << "An exception ocurred: " << ex << getDescription() << std::endl;
+		}
+	}
+
+
+	void RenderingManager::render() {
+
 	}
 
 }
