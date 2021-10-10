@@ -4,9 +4,12 @@
 #include <chrono>
 namespace cave {
 	
-	World::World(Application& app)
+	World::World(Application& app):
+		m_application(app),
+		m_running(true),
+		m_renderingManager()
 	{
-	
+		
 	}
 	
 	World::~World() {
@@ -32,7 +35,7 @@ namespace cave {
 
 	void World::Update(float timeStep) noexcept
 	{
-		
+		//para lo que envía el usuario y lo que debe hacer el motor en cada ciclo
 	}
 
 

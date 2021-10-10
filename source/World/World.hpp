@@ -8,13 +8,13 @@
 #include <filesystem>
 #include <string>
 
-namespace Mona {
+namespace cave {
 
 	class Material;
 	class World {
 	public:
 		friend class Engine;
-		friend class MonaTest;
+		friend class caveTest;
 		
 		World(const World& world) = delete;
 		World& operator=(const World& world) = delete;
@@ -27,6 +27,7 @@ namespace Mona {
 		void Update(float timeStep) noexcept;
 
 		Application& m_application;
+		bool m_running;
 				
 	};
 
