@@ -1,7 +1,8 @@
 #pragma once
 #ifndef INPUT_HPP
 #define INPUT_HPP
-#include <OgreVector.hpp>
+#include <OgreVector.h>
+#include <Ogre.h>
 #include <memory>
 
 namespace cave
@@ -21,7 +22,7 @@ namespace cave
 		*/
 		enum class CursorType { Hidden, Disabled, Normal };
 		friend class World;
-		Input();
+		Input(Ogre::RenderWindow* window);
 		~Input();
 		Input(const Input& input) = delete;
 		Input& operator=(const Input& input) = delete;
@@ -49,6 +50,9 @@ namespace cave
 		void SetCursorType(CursorType type) noexcept;
 	private:
 
+		void mouseHandle();
+		void keyboardHandle();
+
 		/*
 		* Función llamada cada iteración del motor para actualizar el estado de los eventos de input
 		*/
@@ -56,6 +60,7 @@ namespace cave
 		void StartUp() noexcept;
 		void ShutDown() noexcept;
 		class InputImplementation;
+		Ogre::RenderWindow* m_window;
 		std::unique_ptr<InputImplementation> p_Impl;
 	};
 }

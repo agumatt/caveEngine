@@ -20,5 +20,6 @@ add_subdirectory_with_folder("thirdParty" spdlog-1.9.2)
 add_subdirectory_with_folder("thirdParty" stb)
 add_subdirectory_with_folder("thirdParty" ogre)
 add_subdirectory_with_folder("thirdParty" glad)
+add_subdirectory_with_folder("thirdParty" OIS)
 
 

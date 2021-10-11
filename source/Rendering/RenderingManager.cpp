@@ -36,7 +36,7 @@ namespace cave {
 			m_viewport->setClearEveryFrame(true);
 		}
 		catch(Ogre::Exception &ex){
-			std::cerr << "An exception ocurred: " << ex << getDescription() << std::endl;
+			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 		}
 	}
 
