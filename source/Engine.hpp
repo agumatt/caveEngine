@@ -2,8 +2,9 @@
 #ifndef ENGINE_HPP
 #define ENGINE_HPP
 #include <memory>
+#include "World/World.hpp"
 #include "Application.hpp"
-namespace Mona {
+namespace cave {
 	class Engine
 	{
 	public:
@@ -18,7 +19,7 @@ namespace Mona {
 			m_world.StartMainLoop();
 		}
 	private:
-		//World m_world;
+		World m_world;
 	};
 }
 

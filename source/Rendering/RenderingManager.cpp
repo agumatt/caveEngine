@@ -1,4 +1,5 @@
 #include "RenderingManager.hpp"
+#include <iostream>
 
 
 namespace cave {
@@ -7,31 +8,41 @@ namespace cave {
 
 		m_root = new Ogre::Root();
 		
-		//sceneManager represents the octtree
-		m_sceneManager = m_root->createSceneManager(Ogre::ST_GENERIC);
+		//sceneManager represents the octree
+		m_sceneManager = m_root->createSceneManager();
 		
-		m_camera = sceneManager->createCamera("mainCamera");
+		m_camera = m_sceneManager->createCamera("mainCamera");
+
 		//add camera to scene
-		cameraNode = sceneManager->getRootSceneNode()->createChildSceneNode();
-		cameraNode->attachObject(m_camera);
+		m_cameraNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
+		m_cameraNode->attachObject(m_camera);
 
 	}
 	RenderingManager::~RenderingManager() {
 	}
 
 
-	void RenderingManager::StartUp() {
+	void RenderingManager::StartUp(OgreBites::CameraStyle cameraStyle) {
 		try {
-			if (!root.showConfigDialog()) {
-				return -1;
+			if (!m_root->showConfigDialog(NULL)) {
+				return;
 			}
 			//create render window
-			m_window = m_root.initialize(true);
+			m_window = m_root->initialise(true);
+
+			
 
 			//configure camera
 			m_camera->setNearClipDistance(10);
 			m_camera->setFarClipDistance(1000);
+			if (cameraStyle == OgreBites::CameraStyle::CS_PLAYER) {
 
+			}
+			else {
+				OgreBites::CameraMan cameraMan = OgreBites::CameraMan(m_cameraNode);
+				cameraMan.setStyle(cameraStyle);
+			}
+			
 			m_viewport = m_window->addViewport(m_camera);
 			m_viewport->setClearEveryFrame(true);
 		}

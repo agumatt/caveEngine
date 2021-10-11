@@ -12,6 +12,8 @@ set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/glad
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/stb"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/OgreMain/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/Bites/include"
+									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/include"
+									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/lib/Release"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/OIS/includes")
 
 set(CAVE_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/source")
@@ -19,10 +21,11 @@ if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 	set(THIRD_PARTY_INCLUDE_DIRECTORIES ${THIRD_PARTY_INCLUDE_DIRECTORIES} PARENT_SCOPE)
 	set(CAVE_INCLUDE_DIRECTORY ${CAVE_INCLUDE_DIRECTORY} PARENT_SCOPE)
 endif()
+set(OGRE_LIBRARIES OgreBites OgreMain)
 if(MSVC)
-	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} OpenAL dr_wav stb ogre OIS)
+	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} ${OGRE_LIBRARIES} OpenAL dr_wav stb OIS)
 else()
-	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} stdc++fs OpenAL dr_wav stb ogre OIS)
+	set(THIRD_PARTY_LIBRARIES glad glfw ${OPENGL_LIBRARIES} ImGui ${BULLET_LIBRARIES} ${OGRE_LIBRARIES} stdc++fs OpenAL dr_wav stb OIS)
 endif(MSVC)
 configure_file(CMakeConfigFiles/RootDirectory.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/source/Core/RootDirectory.hpp")
 add_subdirectory(thirdParty)

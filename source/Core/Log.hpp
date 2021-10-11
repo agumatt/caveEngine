@@ -18,7 +18,7 @@ namespace cave {
 	private:
 		Log() {
 			spdlog::set_pattern("%^[%T] %n: %v%$");
-			s_logger = spdlog::stdout_color_mt("MONA");
+			s_logger = spdlog::stdout_color_mt("CAVE");
 		}
 		Log(const Log& log) = delete;
 		Log& operator=(const Log& l) = delete;
@@ -27,19 +27,19 @@ namespace cave {
 }
 
 #if NDEBUG
-	#define MONA_LOG_INFO(...)					(void(0))
-	#define MONA_LOG_ERROR(...)					(void(0))
-	#define MONA_ASSERT(expr, ...)				(void(0))
+	#define CAVE_LOG_INFO(...)					(void(0))
+	#define CAVE_LOG_ERROR(...)					(void(0))
+	#define CAVE_ASSERT(expr, ...)				(void(0))
 #else
-	#define MONA_LOG_INFO(...)					::Mona::Log::GetLogger()->info(__VA_ARGS__)
-	#define MONA_LOG_ERROR(...)					::Mona::Log::GetLogger()->error(__VA_ARGS__)
+	#define CAVE_LOG_INFO(...)					::cave::Log::GetLogger()->info(__VA_ARGS__)
+	#define CAVE_LOG_ERROR(...)					::cave::Log::GetLogger()->error(__VA_ARGS__)
 	#if WIN32
-		#define MONA_ASSERT(expr, ...)					{if(!(expr)){ \
-														MONA_LOG_ERROR(__VA_ARGS__); \
+		#define CAVE_ASSERT(expr, ...)					{if(!(expr)){ \
+														CAVE_LOG_ERROR(__VA_ARGS__); \
 														__debugbreak(); }}
 	#else
-		#define MONA_ASSERT(expr, ...)					{if(!(expr)){ \
-														MONA_LOG_ERROR(__VA_ARGS__); \
+		#define CAVE_ASSERT(expr, ...)					{if(!(expr)){ \
+														CAVE_LOG_ERROR(__VA_ARGS__); \
 														assert(expr); }}
 	#endif
 												
