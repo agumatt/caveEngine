@@ -5,6 +5,8 @@
 #include <OgreException.h>
 #include <OgreRoot.h>
 #include <OgreCameraMan.h>
+#include <OgreWindowEventUtilities.h>
+#include <iostream>
 
 namespace cave {
 
@@ -20,9 +22,9 @@ namespace cave {
 		Ogre::SceneNode* m_cameraNode;
 		//incluir arreglo de modelos, con path, transformaciones iniciales, nombre, etc.
 
-		void loadModels();
+		void loadResourcesFolder(std::string path, std::string resourcesGroupName);
 
-		void loadTerrain();
+		void addResourcesToScene(Model models[]);
 
 		void StartUp(OgreBites::CameraStyle cameraStyle);
 
@@ -33,6 +35,24 @@ namespace cave {
 
 
 
+	};
+
+	class Model {
+		std::string m_meshName;
+		std::string m_nodeName;
+		std::string m_parentNodeName;
+		std::string m_groupName; //to associate with other models
+		Ogre::Quaternion m_initialRotation;
+		Ogre::Vector3 m_initialTranslation;
+		Ogre::Vector3 m_initialScaling;
+
+		void setInitialRotation(Ogre::Quaternion initialRotation);
+		void setInitialTranslation(Ogre::Vector3 initialTranslation);
+		void setInitialScaling(Ogre::Vector3 initialScaling);
+		void setParentNodeName(std::string parentNodeName);
+
+		Model(std::string meshName, std::string groupName, std::string nodeName, std::string parentNodeName = "RootSceneNode");
+		~Model();
 	};
 
 }

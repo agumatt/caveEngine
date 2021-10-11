@@ -9,6 +9,7 @@ namespace cave {
 		m_running(true),
 		m_renderingManager()
 	{
+		m_renderingManager.StartUp(OgreBites::CameraStyle::CS_FREELOOK);
 		
 	}
 	
@@ -36,6 +37,7 @@ namespace cave {
 	void World::Update(float timeStep) noexcept
 	{
 		//para lo que envía el usuario y lo que debe hacer el motor en cada ciclo
+		m_renderingManager.render();
 	}
 
 
