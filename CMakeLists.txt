@@ -13,7 +13,6 @@ set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/glad
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/OgreMain/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/Bites/include"
 									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/include"
-									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/lib/Release"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/OIS/includes")
 
 set(CAVE_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/source")

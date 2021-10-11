@@ -4,11 +4,13 @@ set(CAVE_HEADERS
 				Core/Config.hpp
 				Core/RootDirectory.hpp
 				Rendering/RenderingManager.hpp
+				World/World.hpp
 				Engine.hpp
 				Application.hpp)
 set(CAVE_SOURCES 
 				Core/Config.cpp
 				Rendering/RenderingManager.cpp
+				World/World.cpp
 				Application.cpp)
 file(GLOB_RECURSE Shaders  "${CMAKE_SOURCE_DIR}/Assets/Shaders/*")
 source_group("Shaders" FILES ${Shaders})

@@ -28,8 +28,6 @@ namespace cave {
 
 		void render();
 
-
-	private:
 		RenderingManager();
 		~RenderingManager();
 
