@@ -6,6 +6,7 @@
 #include <OgreRoot.h>
 #include <OgreCameraMan.h>
 #include <OgreWindowEventUtilities.h>
+#include <OgreApplicationContext.h>
 #include <iostream>
 
 namespace cave {
@@ -31,7 +32,7 @@ namespace cave {
 		~Model();
 	};
 
-	class RenderingManager
+	class RenderingManager : public OgreBites::ApplicationContext
 	{
 
 	public:
@@ -47,9 +48,13 @@ namespace cave {
 
 		void addResourcesToScene(std::vector<Model> &models);
 
+		void configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, float nearClipDistance = 1, float farClipDistance = 1000);
+
 		void StartUp(OgreBites::CameraStyle cameraStyle);
 
 		void render();
+
+		void setup();
 
 		RenderingManager();
 		~RenderingManager();

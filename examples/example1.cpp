@@ -7,8 +7,9 @@ public:
 	Example1() = default;
 	~Example1() = default;
 	virtual void UserStartUp(cave::World & world) noexcept override {
+		world.getRenderingManager().configureCamera(Ogre::Vector3(0, 0, 15), Ogre::Vector3(0, 0, -1));
 		world.getRenderingManager().loadResourcesFolder("Meshes", "Example1Resources");
-		auto sinbadModel = cave::Model("Sinbad.mesh", "Example1Resources", "sinbad1");
+		auto sinbadModel = cave::Model("Sinbad1.mesh", "Example1Resources", "sinbad1");
 		std::vector<cave::Model> models = { sinbadModel };
 		world.getRenderingManager().addResourcesToScene(models);
 	}
@@ -21,6 +22,7 @@ public:
 };
 int main()
 {
+	std::cout << "Example main.";
 	Example1 example1;
 	cave::Engine engine(example1);
 	engine.StartMainLoop();

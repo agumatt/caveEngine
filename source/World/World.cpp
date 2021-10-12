@@ -9,6 +9,7 @@ namespace cave {
 		m_running(true),
 		m_renderingManager()
 	{
+		std::cout << "World creado.";
 		m_renderingManager.StartUp(OgreBites::CameraStyle::CS_PLAYER);
 		m_application.UserStartUp(*this);
 		
@@ -25,13 +26,14 @@ namespace cave {
 
 	void World::StartMainLoop() noexcept {
 		std::chrono::time_point<std::chrono::steady_clock> startTime = std::chrono::steady_clock::now();
-		
-		while (!m_renderingManager.m_window->isClosed() && m_running)
+		std::cout << "MainLoop iniciado.";
+		while (m_running)
 		{
 			std::chrono::time_point<std::chrono::steady_clock> newTime = std::chrono::steady_clock::now();
 			const auto frameTime = newTime - startTime;
 			startTime = newTime;
 			float timeStep = std::chrono::duration_cast<std::chrono::duration<float>>(frameTime).count();
+			std::cout << "render frame.";
 			Update(timeStep);
 		}
 		//m_eventManager.Publish(ApplicationEndEvent());

@@ -16,6 +16,7 @@ namespace cave {
 		* Funcion que comienza el main loop del motor.
 		*/
 		void StartMainLoop() noexcept {
+			std::cout << "Engine StartMainLoop";
 			m_world.StartMainLoop();
 		}
 	private:

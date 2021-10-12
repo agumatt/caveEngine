@@ -9,6 +9,7 @@ set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/glfw
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/dr_wav"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/stb"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/OgreMain/include"
+									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/RTShaderSystem/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/Bites/include"
 									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/OIS/includes")
@@ -18,7 +19,7 @@ if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 	set(THIRD_PARTY_INCLUDE_DIRECTORIES ${THIRD_PARTY_INCLUDE_DIRECTORIES} PARENT_SCOPE)
 	set(CAVE_INCLUDE_DIRECTORY ${CAVE_INCLUDE_DIRECTORY} PARENT_SCOPE)
 endif()
-set(OGRE_LIBRARIES OgreBites OgreMain)
+set(OGRE_LIBRARIES OgreBites OgreMain OgreRTShaderSystem)
 if(MSVC)
 	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} OpenAL dr_wav stb OIS)
 else()

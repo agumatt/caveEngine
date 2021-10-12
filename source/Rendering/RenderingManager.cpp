@@ -5,55 +5,73 @@ namespace cave {
 
 	//RenderingManager
 
-	RenderingManager::RenderingManager() {
-
-		m_root = new Ogre::Root();
-		
-		//sceneManager represents the octree
-		m_sceneManager = m_root->createSceneManager();
-		
-		m_camera = m_sceneManager->createCamera("mainCamera");
-
-		//add camera to scene
-		m_cameraNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
-		m_cameraNode->attachObject(m_camera);
+	RenderingManager::RenderingManager(): OgreBites::ApplicationContext("RenderingManager"){
+		m_window = nullptr;
+		m_viewport = nullptr;
+		m_root = nullptr;
+		m_sceneManager = nullptr;
+		m_cameraNode = nullptr;
+		m_camera = nullptr;
+		initApp();
 
 	}
 	RenderingManager::~RenderingManager() {
 	}
 
+	void RenderingManager::setup() {
+		OgreBites::ApplicationContext::setup();
+		// register for input events
+		m_root = getRoot();
+
+		//sceneManager represents the octree
+		m_sceneManager = m_root->createSceneManager();
+
+		// register our scene with the RTSS
+		Ogre::RTShader::ShaderGenerator* shadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
+		shadergen->addSceneManager(m_sceneManager);
+
+
+		//add camera to scene
+		m_camera = m_sceneManager->createCamera("mainCamera");
+		m_cameraNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
+		m_cameraNode->attachObject(m_camera);
+	}
 
 	void RenderingManager::StartUp(OgreBites::CameraStyle cameraStyle) {
 		try {
-			if (!m_root->showConfigDialog(NULL)) {
-				return;
-			}
-			//create render window
-			m_window = m_root->initialise(true);
+			std::cout << "RenderingManager startUp init.";
+			//get render window
+			m_window = getRenderWindow();
 
-			
 
 			//configure camera
 			m_camera->setNearClipDistance(5);
-			m_camera->setFarClipDistance(1000);
-			if (cameraStyle == OgreBites::CameraStyle::CS_PLAYER) {
+			m_camera->setAutoAspectRatio(true);
 
-			}
-			else {
-				OgreBites::CameraMan cameraMan = OgreBites::CameraMan(m_cameraNode);
-				cameraMan.setStyle(cameraStyle);
-			}
-			
+
+			//if (cameraStyle == OgreBites::CameraStyle::CS_PLAYER) {
+			//}
+			//else {
+			//	OgreBites::CameraMan cameraMan = OgreBites::CameraMan(m_cameraNode);
+		//		cameraMan.setStyle(cameraStyle);
+			//}
+
 			m_viewport = m_window->addViewport(m_camera);
 			m_viewport->setClearEveryFrame(true);
-
 			//set lighting
-			m_sceneManager->setAmbientLight(Ogre::ColourValue::White);
+			//m_sceneManager->setAmbientLight(Ogre::ColourValue::White);
+			Ogre::Light* light = m_sceneManager->createLight("MainLight");
+			Ogre::SceneNode* lightNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
+			lightNode->setPosition(0, 10, 15);
+			lightNode->attachObject(light);
+
+			std::cout << "RenderingManager startUp finished.";
 		}
 		catch(Ogre::Exception& ex){
 			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 		}
 	}
+
 
 	void RenderingManager::loadResourcesFolder(std::string path, std::string resourcesGroupName) {
 
@@ -72,6 +90,7 @@ namespace cave {
 	void RenderingManager::addResourcesToScene(std::vector<Model> &models) {
 		for (unsigned int i = 0; i < models.size(); i = i + 1) {
 			Model model = models[i];
+			std::cout << "Cargando modelo: " << model.m_meshName;
 			Ogre::SceneNode* parentNode = NULL;
 			if (model.m_parentNodeName == "RootSceneNode") {
 				parentNode = m_sceneManager->getRootSceneNode();
@@ -98,6 +117,14 @@ namespace cave {
 	void RenderingManager::render() {
 		m_root->renderOneFrame();
 		Ogre::WindowEventUtilities::messagePump();
+	}
+
+
+	void RenderingManager::configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, float nearClipDistance, float farClipDistance) {
+		m_camera->setNearClipDistance(nearClipDistance);
+		m_camera->setFarClipDistance(farClipDistance);
+		m_cameraNode->setPosition(position);
+		m_cameraNode->lookAt(lookAt, Ogre::Node::TS_PARENT);
 	}
 
 	//Model
