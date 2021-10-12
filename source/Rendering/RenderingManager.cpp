@@ -55,37 +55,40 @@ namespace cave {
 		}
 	}
 
-	RenderingManager::loadResourcesFolder(std::string path, std::string resourcesGroupName) {
+	void RenderingManager::loadResourcesFolder(std::string path, std::string resourcesGroupName) {
 
-		if (!Ogre::ResourceGroupManager::getSingletonPtr()->getResourceGroup(resourcesGroupName)) {
+		try {
 			Ogre::ResourceGroupManager::getSingletonPtr()->createResourceGroup(resourcesGroupName);
 		}
-		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, 'FileSystem', resourcesGroupName);
+		catch (Ogre::Exception& ex) {
+		}
+		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, "FileSystem", resourcesGroupName);
 		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(resourcesGroupName);
 		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(resourcesGroupName);
 
 
 	}
 
-	void RenderingManager::addResourcesToScene(Model models[]) {
-		for (const Model& model : models) {
-			Ogre::SceneNode parentNode = NULL;
-			if (model.m_parentNodeName == 'RootSceneNode') {
+	void RenderingManager::addResourcesToScene(Model* models[]) {
+		for (unsigned int i = 0; i < sizeof(models) / sizeof(models[0]); i = i + 1) {
+			Model* model = models[i];
+			Ogre::SceneNode* parentNode = NULL;
+			if (model->m_parentNodeName == "RootSceneNode") {
 				parentNode = m_sceneManager->getRootSceneNode();
 			}
 			else {
 				try {
-					parentNode = m_sceneManager->getSceneNode(model.m_parentNodeName);
+					parentNode = m_sceneManager->getSceneNode(model->m_parentNodeName);
 				}
 				catch (Ogre::Exception& ex) {
 					std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 				}
-				Ogre::SceneNode newNode = parentNode->createChildSceneNode(model.m_nodeName);
-				newNode.translate(model.m_initialTranslation);
-				newNode.rotate(model.m_initialRotation);
-				newNode.scale(model.m_initialScaling);
-				Ogre::Entity newEntity = m_sceneManager->createEntity(model.meshName);
-				newNode.attachObject(newEntity);
+				Ogre::SceneNode* newNode = parentNode->createChildSceneNode(model->m_nodeName);
+				newNode->translate(model->m_initialTranslation);
+				newNode->rotate(model->m_initialRotation);
+				newNode->scale(model->m_initialScaling);
+				Ogre::Entity* newEntity = m_sceneManager->createEntity(model->m_meshName);
+				newNode->attachObject(newEntity);
 
 			}
 
@@ -99,7 +102,7 @@ namespace cave {
 
 	//Model
 
-	Model::Model(std::string meshName, std::string groupName, std::string nodeName, std::string parentNodeName = "RootSceneNode") {
+	Model::Model(std::string meshName, std::string groupName, std::string nodeName, std::string parentNodeName) {
 		m_meshName = meshName;
 		m_groupName = groupName;
 		m_nodeName = nodeName;

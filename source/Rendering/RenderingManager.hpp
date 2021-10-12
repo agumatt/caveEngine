@@ -10,34 +10,10 @@
 
 namespace cave {
 
-	class RenderingManager
-	{
-
-	public:
-		Ogre::Root* m_root;
-		Ogre::RenderWindow* m_window;
-		Ogre::SceneManager* m_sceneManager;
-		Ogre::Viewport* m_viewport;
-		Ogre::Camera* m_camera;
-		Ogre::SceneNode* m_cameraNode;
-		//incluir arreglo de modelos, con path, transformaciones iniciales, nombre, etc.
-
-		void loadResourcesFolder(std::string path, std::string resourcesGroupName);
-
-		void addResourcesToScene(Model models[]);
-
-		void StartUp(OgreBites::CameraStyle cameraStyle);
-
-		void render();
-
-		RenderingManager();
-		~RenderingManager();
-
-
-
-	};
 
 	class Model {
+	
+	public:
 		std::string m_meshName;
 		std::string m_nodeName;
 		std::string m_parentNodeName;
@@ -55,6 +31,34 @@ namespace cave {
 		~Model();
 	};
 
+	class RenderingManager
+	{
+
+	public:
+		Ogre::Root* m_root;
+		Ogre::RenderWindow* m_window;
+		Ogre::SceneManager* m_sceneManager;
+		Ogre::Viewport* m_viewport;
+		Ogre::Camera* m_camera;
+		Ogre::SceneNode* m_cameraNode;
+		//incluir arreglo de modelos, con path, transformaciones iniciales, nombre, etc.
+
+		void loadResourcesFolder(std::string path, std::string resourcesGroupName);
+
+		void addResourcesToScene(Model* models[]);
+
+		void StartUp(OgreBites::CameraStyle cameraStyle);
+
+		void render();
+
+		RenderingManager();
+		~RenderingManager();
+
+
+
+	};
+
 }
+
 
 #endif
