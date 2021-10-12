@@ -10,6 +10,7 @@ namespace cave {
 		m_renderingManager()
 	{
 		m_renderingManager.StartUp(OgreBites::CameraStyle::CS_FREELOOK);
+		m_application.UserStartUp(*this);
 		
 	}
 	
@@ -17,6 +18,9 @@ namespace cave {
 
 	}
 
+	RenderingManager World::getRenderingManager() {
+		return m_renderingManager;
+	}
 	
 
 	void World::StartMainLoop() noexcept {

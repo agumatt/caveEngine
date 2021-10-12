@@ -45,7 +45,7 @@ namespace cave {
 
 		void loadResourcesFolder(std::string path, std::string resourcesGroupName);
 
-		void addResourcesToScene(Model* models[]);
+		void addResourcesToScene(std::vector<Model> &models);
 
 		void StartUp(OgreBites::CameraStyle cameraStyle);
 

@@ -69,25 +69,25 @@ namespace cave {
 
 	}
 
-	void RenderingManager::addResourcesToScene(Model* models[]) {
-		for (unsigned int i = 0; i < sizeof(models) / sizeof(models[0]); i = i + 1) {
-			Model* model = models[i];
+	void RenderingManager::addResourcesToScene(std::vector<Model> &models) {
+		for (unsigned int i = 0; i < models.size(); i = i + 1) {
+			Model model = models[i];
 			Ogre::SceneNode* parentNode = NULL;
-			if (model->m_parentNodeName == "RootSceneNode") {
+			if (model.m_parentNodeName == "RootSceneNode") {
 				parentNode = m_sceneManager->getRootSceneNode();
 			}
 			else {
 				try {
-					parentNode = m_sceneManager->getSceneNode(model->m_parentNodeName);
+					parentNode = m_sceneManager->getSceneNode(model.m_parentNodeName);
 				}
 				catch (Ogre::Exception& ex) {
 					std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 				}
-				Ogre::SceneNode* newNode = parentNode->createChildSceneNode(model->m_nodeName);
-				newNode->translate(model->m_initialTranslation);
-				newNode->rotate(model->m_initialRotation);
-				newNode->scale(model->m_initialScaling);
-				Ogre::Entity* newEntity = m_sceneManager->createEntity(model->m_meshName);
+				Ogre::SceneNode* newNode = parentNode->createChildSceneNode(model.m_nodeName);
+				newNode->translate(model.m_initialTranslation);
+				newNode->rotate(model.m_initialRotation);
+				newNode->scale(model.m_initialScaling);
+				Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshName);
 				newNode->attachObject(newEntity);
 
 			}

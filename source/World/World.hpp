@@ -19,9 +19,7 @@ namespace cave {
 		
 		World(const World& world) = delete;
 		World& operator=(const World& world) = delete;
-		
 
-	private:
 		World(Application& app);
 		~World();
 		void StartMainLoop() noexcept;
@@ -30,6 +28,8 @@ namespace cave {
 		Application& m_application;
 		bool m_running;
 		RenderingManager m_renderingManager;
+
+		RenderingManager getRenderingManager();
 				
 	};
 
