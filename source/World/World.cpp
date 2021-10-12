@@ -9,7 +9,7 @@ namespace cave {
 		m_running(true),
 		m_renderingManager()
 	{
-		m_renderingManager.StartUp(OgreBites::CameraStyle::CS_FREELOOK);
+		m_renderingManager.StartUp(OgreBites::CameraStyle::CS_PLAYER);
 		m_application.UserStartUp(*this);
 		
 	}

@@ -34,7 +34,7 @@ namespace cave {
 			
 
 			//configure camera
-			m_camera->setNearClipDistance(10);
+			m_camera->setNearClipDistance(5);
 			m_camera->setFarClipDistance(1000);
 			if (cameraStyle == OgreBites::CameraStyle::CS_PLAYER) {
 
