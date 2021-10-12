@@ -12,14 +12,11 @@ function(add_subdirectory_with_folder _folder_name _folder)
     set_property(DIRECTORY "${_folder}" PROPERTY FOLDER "${_folder_name}")
 endfunction()
 
-add_subdirectory_with_folder("thirdParty" glfw-3.3.2)
-add_subdirectory_with_folder("thirdParty" imgui-1.78)
 add_subdirectory_with_folder("thirdParty/OpenAL" openal-soft)
 add_subdirectory_with_folder("thirdParty" dr_wav)
 add_subdirectory_with_folder("thirdParty" spdlog-1.9.2)
 add_subdirectory_with_folder("thirdParty" stb)
 add_subdirectory_with_folder("thirdParty" ogre)
-add_subdirectory_with_folder("thirdParty" glad)
 add_subdirectory_with_folder("thirdParty" OIS)
 
 
