@@ -32,7 +32,7 @@ namespace cave {
 		~Model();
 	};
 
-	class RenderingManager : public OgreBites::ApplicationContext
+	class RenderingManager : public OgreBites::ApplicationContext, public OgreBites::InputListener
 	{
 
 	public:
@@ -56,6 +56,8 @@ namespace cave {
 
 		void setup();
 
+		bool keyPressed(const OgreBites::KeyboardEvent& evt);
+		
 		RenderingManager();
 		~RenderingManager();
 

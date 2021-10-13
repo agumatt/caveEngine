@@ -18,13 +18,34 @@ namespace cave {
 	RenderingManager::~RenderingManager() {
 	}
 
+	//! [key_handler]
+	bool RenderingManager::keyPressed(const OgreBites::KeyboardEvent& evt)
+	{
+		std::cout << "pressed SOMETHING";
+		if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
+		{
+			getRoot()->queueEndRendering();
+			closeApp();
+		}
+		return true;
+	}
+	//! [key_handler]
+
+
 	void RenderingManager::setup() {
 		OgreBites::ApplicationContext::setup();
 		// register for input events
 		m_root = getRoot();
 
+		// register for input events
+		addInputListener(this);
+
 		//sceneManager represents the octree
 		m_sceneManager = m_root->createSceneManager();
+
+		//init resourceGroupManager
+		//Ogre::ResourceGroupManager::ResourceGroupManager();
+		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
 
 		// register our scene with the RTSS
 		Ogre::RTShader::ShaderGenerator* shadergen = Ogre::RTShader::ShaderGenerator::getSingletonPtr();
@@ -75,11 +96,6 @@ namespace cave {
 
 	void RenderingManager::loadResourcesFolder(std::string path, std::string resourcesGroupName) {
 
-		try {
-			Ogre::ResourceGroupManager::getSingletonPtr()->createResourceGroup(resourcesGroupName);
-		}
-		catch (Ogre::Exception& ex) {
-		}
 		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, "FileSystem", resourcesGroupName);
 		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(resourcesGroupName);
 		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(resourcesGroupName);
@@ -102,18 +118,18 @@ namespace cave {
 				catch (Ogre::Exception& ex) {
 					std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 				}
-				Ogre::SceneNode* newNode = parentNode->createChildSceneNode(model.m_nodeName);
-				newNode->translate(model.m_initialTranslation);
-				newNode->rotate(model.m_initialRotation);
-				newNode->scale(model.m_initialScaling);
-				Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshName);
-				newNode->attachObject(newEntity);
-
 			}
+			Ogre::SceneNode* newNode = parentNode->createChildSceneNode(model.m_nodeName);
+			newNode->translate(model.m_initialTranslation);
+			newNode->rotate(model.m_initialRotation);
+			newNode->scale(model.m_initialScaling);
+			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshName);
+			newNode->attachObject(newEntity);
 
 		}
 	}
 
+	
 	void RenderingManager::render() {
 		m_root->renderOneFrame();
 		Ogre::WindowEventUtilities::messagePump();

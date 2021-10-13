@@ -33,7 +33,6 @@ namespace cave {
 			const auto frameTime = newTime - startTime;
 			startTime = newTime;
 			float timeStep = std::chrono::duration_cast<std::chrono::duration<float>>(frameTime).count();
-			std::cout << "render frame.";
 			Update(timeStep);
 		}
 		//m_eventManager.Publish(ApplicationEndEvent());
