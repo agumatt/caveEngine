@@ -43,8 +43,7 @@ namespace cave {
 		//sceneManager represents the octree
 		m_sceneManager = m_root->createSceneManager();
 
-		//init resourceGroupManager
-		//Ogre::ResourceGroupManager::ResourceGroupManager();
+		//init resources
 		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
 
 		// register our scene with the RTSS
@@ -69,13 +68,6 @@ namespace cave {
 			m_camera->setNearClipDistance(5);
 			m_camera->setAutoAspectRatio(true);
 
-
-			//if (cameraStyle == OgreBites::CameraStyle::CS_PLAYER) {
-			//}
-			//else {
-			//	OgreBites::CameraMan cameraMan = OgreBites::CameraMan(m_cameraNode);
-		//		cameraMan.setStyle(cameraStyle);
-			//}
 
 			m_viewport = m_window->addViewport(m_camera);
 			m_viewport->setClearEveryFrame(true);
@@ -136,13 +128,21 @@ namespace cave {
 	}
 
 
-	void RenderingManager::configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, float nearClipDistance, float farClipDistance) {
+	void RenderingManager::configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, OgreBites::CameraStyle cameraStyle, float nearClipDistance, float farClipDistance) {
+		//create cameraMan
+		OgreBites::CameraMan cameraMan = OgreBites::CameraMan(m_cameraNode);
+		OgreBites::InputListener cameraManListener = (OgreBites::InputListener)cameraMan;
+		addInputListener(&cameraManListener);
+		cameraMan.setStyle(cameraStyle);
+		cameraMan.setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.3), 15);
+		
+
+		m_camera->setAutoAspectRatio(true);
 		m_camera->setNearClipDistance(nearClipDistance);
 		m_camera->setFarClipDistance(farClipDistance);
 		m_cameraNode->setPosition(position);
 		m_cameraNode->lookAt(lookAt, Ogre::Node::TS_PARENT);
 	}
-
 	//Model
 
 	Model::Model(std::string meshName, std::string groupName, std::string nodeName, std::string parentNodeName) {

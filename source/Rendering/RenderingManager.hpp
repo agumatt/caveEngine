@@ -48,7 +48,7 @@ namespace cave {
 
 		void addResourcesToScene(std::vector<Model> &models);
 
-		void configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, float nearClipDistance = 1, float farClipDistance = 1000);
+		void configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, OgreBites::CameraStyle cameraStyle= OgreBites::CameraStyle::CS_ORBIT, float nearClipDistance=1, float farClipDistance=1000);
 
 		void StartUp();
 
