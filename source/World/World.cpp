@@ -9,7 +9,7 @@ namespace cave {
 		m_renderingManager()
 	{
 		std::cout << "World creado.";
-		m_renderingManager.StartUp(OgreBites::CameraStyle::CS_FREELOOK);
+		m_renderingManager.StartUp();
 		m_application.UserStartUp(*this);
 		
 	}
