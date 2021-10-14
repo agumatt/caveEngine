@@ -18,27 +18,11 @@ namespace cave {
 	RenderingManager::~RenderingManager() {
 	}
 
-	//! [key_handler]
-	bool RenderingManager::keyPressed(const OgreBites::KeyboardEvent& evt)
-	{
-		std::cout << "pressed SOMETHING";
-		if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
-		{
-			getRoot()->queueEndRendering();
-			closeApp();
-		}
-		return true;
-	}
-	//! [key_handler]
-
 
 	void RenderingManager::setup() {
 		OgreBites::ApplicationContext::setup();
 		// register for input events
 		m_root = getRoot();
-
-		// register for input events
-		addInputListener(this);
 
 		//sceneManager represents the octree
 		m_sceneManager = m_root->createSceneManager();
@@ -129,20 +113,20 @@ namespace cave {
 
 
 	void RenderingManager::configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, OgreBites::CameraStyle cameraStyle, float nearClipDistance, float farClipDistance) {
-		//create cameraMan
-		OgreBites::CameraMan cameraMan = OgreBites::CameraMan(m_cameraNode);
-		OgreBites::InputListener cameraManListener = (OgreBites::InputListener)cameraMan;
-		addInputListener(&cameraManListener);
-		cameraMan.setStyle(cameraStyle);
-		cameraMan.setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.3), 15);
-		
-
+		//config camera
 		m_camera->setAutoAspectRatio(true);
 		m_camera->setNearClipDistance(nearClipDistance);
 		m_camera->setFarClipDistance(farClipDistance);
 		m_cameraNode->setPosition(position);
 		m_cameraNode->lookAt(lookAt, Ogre::Node::TS_PARENT);
+		//create cameraMan
+		OgreBites::CameraMan cameraMan = OgreBites::CameraMan::CameraMan(m_cameraNode);
+		//cameraMan.setStyle(OgreBites::CameraStyle::CS_FREELOOK);
+		//cameraMan.setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.3), 15);
+		addInputListener(&cameraMan);
 	}
+	
+	
 	//Model
 
 	Model::Model(std::string meshName, std::string groupName, std::string nodeName, std::string parentNodeName) {
