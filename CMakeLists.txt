@@ -3,8 +3,7 @@ cmake_minimum_required(VERSION 3.15)
 project(caveEngine C CXX)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 find_package(OpenGL REQUIRED)
-set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/glfw-3.3.2/include"
-									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/spdlog-1.9.2/include"
+set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/spdlog-1.9.2/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/openal-soft/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/dr_wav"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/stb"
