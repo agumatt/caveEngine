@@ -47,8 +47,7 @@ namespace OgreBites
     {
         CS_FREELOOK,
         CS_ORBIT,
-        CS_MANUAL,
-        CS_PLAYER
+        CS_MANUAL
     };
 
     /**

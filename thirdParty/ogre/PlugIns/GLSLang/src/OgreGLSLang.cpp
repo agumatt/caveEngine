@@ -10,11 +10,11 @@
 
 #include <glslang/Public/ShaderLang.h>
 #include <glslang/SPIRV/GlslangToSpv.h>
-#include <glslang/MachineIndependent/gl_types.h>
+#include "gl_types.h"
 
 namespace
 {
-const TBuiltInResource DefaultTBuiltInResource = {
+TBuiltInResource DefaultTBuiltInResource = {
     /* .MaxLights = */ 32,
     /* .MaxClipPlanes = */ 6,
     /* .MaxTextureUnits = */ 32,
@@ -108,19 +108,8 @@ const TBuiltInResource DefaultTBuiltInResource = {
     /* .maxTaskWorkGroupSizeZ_NV = */ 1,
     /* .maxMeshViewCountNV = */ 4,
     /* .maxDualSourceDrawBuffersEXT =  1,*/
-
-    /* .limits = */
-    {
-        /* .nonInductiveForLoops = */ 1,
-        /* .whileLoops = */ 1,
-        /* .doWhileLoops = */ 1,
-        /* .generalUniformIndexing = */ 1,
-        /* .generalAttributeMatrixVectorIndexing = */ 1,
-        /* .generalVaryingIndexing = */ 1,
-        /* .generalSamplerIndexing = */ 1,
-        /* .generalVariableIndexing = */ 1,
-        /* .generalConstantMatrixVectorIndexing = */ 1,
-    }};
+    /* .limits = memset below*/
+    };
 }
 
 namespace Ogre
@@ -277,6 +266,7 @@ GLSLangProgram::GLSLangProgram(ResourceManager* creator, const String& name, Res
     if (createParamDictionary("glslangProgram"))
     {
         setupBaseParamDictionary();
+        memset(&DefaultTBuiltInResource.limits, 1, sizeof(TLimits));
     }
 }
 
@@ -376,22 +366,25 @@ void GLSLangProgram::prepareImpl()
     getConstantDefinitions();
     program.buildReflection();
 
-    int nuniforms = program.getNumUniformVariables();
+    int nuniforms = program.getNumLiveUniformVariables();
     for(int i = 0; i < nuniforms; i++)
     {
-        auto u = program.getUniform(i);
-        if(u.getType()->isOpaque())
+        auto utype = program.getUniformTType(i);
+        if(utype->isOpaque())
             continue;
 
+        auto uindex = program.getUniformBlockIndex(i);
+        auto uoffset = program.getUniformBufferOffset(i);
+
         GpuConstantDefinition def;
-        def.logicalIndex = u.index != -1 ? u.offset : u.getType()->getQualifier().layoutLocation;
-        def.arraySize = u.size;
+        def.logicalIndex = uindex != -1 ? uoffset : utype->getQualifier().layoutLocation;
+        def.arraySize = program.getUniformArraySize(i);
         def.physicalIndex = mConstantDefs->bufferSize * 4;
-        def.constType = mapToGCT(u.glDefineType);
+        def.constType = mapToGCT(program.getUniformType(i));
         def.elementSize = GpuConstantDefinition::getElementSize(def.constType, false);
 
         mConstantDefs->bufferSize += def.arraySize * def.elementSize;
-        mConstantDefs->map.emplace(u.name, def);
+        mConstantDefs->map.emplace(program.getUniformName(i), def);
 
         // also allow index based referencing
         GpuLogicalIndexUse use;
