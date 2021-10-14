@@ -1,5 +1,4 @@
 #include "World.hpp"
-#include "../Core/Config.hpp"
 #include "../Core/RootDirectory.hpp"
 #include <chrono>
 namespace cave {

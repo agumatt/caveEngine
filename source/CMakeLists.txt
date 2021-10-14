@@ -1,14 +1,10 @@
 set(CAVE_HEADERS 
-				Core/Common.hpp 
-				Core/Log.hpp
-				Core/Config.hpp
 				Core/RootDirectory.hpp
 				Rendering/RenderingManager.hpp
 				World/World.hpp
 				Engine.hpp
 				Application.hpp)
 set(CAVE_SOURCES 
-				Core/Config.cpp
 				Rendering/RenderingManager.cpp
 				World/World.cpp
 				Application.cpp)
