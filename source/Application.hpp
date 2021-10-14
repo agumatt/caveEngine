@@ -3,8 +3,6 @@
 #define APPLICATION_HPP
 #include <memory>
 namespace cave {
-	class Window;
-	class Input;
 	class World;
 	class Application {
 	public:

@@ -11,8 +11,7 @@ set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/glfw
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/OgreMain/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/RTShaderSystem/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/Bites/include"
-									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/include"
-									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/OIS/includes")
+									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/include")
 
 set(CAVE_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/source")
 if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
@@ -21,9 +20,9 @@ if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 endif()
 set(OGRE_LIBRARIES OgreBites OgreMain OgreRTShaderSystem)
 if(MSVC)
-	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} OpenAL dr_wav stb OIS)
+	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} OpenAL dr_wav stb)
 else()
-	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} stdc++fs OpenAL dr_wav stb OIS)
+	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} stdc++fs OpenAL dr_wav stb)
 endif(MSVC)
 configure_file(CMakeConfigFiles/RootDirectory.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/source/Core/RootDirectory.hpp")
 add_subdirectory(thirdParty)
