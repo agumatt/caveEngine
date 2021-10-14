@@ -58,7 +58,7 @@ namespace cave {
 		m_cameraNode->attachObject(m_camera);
 	}
 
-	void RenderingManager::StartUp(OgreBites::CameraStyle cameraStyle) {
+	void RenderingManager::StartUp() {
 		try {
 			std::cout << "RenderingManager startUp init.";
 			//get render window

@@ -50,7 +50,7 @@ namespace cave {
 
 		void configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, float nearClipDistance = 1, float farClipDistance = 1000);
 
-		void StartUp(OgreBites::CameraStyle cameraStyle);
+		void StartUp();
 
 		void render();
 
