@@ -11,11 +11,9 @@
 
 namespace cave {
 
-	class Material;
 	class World {
 	public:
 		friend class Engine;
-		friend class caveTest;
 		
 		World(const World& world) = delete;
 		World& operator=(const World& world) = delete;
