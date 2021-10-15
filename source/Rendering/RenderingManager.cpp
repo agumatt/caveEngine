@@ -5,24 +5,21 @@ namespace cave {
 
 	//RenderingManager
 
-	RenderingManager::RenderingManager(): OgreBites::ApplicationContext("RenderingManager"){
+	RenderingManager::RenderingManager(){
+		m_context = new OgreBites::ApplicationContext("RenderingManager");
 		m_window = nullptr;
 		m_viewport = nullptr;
 		m_root = nullptr;
 		m_sceneManager = nullptr;
 		m_cameraNode = nullptr;
 		m_camera = nullptr;
-		initApp();
+		m_context->initApp();
 
-	}
-	RenderingManager::~RenderingManager() {
-	}
-
-
-	void RenderingManager::setup() {
-		OgreBites::ApplicationContext::setup();
 		// register for input events
-		m_root = getRoot();
+		m_context->addInputListener(this);
+
+		//save root
+		m_root = m_context->getRoot();
 
 		//sceneManager represents the octree
 		m_sceneManager = m_root->createSceneManager();
@@ -39,28 +36,33 @@ namespace cave {
 		m_camera = m_sceneManager->createCamera("mainCamera");
 		m_cameraNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
 		m_cameraNode->attachObject(m_camera);
+
 	}
+	RenderingManager::~RenderingManager() {
+	}
+	
+	bool RenderingManager::keyPressed(const OgreBites::KeyboardEvent& evt)
+	{
+		if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
+		{
+			m_root->queueEndRendering();
+			m_context->closeApp();
+		}
+		return true;
+	}
+
 
 	void RenderingManager::StartUp() {
 		try {
 			std::cout << "RenderingManager startUp init.";
 			//get render window
-			m_window = getRenderWindow();
-
-
-			//configure camera
-			m_camera->setNearClipDistance(5);
-			m_camera->setAutoAspectRatio(true);
+			m_window = m_context->getRenderWindow();
 
 
 			m_viewport = m_window->addViewport(m_camera);
 			m_viewport->setClearEveryFrame(true);
 			//set lighting
-			//m_sceneManager->setAmbientLight(Ogre::ColourValue::White);
-			Ogre::Light* light = m_sceneManager->createLight("MainLight");
-			Ogre::SceneNode* lightNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
-			lightNode->setPosition(0, 10, 15);
-			lightNode->attachObject(light);
+			m_sceneManager->setAmbientLight(Ogre::ColourValue::White);
 
 			std::cout << "RenderingManager startUp finished.";
 		}
@@ -120,10 +122,11 @@ namespace cave {
 		m_cameraNode->setPosition(position);
 		m_cameraNode->lookAt(lookAt, Ogre::Node::TS_PARENT);
 		//create cameraMan
-		OgreBites::CameraMan cameraMan = OgreBites::CameraMan::CameraMan(m_cameraNode);
-		//cameraMan.setStyle(OgreBites::CameraStyle::CS_FREELOOK);
+		OgreBites::CameraMan* cameraMan = new OgreBites::CameraMan(m_cameraNode);
+		cameraMan->setStyle(cameraStyle);
+		cameraMan->setTopSpeed(60);
 		//cameraMan.setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.3), 15);
-		addInputListener(&cameraMan);
+		m_context->addInputListener(cameraMan);
 	}
 	
 	

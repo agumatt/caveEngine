@@ -32,7 +32,7 @@ namespace cave {
 		~Model();
 	};
 
-	class RenderingManager : public OgreBites::ApplicationContext
+	class RenderingManager: OgreBites::InputListener
 	{
 
 	public:
@@ -42,6 +42,7 @@ namespace cave {
 		Ogre::Viewport* m_viewport;
 		Ogre::Camera* m_camera;
 		Ogre::SceneNode* m_cameraNode;
+		OgreBites::ApplicationContext* m_context;
 		//incluir arreglo de modelos, con path, transformaciones iniciales, nombre, etc.
 
 		void loadResourcesFolder(std::string path, std::string resourcesGroupName);
@@ -52,9 +53,9 @@ namespace cave {
 
 		void StartUp();
 
-		void render();
+		bool keyPressed(const OgreBites::KeyboardEvent& evt);
 
-		void setup();
+		void render();
 		
 		RenderingManager();
 		~RenderingManager();
