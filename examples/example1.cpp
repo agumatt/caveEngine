@@ -9,8 +9,8 @@ public:
 	virtual void UserStartUp(cave::World & world) noexcept override {
 		world.getRenderingManager().configureCamera(Ogre::Vector3(0, 0, 80), Ogre::Vector3(0, 0, -1),OgreBites::CameraStyle::CS_FREELOOK);
 		world.getRenderingManager().loadResourcesFolder("Meshes", "Example1Resources");
-		auto sinbadModel1 = cave::Model("Sinbad.mesh", "Example1Resources", "sinbad1");
-		auto sinbadModel2 = cave::Model("Sinbad.mesh", "Example1Resources", "sinbad2");
+		auto sinbadModel1 = cave::Model("exSinbad.mesh", "sinbad1", "Example1Resources");
+		auto sinbadModel2 = cave::Model("exSinbad.mesh", "sinbad2", "Example1Resources");
 		sinbadModel1.setInitialScaling(Ogre::Vector3(5, 5, 5));
 		sinbadModel2.setInitialTranslation(Ogre::Vector3(5, 15, 0));
 		std::vector<cave::Model> models = { sinbadModel1, sinbadModel2 };

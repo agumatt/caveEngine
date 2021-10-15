@@ -9,6 +9,7 @@ set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/spdl
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/stb"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/OgreMain/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/RTShaderSystem/include"
+									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/Overlay/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/Bites/include"
 									"${CMAKE_CURRENT_BINARY_DIR}/thirdParty/ogre/include")
 

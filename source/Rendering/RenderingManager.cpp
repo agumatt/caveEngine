@@ -14,6 +14,7 @@ namespace cave {
 		m_cameraNode = nullptr;
 		m_camera = nullptr;
 		m_context->initApp();
+		//m_overlaySystem = nullptr;
 
 		// register for input events
 		m_context->addInputListener(this);
@@ -36,6 +37,11 @@ namespace cave {
 		m_camera = m_sceneManager->createCamera("mainCamera");
 		m_cameraNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
 		m_cameraNode->attachObject(m_camera);
+
+		//overlay
+		//Ogre::OverlaySystem* m_overlaySystem = new Ogre::OverlaySystem();
+		//m_sceneManager->addRenderQueueListener(m_overlaySystem);
+
 
 	}
 	RenderingManager::~RenderingManager() {
@@ -81,10 +87,20 @@ namespace cave {
 
 	}
 
+	void RenderingManager::configureTextResources(std::vector<Font>& fonts) {
+		for (unsigned int i = 0; i < fonts.size(); i = i + 1) {
+			Font font = fonts[i];
+			Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(font.m_fontName, font.m_groupName);
+			fontPtr->setType(font.m_fontType);
+			fontPtr->setSource(font.m_fontFileName);		
+		}	
+	};
+
 	void RenderingManager::addResourcesToScene(std::vector<Model> &models) {
 		for (unsigned int i = 0; i < models.size(); i = i + 1) {
 			Model model = models[i];
-			std::cout << "Cargando modelo: " << model.m_meshName;
+			std::cout << "Cargando modelo: " << model.m_meshFileName;
+			std::cout << "Nodo padre: " << model.m_parentNodeName;
 			Ogre::SceneNode* parentNode = NULL;
 			if (model.m_parentNodeName == "RootSceneNode") {
 				parentNode = m_sceneManager->getRootSceneNode();
@@ -101,10 +117,16 @@ namespace cave {
 			newNode->translate(model.m_initialTranslation);
 			newNode->rotate(model.m_initialRotation);
 			newNode->scale(model.m_initialScaling);
-			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshName);
+			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshFileName);
 			newNode->attachObject(newEntity);
 
 		}
+	}
+
+	void RenderingManager::drawText(Overlay& overlay, std::string& textElementName, std::string& caption) {
+		auto textElement = overlay.m_textElements[textElementName];
+		textElement->setCaption(caption);
+		overlay.m_overlay->show();
 	}
 
 	
@@ -132,8 +154,8 @@ namespace cave {
 	
 	//Model
 
-	Model::Model(std::string meshName, std::string groupName, std::string nodeName, std::string parentNodeName) {
-		m_meshName = meshName;
+	Model::Model(std::string meshFileName, std::string nodeName, std::string groupName, std::string parentNodeName) {
+		m_meshFileName = meshFileName;
 		m_groupName = groupName;
 		m_nodeName = nodeName;
 		m_parentNodeName = parentNodeName;
@@ -158,6 +180,52 @@ namespace cave {
 	void Model::setParentNodeName(std::string parentNodeName) {
 		m_parentNodeName = parentNodeName;
 	}
+
+
+	//Font
+	Font::Font(std::string fontName, std::string fontFileName, std::string groupName, Ogre::FontType fontType) {
+		m_fontName = fontName;
+		m_fontFileName = fontFileName;
+		m_groupName = groupName;
+		m_fontType = fontType;
+	}
+	Font::~Font() {	}
+
+	//Overlay
+	Overlay::Overlay(std::string containerName, std::string overlayName) {
+		m_overlayName= overlayName;
+		m_containerName = containerName;
+		m_textElements = {};
+		m_overlayManager = Ogre::OverlayManager::getSingletonPtr();
+		m_overlay = m_overlayManager->create(m_overlayName);
+		m_container = static_cast<Ogre::OverlayContainer*>(
+			m_overlayManager->createOverlayElement("Panel", m_containerName)
+			);
+		m_container->setMetricsMode(Ogre::GMM_RELATIVE);
+		m_overlay->add2D(m_container);
+		
+	}
+
+	void Overlay::configureContainer(float positionLeft, float positionTop, float width, float height) {
+		m_container->setPosition(positionLeft, positionTop);
+		m_container->setDimensions(width, height);
+	}
+
+	void Overlay::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {
+		
+		Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementName));
+		textArea->setPosition(positionLeft, positionTop);
+		textArea->setDimensions(width, height);;
+		m_container->addChild(textArea);
+		m_textElements[textElementName] = textArea;
+	}
+
+	void Overlay::configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour) {
+		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementName];
+		textElement->setCharHeight(fontSize);
+		textElement->setFontName(fontName);
+	}
+
 
 
 }
