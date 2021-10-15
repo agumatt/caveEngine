@@ -53,3 +53,10 @@ Guarda la información necesaria para añadir una fuente.
   
 ### clase Overlay
 Base para añadir texto usando una de las fuentes previamente configuradas.
+
+  - **void Overlay::configureContainer(float positionLeft, float positionTop, float width, float height)**:
+  Configura las dimensiones y posición de la caja contenedora de textos.
+  - **void Overlay::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height)**:
+  Agrega un elemento de texto a la caja contenedora de textos.
+  - **void Overlay::configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour)**:
+  Configura fuente, tamaño de fuente y color de un elemento de texto.
