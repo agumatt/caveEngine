@@ -1,5 +1,10 @@
 # caveEngine
-
+## Instrucciones de uso
+1) Clonar el repositorio y hacer prebuild usando CMake con Visual Studio 16 2019.
+2) Compilar en modo "Release x64".
+3) Dentro de la carpeta de build, en "examples\Release" se encontrará el archivo de prueba "Example1.exe".
+4) Para hacerlo funcionar, copiar ahí el contenido de la carpeta "thirdParty\ogre\bin\release".
+5) Agregar también la carpeta "Meshes", que se encuentra en la carpeta source.
 
 ## Modulo de Rendering
 
