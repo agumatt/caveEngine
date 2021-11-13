@@ -3,9 +3,22 @@
 
 
 namespace cave {
-	AudioManager::loadSound(std::string fileName) {
+
+	AudioManager::AudioManager() {
+
+	}
+
+	AudioManager::StartUp() {
+
+	}
+
+	AudioManager::ShutDown() {
+
+	}
+
+	AudioManager::loadSound(std::string fileName, std::string uniqueName) {
 		int buffer = alGenBuffers();
-		buffers.push_back(buffer);
+		buffers[uniqueName] = buffer;
 		drwav audioFile;
 		if (!drwav_init_file(&audioFile, fileName, NULL)) {
 			return -1;
@@ -20,46 +33,55 @@ namespace cave {
 		return buffer;
 
 	}
-	AudioManager::setListenerData(float x, float y, float z) {
-
+	AudioManager::setListenerData(caveVec3f pos, caveVec3f vel) {
+		alListener3f(AL_POSITION, pos.x, pos.y, pos.z);
+		alListener3f(AL_VELOCITY, vel.x, vel.y, vel.z);
 	}
 
 
 
-	Source::Source() {
+	AudioSource::AudioSource() {
 		sourceId = alGenSources();
 	}
-	Source::play(int buffer) {
-		stop();
+	AudioSource::play(int buffer) {
+		alSourceStop(sourceId);
 		alSourcei(sourceId, AL_BUFFER, buffer);
 		alSourcePlay(sourceId);
 	}
-	Source::deleteSource() {
-		stop();
+	AudioSource::deleteSource() {
+		alSourceStop(sourceId);
 		alDeleteSources(1, &sourceId);
 	}
-	Source::setVolume(float volume) {
+	AudioSource::setVolume(float volume) {
 		alSourcef(sourceId, AL_GAIN, volume);
 	}
-	Source::setPitch(float pitch) {
+	AudioSource::setPitch(float pitch) {
 		alSourcef(sourceId, AL_PITCH, pitch);
 	}
-	Source::setPosition(float x, float y, float z) {
-		alSource3f(sourceId, AL_POSITION, x, y, z);
+	AudioSource::setPosition(caveVec3f pos) {
+		alSource3f(sourceId, AL_POSITION, pos.x, pos.y, pos.z);
 	}
-	Source::setVelocity(float x, float y, float z) {
-		alSource3f(sourceId, AL_VELOCITY, x, y, z);
+	AudioSource::setVelocity(caveVec3f vel) {
+		alSource3f(sourceId, AL_VELOCITY, vel.x, vel.y, vel.z);
 	}
-	Source::setLooping(bool setLoop) {
+	AudioSource::setLooping(bool setLoop) {
 		alSourcei(sourceId, AL_LOOPING, setLoop ? AL_TRUE : AL_FALSE);
 	}
-	Source::isPlaying() {
+	AudioSource::isPlaying() {
 		return alGetSourcei(sourceId, AL_SOURCE_STATE) == AL_PLAYING;
 	}
-	Source::pause() {
+
+	AudioSource::isPaused() {
+		return alGetSourcei(sourceId, AL_SOURCE_STATE) == AL_PAUSED;
+	}
+	AudioSource::isStopped() {
+		return alGetSourcei(sourceId, AL_SOURCE_STATE) == AL_STOPPED;
+	}
+
+	AudioSource::pause() {
 		alSourcePause(sourceId);
 	}
-	Source::continuePlaying() {
+	AudioSource::continuePlaying() {
 		alSourcePlay(sourceId);
 	}
 

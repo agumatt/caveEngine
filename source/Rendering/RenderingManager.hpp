@@ -15,6 +15,7 @@
 #include <OgreOverlaySystem.h>
 #include <OgreOverlayElement.h>
 #include <OgreTextAreaOverlayElement.h>
+#include "../Utils/Utils.hpp"
 #include <iostream>
 #include <map>
 
