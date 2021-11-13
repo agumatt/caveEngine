@@ -25,9 +25,6 @@ namespace cave {
 
 		Application& m_application;
 		bool m_running;
-		RenderingManager m_renderingManager;
-
-		RenderingManager getRenderingManager();
 				
 	};
 

@@ -11,7 +11,7 @@ namespace cave {
 	class AudioManager {
 
 	private:
-		static std::map<std::string, int> buffers = {};
+		static std::map<std::string, int> m_buffers = {};
 
 	public:
 		static void StartUp();
@@ -19,15 +19,13 @@ namespace cave {
 		static int loadSound(std::string fileName, std::string uniqueName);
 		static void ShutDown();
 		AudioManager();
-		~AudioManager();
-
 	};
 
 
 	class AudioSource {
 
 	private:
-		ALuint sourceId;
+		ALuint m_sourceId;
 
 	public:
 		void play(int buffer);

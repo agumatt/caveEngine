@@ -6,6 +6,7 @@ find_package(OpenGL REQUIRED)
 set(THIRD_PARTY_INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/spdlog-1.9.2/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/openal-soft/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/dr_wav"
+									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/entt"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/stb"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/OgreMain/include"
 									"${CMAKE_CURRENT_SOURCE_DIR}/thirdParty/ogre/Components/RTShaderSystem/include"
@@ -20,9 +21,9 @@ if(NOT ${CMAKE_CURRENT_SOURCE_DIR} STREQUAL ${CMAKE_SOURCE_DIR})
 endif()
 set(OGRE_LIBRARIES OgreBites OgreMain OgreRTShaderSystem)
 if(MSVC)
-	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} OpenAL dr_wav stb)
+	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} OpenAL dr_wav stb entt)
 else()
-	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} stdc++fs OpenAL dr_wav stb)
+	set(THIRD_PARTY_LIBRARIES ${OGRE_LIBRARIES} stdc++fs OpenAL dr_wav stb entt)
 endif(MSVC)
 configure_file(CMakeConfigFiles/RootDirectory.hpp.in "${CMAKE_CURRENT_SOURCE_DIR}/source/Core/RootDirectory.hpp")
 add_subdirectory(thirdParty)

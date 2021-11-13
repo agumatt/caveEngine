@@ -6,20 +6,15 @@ namespace cave {
 	World::World(Application& app):
 		m_application(app),
 		m_running(true),
-		m_renderingManager()
 	{
 		std::cout << "World creado.";
-		m_renderingManager.StartUp();
+		RenderingManager::StartUp();
 		m_application.UserStartUp(*this);
 		
 	}
 	
 	World::~World() {
 
-	}
-
-	RenderingManager World::getRenderingManager() {
-		return m_renderingManager;
 	}
 	
 
@@ -41,7 +36,7 @@ namespace cave {
 	void World::Update(float timeStep) noexcept
 	{
 		//para lo que envía el usuario y lo que debe hacer el motor en cada ciclo
-		m_renderingManager.render();
+		RenderingManager::render();
 	}
 
 

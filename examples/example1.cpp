@@ -7,14 +7,14 @@ public:
 	Example1() = default;
 	~Example1() = default;
 	virtual void UserStartUp(cave::World & world) noexcept override {
-		world.getRenderingManager().configureCamera(Ogre::Vector3(0, 0, 80), Ogre::Vector3(0, 0, -1),OgreBites::CameraStyle::CS_FREELOOK);
-		world.getRenderingManager().loadResourcesFolder("Meshes", "Example1Resources");
+		cave::RenderingManager::configureCamera(Ogre::Vector3(0, 0, 80), Ogre::Vector3(0, 0, -1),OgreBites::CameraStyle::CS_FREELOOK);
+		cave::RenderingManager::loadResourcesFolder("Meshes", "Example1Resources");
 		auto sinbadModel1 = cave::Model("exSinbad.mesh", "sinbad1", "Example1Resources");
 		auto sinbadModel2 = cave::Model("exSinbad.mesh", "sinbad2", "Example1Resources");
 		sinbadModel1.setInitialScaling(Ogre::Vector3(5, 5, 5));
 		sinbadModel2.setInitialTranslation(Ogre::Vector3(5, 15, 0));
 		std::vector<cave::Model> models = { sinbadModel1, sinbadModel2 };
-		world.getRenderingManager().addResourcesToScene(models);
+		cave::RenderingManager::addResourcesToScene(models);
 	}
 
 	virtual void UserShutDown(cave::World& world) noexcept override {

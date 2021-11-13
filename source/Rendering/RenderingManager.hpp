@@ -80,31 +80,31 @@ namespace cave {
 	{
 
 	public:
-		Ogre::Root* m_root;
-		Ogre::RenderWindow* m_window;
-		Ogre::SceneManager* m_sceneManager;
-		Ogre::Viewport* m_viewport;
-		Ogre::Camera* m_camera;
-		Ogre::SceneNode* m_cameraNode;
-		OgreBites::ApplicationContext* m_context;
+		static Ogre::Root* m_root;
+		static Ogre::RenderWindow* m_window;
+		static Ogre::SceneManager* m_sceneManager;
+		static Ogre::Viewport* m_viewport;
+		static Ogre::Camera* m_camera;
+		static Ogre::SceneNode* m_cameraNode;
+		static OgreBites::ApplicationContext* m_context;
 		//Ogre::OverlaySystem* m_overlaySystem;
 		//incluir arreglo de modelos, con path, transformaciones iniciales, nombre, etc.
 
-		void loadResourcesFolder(std::string path, std::string resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		static void loadResourcesFolder(std::string path, std::string resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-		void addResourcesToScene(std::vector<Model> &models);
+		static void addResourcesToScene(std::vector<Model> &models);
 
-		void configureTextResources(std::vector<Font>& fonts);
+		static void configureTextResources(std::vector<Font>& fonts);
 
-		void configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, OgreBites::CameraStyle cameraStyle= OgreBites::CameraStyle::CS_ORBIT, float nearClipDistance=1, float farClipDistance=1000);
+		static void configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, OgreBites::CameraStyle cameraStyle= OgreBites::CameraStyle::CS_ORBIT, float nearClipDistance=1, float farClipDistance=1000);
 
-		void StartUp();
+		static void StartUp();
 
-		bool keyPressed(const OgreBites::KeyboardEvent& evt);
+		static bool keyPressed(const OgreBites::KeyboardEvent& evt);
 
-		void render();
+		static void render();
 
-		void drawText(Overlay& overlay, std::string& textElementName, std::string& caption);
+		static void drawText(Overlay& overlay, std::string& textElementName, std::string& caption);
 		
 		RenderingManager();
 		~RenderingManager();
