@@ -11,10 +11,10 @@ public:
 		cave::RenderingManager::loadResourcesFolder("Meshes", "Example1Resources");
 		auto sinbadModel1 = cave::Model("exSinbad.mesh", "sinbad1", "Example1Resources");
 		auto sinbadModel2 = cave::Model("exSinbad.mesh", "sinbad2", "Example1Resources");
-		sinbadModel1.setInitialScaling(Ogre::Vector3(5, 5, 5));
-		sinbadModel2.setInitialTranslation(Ogre::Vector3(5, 15, 0));
+		sinbadModel1.setScaling(Ogre::Vector3(5, 5, 5));
+		sinbadModel2.setTranslation(Ogre::Vector3(5, 15, 0));
 		std::vector<cave::Model> models = { sinbadModel1, sinbadModel2 };
-		cave::RenderingManager::addResourcesToScene(models);
+		cave::RenderingManager::addModelsToScene(models);
 	}
 
 	virtual void UserShutDown(cave::World& world) noexcept override {

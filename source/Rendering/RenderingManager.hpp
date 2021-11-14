@@ -16,6 +16,7 @@
 #include <OgreOverlayElement.h>
 #include <OgreTextAreaOverlayElement.h>
 #include "../Utils/Utils.hpp"
+#include "SkeletalMeshComponent.hpp"
 #include <iostream>
 #include <map>
 
@@ -28,14 +29,17 @@ namespace cave {
 		std::string m_nodeName;
 		std::string m_parentNodeName;
 		std::string m_groupName; //to associate with other models
-		Ogre::Quaternion m_initialRotation;
-		Ogre::Vector3 m_initialTranslation;
-		Ogre::Vector3 m_initialScaling;
+		Ogre::Quaternion m_rotation;
+		Ogre::Vector3 m_translation;
+		Ogre::Vector3 m_scaling;
+		bool m_inheritScale;
+		bool m_inheritRotation;
 
-		void setInitialRotation(Ogre::Quaternion initialRotation);
-		void setInitialTranslation(Ogre::Vector3 initialTranslation);
-		void setInitialScaling(Ogre::Vector3 initialScaling);
+		void setRotation(Ogre::Quaternion rotation);
+		void setTranslation(Ogre::Vector3 translation);
+		void setScaling(Ogre::Vector3 scaling);
 		void setParentNodeName(std::string parentNodeName);
+		void setTransformInheritance(bool inheritScale, bool inheritRotation);
 
 		Model(std::string meshFileName, std::string nodeName,std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName = "RootSceneNode");
 		~Model();
@@ -92,7 +96,9 @@ namespace cave {
 
 		static void loadResourcesFolder(std::string path, std::string resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
 
-		static void addResourcesToScene(std::vector<Model> &models);
+		static void addModelsToScene(std::vector<Model> &models);
+
+		static void updateModelsInScene(std::vector<Model>& models);
 
 		static void configureTextResources(std::vector<Font>& fonts);
 

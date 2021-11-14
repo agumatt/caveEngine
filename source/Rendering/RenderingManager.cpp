@@ -96,7 +96,7 @@ namespace cave {
 		}	
 	};
 
-	void RenderingManager::addResourcesToScene(std::vector<Model> &models) {
+	void RenderingManager::addModelsToScene(std::vector<Model> &models) {
 		for (unsigned int i = 0; i < models.size(); i = i + 1) {
 			Model model = models[i];
 			std::cout << "Cargando modelo: " << model.m_meshFileName;
@@ -114,13 +114,42 @@ namespace cave {
 				}
 			}
 			Ogre::SceneNode* newNode = parentNode->createChildSceneNode(model.m_nodeName);
-			newNode->translate(model.m_initialTranslation);
-			newNode->rotate(model.m_initialRotation);
-			newNode->scale(model.m_initialScaling);
+			
+			newNode->translate(model.m_translation);
+			newNode->rotate(model.m_rotation);
+			newNode->scale(model.m_scaling);
+			newNode->setInheritOrientation = model.m_inheritRotation;
+			newNode->setInheritScale = model.m_inheritScale;
 			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshFileName);
 			newNode->attachObject(newEntity);
 
 		}
+	}
+
+	void RenderingManager::updateModelsInScene(std::vector<Model>& models) {
+		for (unsigned int i = 0; i < models.size(); i = i + 1) {
+			Model model = models[i];
+			Ogre::SceneNode node;
+			Ogre::SceneNode newParentNode;
+			try {
+				node = m_sceneManager->getSceneNode(model.m_nodeName);
+				newParentNode = m_sceneManager->getSceneNode(model.m_parentNodeName);
+			}
+			catch(Ogre::Exception& ex) {
+				std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
+			}
+			node->getParentSceneNode()->removeChild(node);
+			newParentNode->addChild(node);
+			node->setInheritOrientation = model.m_inheritRotation;
+			node->setInheritScale = model.m_inheritScale;
+			
+			node->translate(model.m_translation);
+			node->rotate(model.m_rotation);
+			node->scale(model.m_scaling);
+		
+		
+		}
+
 	}
 
 	void RenderingManager::drawText(Overlay& overlay, std::string& textElementName, std::string& caption) {
@@ -159,28 +188,34 @@ namespace cave {
 		m_groupName = groupName;
 		m_nodeName = nodeName;
 		m_parentNodeName = parentNodeName;
-		m_initialRotation = Ogre::Quaternion::IDENTITY;
-		m_initialTranslation = Ogre::Vector3(0, 0, 0);
-		m_initialScaling = Ogre::Vector3(1, 1, 1);
+		m_rotation = Ogre::Quaternion::IDENTITY;
+		m_translation = Ogre::Vector3(0, 0, 0);
+		m_scaling = Ogre::Vector3(1, 1, 1);
+		m_inheritScale = false;
+		m_inheritRotation = false;
 	}
 
 	Model::~Model() {
 
 	}
 
-	void Model::setInitialRotation(Ogre::Quaternion initialRotation) {
-		m_initialRotation = initialRotation;
+	void Model::setRotation(Ogre::Quaternion rotation) {
+		m_rotation = rotation;
 	}
-	void Model::setInitialTranslation(Ogre::Vector3 initialTranslation) {
-		m_initialTranslation = initialTranslation;
+	void Model::setTranslation(Ogre::Vector3 translation) {
+		m_translation = translation;
 	}
-	void Model::setInitialScaling(Ogre::Vector3 initialScaling) {
-		m_initialScaling = initialScaling;
+	void Model::setScaling(Ogre::Vector3 scaling) {
+		m_scaling = scaling;
 	}
 	void Model::setParentNodeName(std::string parentNodeName) {
 		m_parentNodeName = parentNodeName;
 	}
 
+	void Model::setTransformInheritance(bool inheritScale, bool inheritRotation) {
+		m_inheritScale = inheritScale;
+		m_inheritRotation = inheritRotation;
+	}
 
 	//Font
 	Font::Font(std::string fontName, std::string fontFileName, std::string groupName, Ogre::FontType fontType) {
