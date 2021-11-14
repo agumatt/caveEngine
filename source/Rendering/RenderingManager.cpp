@@ -145,9 +145,7 @@ namespace cave {
 			
 			node->translate(model.m_translation);
 			node->rotate(model.m_rotation);
-			node->scale(model.m_scaling);
-		
-		
+			node->scale(model.m_scaling);		
 		}
 
 	}
@@ -165,13 +163,15 @@ namespace cave {
 	}
 
 
-	void RenderingManager::configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, OgreBites::CameraStyle cameraStyle, float nearClipDistance, float farClipDistance) {
+	void RenderingManager::configureCamera(caveVec3f position, caveVec3f lookAt, OgreBites::CameraStyle cameraStyle, float nearClipDistance, float farClipDistance) {
 		//config camera
+		Ogre::Vector3 ogrePos = Ogre::Vector3(position.x, position.y, position.z);
+		Ogre::Vector3 ogreLookAt = Ogre::Vector3(lookAt.x, lookAt.y, lookAt.z);
 		m_camera->setAutoAspectRatio(true);
 		m_camera->setNearClipDistance(nearClipDistance);
 		m_camera->setFarClipDistance(farClipDistance);
-		m_cameraNode->setPosition(position);
-		m_cameraNode->lookAt(lookAt, Ogre::Node::TS_PARENT);
+		m_cameraNode->setPosition(ogrePos);
+		m_cameraNode->lookAt(ogreLookAt, Ogre::Node::TS_PARENT);
 		//create cameraMan
 		OgreBites::CameraMan* cameraMan = new OgreBites::CameraMan(m_cameraNode);
 		cameraMan->setStyle(cameraStyle);

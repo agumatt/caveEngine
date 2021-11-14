@@ -4,6 +4,8 @@
 #include <entt/entt.h>
 #include <string>
 #include "../Rendering/RenderingManager.hpp"
+#include "../Rendering/SkeletalMeshComponent.hpp"
+#include "../Audio/AudioSourceComponent.hpp"
 
 namespace cave {
 

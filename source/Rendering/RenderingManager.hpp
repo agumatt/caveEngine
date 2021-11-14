@@ -16,7 +16,6 @@
 #include <OgreOverlayElement.h>
 #include <OgreTextAreaOverlayElement.h>
 #include "../Utils/Utils.hpp"
-#include "SkeletalMeshComponent.hpp"
 #include <iostream>
 #include <map>
 
@@ -102,7 +101,7 @@ namespace cave {
 
 		static void configureTextResources(std::vector<Font>& fonts);
 
-		static void configureCamera(Ogre::Vector3 position, Ogre::Vector3 lookAt, OgreBites::CameraStyle cameraStyle= OgreBites::CameraStyle::CS_ORBIT, float nearClipDistance=1, float farClipDistance=1000);
+		static void configureCamera(caveVec3f position, caveVec3f lookAt, OgreBites::CameraStyle cameraStyle= OgreBites::CameraStyle::CS_ORBIT, float nearClipDistance=1, float farClipDistance=1000);
 
 		static void StartUp();
 
