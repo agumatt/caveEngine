@@ -42,6 +42,14 @@ namespace cave {
 
 		static void updateEntities();
 
+		template<typename Component>
+		static void deleteComponent(std::string entityName) {
+			entt::entity entity = m_entities[entityName];
+			m_Registry.remove<Component>(entity);
+		}
+
+		static void deleteEntity(std::string entityName);
+
 	};
 
 

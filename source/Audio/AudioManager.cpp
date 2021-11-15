@@ -7,6 +7,7 @@ namespace cave {
 	std::map<std::string, ALuint> AudioManager::m_buffers;
 	ALCdevice* AudioManager::m_ALdevice;
 	ALCcontext* AudioManager::m_ALcontext;
+	float AudioManager::m_masterVolume;
 
 	std::string AudioSource::getALSourceState() {
 		ALenum sourceState = 999;
@@ -59,6 +60,9 @@ namespace cave {
 		if (!alcMakeContextCurrent(m_ALcontext)) {
 			std::cout << "OPENAL FAILED TO MAKE CONTEXT CURRENT.";
 		}
+		alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
+		m_masterVolume = 1.0f;
+		alListenerf(AL_GAIN, m_masterVolume);
 		m_buffers = {};
 	}
 

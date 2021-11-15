@@ -17,6 +17,7 @@ namespace cave {
 		static std::map<std::string, ALuint> m_buffers;
 		static ALCdevice* m_ALdevice;
 		static ALCcontext* m_ALcontext;
+		static float m_masterVolume;
 		static std::string getALError();
 		static void StartUp();
 		static void setListenerData(caveVec3f pos, caveVec3f vel = caveVec3f(0,0,0));

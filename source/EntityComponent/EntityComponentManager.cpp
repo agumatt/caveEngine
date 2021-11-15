@@ -37,4 +37,10 @@ namespace cave {
 		}
 	}
 
+	void EntityComponentManager::deleteEntity(std::string entityName) {
+		entt::entity entity = m_entities[entityName];
+		m_Registry.destroy(entity);
+		m_entities.erase(entityName);
+	}
+
 }
