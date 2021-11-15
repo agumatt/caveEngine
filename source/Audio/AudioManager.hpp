@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include "../Utils/Utils.hpp"
+#include <dr_wav.h>
 namespace cave {
 
 	class AudioManager {
@@ -14,7 +15,7 @@ namespace cave {
 		static std::map<std::string, int> m_buffers;
 		static void StartUp();
 		static void setListenerData(caveVec3f pos, caveVec3f vel = caveVec3f(0,0,0));
-		static int loadSound(std::string fileName, std::string uniqueName);
+		static int loadSound(std::string audioFilePath, std::string uniqueName);
 		static void ShutDown();
 		AudioManager();
 	};
@@ -46,11 +47,11 @@ namespace cave {
 	};
 
 	struct WavData {
-		//unsigned int channels = 0;
-		//unsigned int sampleRate = 0;
-		//drwav_uint64 totalPCMFrameCount = 0;
-		//std::vector<uint16_t> pcmData;
-		//drwav_uint64 GetTotalSamples() const { return totalPCMFrameCount * channels; }
+		unsigned int channels = 0;
+		unsigned int sampleRate = 0;
+		drwav_uint64 totalPCMFrameCount = 0;
+		std::vector<uint16_t> pcmData;
+		drwav_uint64 GetTotalSamples() const { return totalPCMFrameCount * channels; }
 	};
 
 }

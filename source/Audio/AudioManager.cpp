@@ -1,5 +1,5 @@
 #include "AudioManager.hpp"
-#include <dr_wav.h>
+#include <iostream>
 
 
 namespace cave {
@@ -15,21 +15,36 @@ namespace cave {
 
 	}
 	
-	int AudioManager::loadSound(std::string fileName, std::string uniqueName) {
-		ALuint buffers[1];
-		alGenBuffers(1, buffers);
-		m_buffers[uniqueName] = buffers[0];
-		//drwav audioFile;
-		//if (!drwav_init_file(&audioFile, fileName.c_str(), NULL)) {
-		//	return -1;
-		//}
-		//int32_t* pSampleData = (int32_t*)malloc((size_t)audioFile.totalPCMFrameCount * audioFile.channels * sizeof(int32_t));
-		//drwav_read_pcm_frames_s32(&audioFile, audioFile.totalPCMFrameCount, pSampleData);
-		// At this point pSampleData contains every decoded sample as signed 32-bit PCM.
+	int AudioManager::loadSound(std::string audioFilePath, std::string uniqueName) {
+		WavData audioData;
+		ALuint buffers[1] = { 0 };
+		drwav_int16* sampleData = drwav_open_file_and_read_pcm_frames_s16(audioFilePath.c_str(), &audioData.channels,
+			&audioData.sampleRate,
+			&audioData.totalPCMFrameCount,
+			nullptr);
+		if (!sampleData) {
+			std::cout<<"Audio Clip Error: Failed to load file "<< audioFilePath;
+			drwav_free(sampleData, nullptr);
+			m_buffers[uniqueName] = buffers[0];
+		}
+		else if (audioData.GetTotalSamples() > drwav_uint64(std::numeric_limits<size_t>::max())) {
+			std::cout << "Audio Clip Error: File is to big to be loaded. "<< audioFilePath;
+			drwav_free(sampleData, nullptr);
+			m_buffers[uniqueName] = buffers[0];
+		}
+		else {
+			//Primero se copian todos los datos a un vector de uint16_t, para luego liberar los datos recien copiados.
+			std::memcpy(audioData.pcmData.data(), sampleData, audioData.pcmData.size() * 2);
+			drwav_free(sampleData, nullptr);
 
-		//drwav_uninit(&audioFile);
-		//alBufferData(buffers[0], audioFile.channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, audioFile.pcmData.data(), audioFile.pcmData.size() * 2, audioFile.sampleRate);
-		return buffers[1];
+			//Se pasa este vector de uint16_t a OpenAL
+			ALuint buffers[1];
+			alGenBuffers(1, buffers);
+			m_buffers[uniqueName] = buffers[0];
+			alBufferData(buffers[0], audioData.channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, audioData.pcmData.data(), audioData.pcmData.size() * 2, audioData.sampleRate);
+		}
+
+		return buffers[0];
 
 	}
 	void AudioManager::setListenerData(caveVec3f pos, caveVec3f vel) {
