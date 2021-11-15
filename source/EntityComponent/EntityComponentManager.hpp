@@ -28,7 +28,7 @@ namespace cave {
 		}
 		
 		template<typename Component>
-		static Component getComponent(std::string entityName) {
+		static Component& getComponent(std::string entityName) {
 			return m_Registry.get<Component>(m_entities[entityName]);
 		}
 		
