@@ -80,8 +80,7 @@ static const struct NameValuePair {
     { "Mono", "mono" },
     { "Stereo", "stereo" },
     { "Quadraphonic", "quad" },
-    { "5.1 Surround (Side)", "surround51" },
-    { "5.1 Surround (Rear)", "surround51rear" },
+    { "5.1 Surround", "surround51" },
     { "6.1 Surround", "surround61" },
     { "7.1 Surround", "surround71" },
 
@@ -122,6 +121,7 @@ static const struct NameValuePair {
     { "Default", "" },
     { "Pan Pot", "panpot" },
     { "UHJ", "uhj" },
+    { "Binaural", "hrtf" },
 
     { "", "" }
 }, ambiFormatList[] = {
@@ -447,6 +447,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->jackAutospawnCheckBox, &QCheckBox::stateChanged, this, &MainWindow::enableApplyButton);
     connect(ui->jackConnectPortsCheckBox, &QCheckBox::stateChanged, this, &MainWindow::enableApplyButton);
+    connect(ui->jackRtMixCheckBox, &QCheckBox::stateChanged, this, &MainWindow::enableApplyButton);
     connect(ui->jackBufferSizeSlider, &QSlider::valueChanged, this, &MainWindow::updateJackBufferSizeEdit);
     connect(ui->jackBufferSizeLine, &QLineEdit::editingFinished, this, &MainWindow::updateJackBufferSizeSlider);
 
@@ -635,6 +636,8 @@ void MainWindow::loadConfig(const QString &fname)
     ui->channelConfigCombo->setCurrentIndex(0);
     if(channelconfig.isEmpty() == false)
     {
+        if(channelconfig == "surround51rear")
+            channelconfig = "surround51";
         QString str{getNameFromValue(speakerModeList, channelconfig)};
         if(!str.isEmpty())
         {
@@ -735,8 +738,7 @@ void MainWindow::loadConfig(const QString &fname)
         }
     }
 
-    bool hqmode{settings.value("decoder/hq-mode", true).toBool()};
-    ui->decoderHQModeCheckBox->setChecked(hqmode);
+    ui->decoderHQModeCheckBox->setChecked(getCheckState(settings.value("decoder/hq-mode")));
     ui->decoderDistCompCheckBox->setCheckState(getCheckState(settings.value("decoder/distance-comp")));
     ui->decoderNFEffectsCheckBox->setCheckState(getCheckState(settings.value("decoder/nfc")));
     double refdelay{settings.value("decoder/nfc-ref-delay", 0.0).toDouble()};
@@ -919,6 +921,7 @@ void MainWindow::loadConfig(const QString &fname)
 
     ui->jackAutospawnCheckBox->setCheckState(getCheckState(settings.value("jack/spawn-server")));
     ui->jackConnectPortsCheckBox->setCheckState(getCheckState(settings.value("jack/connect-ports")));
+    ui->jackRtMixCheckBox->setCheckState(getCheckState(settings.value("jack/rt-mix")));
     ui->jackBufferSizeLine->setText(settings.value("jack/buffer-size", QString()).toString());
     updateJackBufferSizeSlider();
 
@@ -998,9 +1001,7 @@ void MainWindow::saveConfig(const QString &fname) const
     settings.setValue("output-limiter", getCheckValue(ui->outputLimiterCheckBox));
     settings.setValue("dither", getCheckValue(ui->outputDitherCheckBox));
 
-    settings.setValue("decoder/hq-mode",
-        ui->decoderHQModeCheckBox->isChecked() ? QString{/*"true"*/} : QString{"false"}
-    );
+    settings.setValue("decoder/hq-mode", getCheckValue(ui->decoderHQModeCheckBox));
     settings.setValue("decoder/distance-comp", getCheckValue(ui->decoderDistCompCheckBox));
     settings.setValue("decoder/nfc", getCheckValue(ui->decoderNFEffectsCheckBox));
     double refdelay = ui->decoderNFRefDelaySpinBox->value();
@@ -1129,6 +1130,7 @@ void MainWindow::saveConfig(const QString &fname) const
 
     settings.setValue("jack/spawn-server", getCheckValue(ui->jackAutospawnCheckBox));
     settings.setValue("jack/connect-ports", getCheckValue(ui->jackConnectPortsCheckBox));
+    settings.setValue("jack/rt-mix", getCheckValue(ui->jackRtMixCheckBox));
     settings.setValue("jack/buffer-size", ui->jackBufferSizeLine->text());
 
     settings.setValue("alsa/device", ui->alsaDefaultDeviceLine->text());

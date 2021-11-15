@@ -1,12 +1,14 @@
 #include "AudioSourceComponent.hpp"
+#include <iostream>
 
 namespace cave {
 	
 	AudioSourceComponent::AudioSourceComponent(float volume, float pitch, bool setLoop, caveVec3f pos , caveVec3f vel) {
-		m_audioSource = AudioSource::AudioSource();
+		m_audioSource = AudioSource::AudioSource(volume, pitch, setLoop, pos, vel);
 	}
 
 	void AudioSourceComponent::play(std::string uniqueName) {
+		std::cout << "ABOUT TO PLAY: " << AudioManager::m_buffers[uniqueName];
 		m_audioSource.play(AudioManager::m_buffers[uniqueName]);
 	}
 	void AudioSourceComponent::setVolume(float volume) {

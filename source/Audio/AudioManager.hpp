@@ -1,10 +1,12 @@
 #pragma once
 #ifndef AUDIOMANAGER_HPP
 #define AUDIOMANAGER_HPP
+#define STRING(s) #s
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <map>
 #include <string>
+#include <iostream>
 #include <vector>
 #include "../Utils/Utils.hpp"
 #include <dr_wav.h>
@@ -12,10 +14,13 @@ namespace cave {
 
 	class AudioManager {
 	public:
-		static std::map<std::string, int> m_buffers;
+		static std::map<std::string, ALuint> m_buffers;
+		static ALCdevice* m_ALdevice;
+		static ALCcontext* m_ALcontext;
+		static std::string getALError();
 		static void StartUp();
 		static void setListenerData(caveVec3f pos, caveVec3f vel = caveVec3f(0,0,0));
-		static int loadSound(std::string audioFilePath, std::string uniqueName);
+		static ALuint loadSound(std::string audioFilePath, std::string uniqueName);
 		static void ShutDown();
 		AudioManager();
 	};
@@ -24,10 +29,10 @@ namespace cave {
 	class AudioSource {
 
 	private:
-		ALuint m_sourceId;
+		ALuint m_sourceId = 1234;
 
 	public:
-		void play(int buffer);
+		void play(ALuint buffer);
 		void deleteSource();
 		void setVolume(float volume);
 		void setPitch(float pitch);
@@ -39,9 +44,10 @@ namespace cave {
 		bool isStopped();
 		void pause();
 		void continuePlaying();
+		std::string getALSourceState();
 
+		AudioSource(float volume, float pitch, bool setLoop, caveVec3f pos, caveVec3f vel);
 		AudioSource();
-		~AudioSource();
 
 
 	};

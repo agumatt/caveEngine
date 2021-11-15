@@ -57,6 +57,12 @@ enum class RenderMode : unsigned char {
     Hrtf
 };
 
+enum class StereoEncoding : unsigned char {
+    Normal,
+    Uhj,
+    Hrtf
+};
+
 
 struct InputRemixMap {
     struct TargetMix { Channel channel; float mix; };
@@ -121,6 +127,10 @@ enum {
     // Specifies if the device is currently running
     DeviceRunning,
 
+    // Specifies if the output plays directly on/in ears (headphones, headset,
+    // ear buds, etc).
+    DirectEar,
+
     DeviceFlagsCount
 };
 
@@ -139,7 +149,6 @@ struct DeviceBase {
 
     DevFmtChannels FmtChans{};
     DevFmtType FmtType{};
-    bool IsHeadphones{false};
     uint mAmbiOrder{0};
     float mXOverFreq{400.0f};
     /* For DevFmtAmbi* output only, specifies the channel order and

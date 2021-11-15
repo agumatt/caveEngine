@@ -1,4 +1,6 @@
 #include "caveEngine.hpp"
+#include <AL/al.h>
+#include <AL/alc.h>
 
 namespace cave {
 
@@ -8,15 +10,20 @@ namespace cave {
 		~Example1() = default;
 		virtual void UserStartUp(World& world) noexcept override {
 			RenderingManager::configureCamera(caveVec3f(0, 0, 80), caveVec3f(0, 0, -1), OgreBites::CameraStyle::CS_FREELOOK);
-			RenderingManager::loadResourcesFolder("Meshes", "Example1Resources");
+			RenderingManager::loadResourcesFolder("Resources/Meshes", "Example1Resources");
+			AudioManager::loadSound("Resources/Audio/survival.wav", "survival");
 			EntityComponentManager::createEntity("sinbad1");
 			EntityComponentManager::createEntity("sinbad2");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad1", "exSinbad.mesh", "sinbad1", "Example1Resources");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad2", "exSinbad.mesh", "sinbad2", "Example1Resources");
+			EntityComponentManager::addComponent<AudioSourceComponent>("sinbad2", 5.0f, 1.0f);
 			SkeletalMeshComponent& sinbad1Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad1");
 			SkeletalMeshComponent& sinbad2Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad2");
+			AudioSourceComponent& sinbad2Audio = EntityComponentManager::getComponent<AudioSourceComponent>("sinbad2");
 			sinbad1Mesh.setScaling(caveVec3f(5, 5, 5));
 			sinbad2Mesh.setTranslation(caveVec3f(5, 15, 0));
+			sinbad2Audio.setPosition(caveVec3f(5, 15, 0));
+			sinbad2Audio.play("survival");
 			EntityComponentManager::initEntities();
 		}
 
@@ -30,7 +37,7 @@ namespace cave {
 
 	int main(int argc, char* argv[])
 	{
-		std::cout << "Example main.";
+		std::cout << "Example main." << std::endl;
 		cave::Example1 example1;
 		cave::Engine engine(example1);
 		engine.StartMainLoop();

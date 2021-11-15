@@ -564,21 +564,6 @@ struct PodInfo<SPA_TYPE_Id> {
 template<uint32_t T>
 using Pod_t = typename PodInfo<T>::Type;
 
-template<uint32_t T>
-uint32_t get_param_range(const spa_pod *value, const al::span<Pod_t<T>,3> vals)
-{
-    uint32_t nvals{}, choice{};
-    value = spa_pod_get_values(value, &nvals, &choice);
-
-    if(get_pod_type(value) == T && nvals >= vals.size() && choice == SPA_CHOICE_Range)
-    {
-        std::copy_n(get_pod_body<Pod_t<T>>(value), vals.size(), vals.begin());
-        return nvals;
-    }
-
-    return 0;
-}
-
 template<uint32_t T, size_t N>
 uint32_t get_param_array(const spa_pod *value, const al::span<Pod_t<T>,N> vals)
 {
@@ -590,27 +575,91 @@ al::optional<Pod_t<T>> get_param(const spa_pod *value)
 {
     Pod_t<T> val{};
     if(PodInfo<T>::get_value(value, &val) == 0)
-        return al::make_optional(val);
+        return val;
     return al::nullopt;
 }
 
 void parse_srate(DeviceNode *node, const spa_pod *value)
 {
-    /* TODO: Can this be anything else? An "enum" choice? Floats? Or will the
-     * sample rate always be a range choice between ints?
-     */
-    if(get_pod_type(value) == SPA_TYPE_Choice)
+    /* TODO: Can this be anything else? Long, Float, Double? */
+    uint32_t nvals{}, choiceType{};
+    value = spa_pod_get_values(value, &nvals, &choiceType);
+
+    const uint podType{get_pod_type(value)};
+    if(podType != SPA_TYPE_Int)
     {
-        int32_t srate[3]{};
-        if(get_param_range<SPA_TYPE_Int>(value, al::span<int32_t,3>{srate}) < 1)
+        WARN("Unhandled sample rate POD type: %u\n", podType);
+        return;
+    }
+
+    if(choiceType == SPA_CHOICE_Range)
+    {
+        if(nvals != 3)
+        {
+            WARN("Unexpected SPA_CHOICE_Range count: %u\n", nvals);
             return;
+        }
+        std::array<int32_t,3> srates{};
+        std::copy_n(get_pod_body<int32_t>(value), srates.size(), srates.begin());
 
         /* [0] is the default, [1] is the min, and [2] is the max. */
-        TRACE("Device ID %u sample rate: %d (range: %d -> %d)\n", node->mId, srate[0], srate[1],
-            srate[2]);
-        srate[0] = clampi(srate[0], MIN_OUTPUT_RATE, MAX_OUTPUT_RATE);
-        node->mSampleRate = static_cast<uint>(srate[0]);
+        TRACE("Device ID %u sample rate: %d (range: %d -> %d)\n", node->mId, srates[0], srates[1],
+            srates[2]);
+        srates[0] = clampi(srates[0], MIN_OUTPUT_RATE, MAX_OUTPUT_RATE);
+        node->mSampleRate = static_cast<uint>(srates[0]);
+        return;
     }
+
+    if(choiceType == SPA_CHOICE_Enum)
+    {
+        if(nvals == 0)
+        {
+            WARN("Unexpected SPA_CHOICE_Enum count: %u\n", nvals);
+            return;
+        }
+
+        auto srates = std::vector<int32_t>(nvals);
+        std::copy_n(get_pod_body<int32_t>(value), srates.size(), srates.begin());
+
+        /* [0] is the default, [1...size()-1] are available selections. */
+        std::string others{(srates.size() > 1) ? std::to_string(srates[1]) : std::string{}};
+        for(size_t i{2};i < srates.size();++i)
+        {
+            others += ", ";
+            others += std::to_string(srates[i]);
+        }
+        TRACE("Device ID %u sample rate: %d (%s)\n", node->mId, srates[0], others.c_str());
+        /* Pick the first rate listed that's within the allowed range (default
+         * rate if possible).
+         */
+        for(const auto &rate : srates)
+        {
+            if(rate >= MIN_OUTPUT_RATE && rate <= MAX_OUTPUT_RATE)
+            {
+                node->mSampleRate = static_cast<uint>(rate);
+                break;
+            }
+        }
+        return;
+    }
+
+    if(choiceType == SPA_CHOICE_None)
+    {
+        if(nvals != 1)
+        {
+            WARN("Unexpected SPA_CHOICE_None count: %u\n", nvals);
+            return;
+        }
+
+        int32_t srate{*get_pod_body<int32_t>(value)};
+
+        TRACE("Device ID %u sample rate: %d\n", node->mId, srate);
+        srate = clampi(srate, MIN_OUTPUT_RATE, MAX_OUTPUT_RATE);
+        node->mSampleRate = static_cast<uint>(srate);
+        return;
+    }
+
+    WARN("Unhandled sample rate choice type: %u\n", choiceType);
 }
 
 void parse_positions(DeviceNode *node, const spa_pod *value)
@@ -725,10 +774,7 @@ int MetadataProxy::propertyCallback(uint32_t id, const char *key, const char *ty
     else if(std::strcmp(key, "default.audio.source") == 0)
         isCapture = true;
     else
-    {
-        TRACE("Skipping property \"%s\"\n", key);
         return 0;
-    }
 
     if(!type)
     {
@@ -856,10 +902,7 @@ void EventManager::addCallback(uint32_t id, uint32_t, const char *type, uint32_t
         const bool isGood{al::strcasecmp(media_class, AudioSinkClass) == 0
             || al::strcasecmp(media_class, AudioSourceClass) == 0};
         if(!isGood)
-        {
-            TRACE("Skipping node type \"%s\"\n", media_class);
             return;
-        }
 
         /* Create the proxy object. */
         auto *proxy = static_cast<pw_proxy*>(pw_registry_bind(mRegistry, id, type, version,
@@ -873,8 +916,8 @@ void EventManager::addCallback(uint32_t id, uint32_t, const char *type, uint32_t
         /* Initialize the NodeProxy to hold the proxy object, add it to the
          * active proxy list, and update the sync point.
          */
-        auto *node = ::new(pw_proxy_get_user_data(proxy)) NodeProxy{id, proxy};
-        mProxyList.emplace_back(node);
+        auto *node = static_cast<NodeProxy*>(pw_proxy_get_user_data(proxy));
+        mProxyList.emplace_back(al::construct_at(node, id, proxy));
         syncInit();
     }
     else if(std::strcmp(type, PW_TYPE_INTERFACE_Metadata) == 0)
@@ -902,8 +945,8 @@ void EventManager::addCallback(uint32_t id, uint32_t, const char *type, uint32_t
             return;
         }
 
-        auto *mdata = ::new(pw_proxy_get_user_data(proxy)) MetadataProxy{id, proxy};
-        mDefaultMetadata = mdata;
+        auto *mdata = static_cast<MetadataProxy*>(pw_proxy_get_user_data(proxy));
+        mDefaultMetadata = al::construct_at(mdata, id, proxy);
         syncInit();
     }
 }
@@ -1071,32 +1114,32 @@ void PipeWirePlayback::outputCallback()
     pw_buffer *pw_buf{pw_stream_dequeue_buffer(mStream.get())};
     if(unlikely(!pw_buf)) return;
 
-    spa_buffer *spa_buf{pw_buf->buffer};
-    uint length{mRateMatch ? mRateMatch->size : mDevice->UpdateSize};
     /* For planar formats, each datas[] seems to contain one channel, so store
      * the pointers in an array. Limit the render length in case the available
      * buffer length in any one channel is smaller than we wanted (shouldn't
      * be, but just in case).
      */
-    const size_t chancount{minu(mNumChannels, spa_buf->n_datas)};
+    spa_data *datas{pw_buf->buffer->datas};
+    const size_t chancount{minu(mNumChannels, pw_buf->buffer->n_datas)};
+    /* TODO: How many samples should actually be written? 'maxsize' can be 16k
+     * samples, which is excessive (~341ms @ 48khz). SPA_IO_RateMatch contains
+     * a 'size' field that apparently indicates how many samples should be
+     * written per update, but it's not obviously right.
+     */
+    uint length{mRateMatch ? mRateMatch->size : mDevice->UpdateSize};
     for(size_t i{0};i < chancount;++i)
     {
-        length = minu(length, spa_buf->datas[i].maxsize/sizeof(float));
-        mChannelPtrs[i] = static_cast<float*>(spa_buf->datas[i].data);
+        length = minu(length, datas[i].maxsize/sizeof(float));
+        mChannelPtrs[i] = static_cast<float*>(datas[i].data);
     }
 
-    /* TODO: How many samples should actually be written? 'maxsize' can be 16k
-     * samples, which is excessive (~341ms @ 48khz), but aside from what gets
-     * specified with PW_KEY_NODE_LATENCY, there's nothing here saying how much
-     * is needed to keep the stream healthy.
-     */
     mDevice->renderSamples({mChannelPtrs.get(), chancount}, length);
 
     for(size_t i{0};i < chancount;++i)
     {
-        spa_buf->datas[i].chunk->offset = 0;
-        spa_buf->datas[i].chunk->stride = sizeof(float);
-        spa_buf->datas[i].chunk->size   = length * sizeof(float);
+        datas[i].chunk->offset = 0;
+        datas[i].chunk->stride = sizeof(float);
+        datas[i].chunk->size   = length * sizeof(float);
     }
     pw_buf->size = length;
     pw_stream_queue_buffer(mStream.get(), pw_buf);
@@ -1185,7 +1228,7 @@ bool PipeWirePlayback::reset()
     /* If connecting to a specific device, update various device parameters to
      * match its format.
      */
-    mDevice->IsHeadphones = false;
+    mDevice->Flags.reset(DirectEar);
     if(mTargetId != PwIdAny)
     {
         EventWatcherLockGuard _{gEventHandler};
@@ -1207,7 +1250,7 @@ bool PipeWirePlayback::reset()
             if(!mDevice->Flags.test(ChannelsRequest) && match->mChannels != InvalidChannelConfig)
                 mDevice->FmtChans = match->mChannels;
             if(match->mChannels == DevFmtStereo && match->mIsHeadphones)
-                mDevice->IsHeadphones = true;
+                mDevice->Flags.set(DirectEar);
         }
     }
     /* Force planar 32-bit float output for playback. This is what PipeWire
