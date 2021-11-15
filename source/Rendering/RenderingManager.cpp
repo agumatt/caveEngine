@@ -4,8 +4,26 @@
 namespace cave {
 
 	//RenderingManager
+	Ogre::Root* RenderingManager::m_root;
+	Ogre::RenderWindow* RenderingManager::m_window;
+	Ogre::SceneManager* RenderingManager::m_sceneManager;
+	Ogre::Viewport* RenderingManager::m_viewport;
+	Ogre::Camera* RenderingManager::m_camera;
+	Ogre::SceneNode* RenderingManager::m_cameraNode;
+	OgreBites::ApplicationContext* RenderingManager::m_context;
 
-	RenderingManager::RenderingManager(){
+
+	bool RenderingManager::keyPressed(const OgreBites::KeyboardEvent& evt)
+	{
+		if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
+		{
+			m_root->queueEndRendering();
+			m_context->closeApp();
+		}
+		return true;
+	}
+
+	RenderingManager::RenderingManager() {
 		m_context = new OgreBites::ApplicationContext("RenderingManager");
 		m_window = nullptr;
 		m_viewport = nullptr;
@@ -24,6 +42,10 @@ namespace cave {
 
 		//sceneManager represents the octree
 		m_sceneManager = m_root->createSceneManager();
+	}
+
+	void RenderingManager::StartUp() {
+		
 
 		//init resources
 		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseAllResourceGroups();
@@ -42,23 +64,6 @@ namespace cave {
 		//Ogre::OverlaySystem* m_overlaySystem = new Ogre::OverlaySystem();
 		//m_sceneManager->addRenderQueueListener(m_overlaySystem);
 
-
-	}
-	RenderingManager::~RenderingManager() {
-	}
-	
-	bool RenderingManager::keyPressed(const OgreBites::KeyboardEvent& evt)
-	{
-		if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
-		{
-			m_root->queueEndRendering();
-			m_context->closeApp();
-		}
-		return true;
-	}
-
-
-	void RenderingManager::StartUp() {
 		try {
 			std::cout << "RenderingManager startUp init.";
 			//get render window
@@ -118,8 +123,8 @@ namespace cave {
 			newNode->translate(model.m_translation);
 			newNode->rotate(model.m_rotation);
 			newNode->scale(model.m_scaling);
-			newNode->setInheritOrientation = model.m_inheritRotation;
-			newNode->setInheritScale = model.m_inheritScale;
+			newNode->setInheritOrientation(model.m_inheritRotation);
+			newNode->setInheritScale(model.m_inheritScale);
 			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshFileName);
 			newNode->attachObject(newEntity);
 
@@ -129,8 +134,8 @@ namespace cave {
 	void RenderingManager::updateModelsInScene(std::vector<Model>& models) {
 		for (unsigned int i = 0; i < models.size(); i = i + 1) {
 			Model model = models[i];
-			Ogre::SceneNode node;
-			Ogre::SceneNode newParentNode;
+			Ogre::SceneNode* node = nullptr;
+			Ogre::SceneNode* newParentNode = nullptr;
 			try {
 				node = m_sceneManager->getSceneNode(model.m_nodeName);
 				newParentNode = m_sceneManager->getSceneNode(model.m_parentNodeName);
@@ -140,8 +145,8 @@ namespace cave {
 			}
 			node->getParentSceneNode()->removeChild(node);
 			newParentNode->addChild(node);
-			node->setInheritOrientation = model.m_inheritRotation;
-			node->setInheritScale = model.m_inheritScale;
+			node->setInheritOrientation(model.m_inheritRotation);
+			node->setInheritScale(model.m_inheritScale);
 			
 			node->translate(model.m_translation);
 			node->rotate(model.m_rotation);
@@ -194,8 +199,7 @@ namespace cave {
 		m_inheritScale = false;
 		m_inheritRotation = false;
 	}
-
-	Model::~Model() {
+	Model::Model() {
 
 	}
 

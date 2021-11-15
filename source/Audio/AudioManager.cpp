@@ -4,36 +4,35 @@
 
 namespace cave {
 
-	AudioManager::AudioManager() {
+	//AudioManager
+	std::map<std::string, int> AudioManager::m_buffers;
 
+	void AudioManager::StartUp() {
+		m_buffers = {};
 	}
 
-	AudioManager::StartUp() {
+	void AudioManager::ShutDown() {
 
 	}
-
-	AudioManager::ShutDown() {
-
-	}
-
-	AudioManager::loadSound(std::string fileName, std::string uniqueName) {
-		int buffer = alGenBuffers();
-		m_buffers[uniqueName] = buffer;
-		drwav audioFile;
-		if (!drwav_init_file(&audioFile, fileName, NULL)) {
-			return -1;
-		}
-		int32_t* pSampleData = (int32_t*)malloc((size_t)audioFile.totalPCMFrameCount * audioFile.channels * sizeof(int32_t));
-		drwav_read_pcm_frames_s32(&audioFile, audioFile.totalPCMFrameCount, pSampleData);
+	
+	int AudioManager::loadSound(std::string fileName, std::string uniqueName) {
+		ALuint buffers[1];
+		alGenBuffers(1, buffers);
+		m_buffers[uniqueName] = buffers[0];
+		//drwav audioFile;
+		//if (!drwav_init_file(&audioFile, fileName.c_str(), NULL)) {
+		//	return -1;
+		//}
+		//int32_t* pSampleData = (int32_t*)malloc((size_t)audioFile.totalPCMFrameCount * audioFile.channels * sizeof(int32_t));
+		//drwav_read_pcm_frames_s32(&audioFile, audioFile.totalPCMFrameCount, pSampleData);
 		// At this point pSampleData contains every decoded sample as signed 32-bit PCM.
 
-		drwav_uninit(&audioFile);
-		alBufferData(buffer, audioFile.channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, audioFile.pcmData.data(), audioFile.pcmData.size() * 2, audioFile.sampleRate);
-		delete audioFile;
-		return buffer;
+		//drwav_uninit(&audioFile);
+		//alBufferData(buffers[0], audioFile.channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, audioFile.pcmData.data(), audioFile.pcmData.size() * 2, audioFile.sampleRate);
+		return buffers[1];
 
 	}
-	AudioManager::setListenerData(caveVec3f pos, caveVec3f vel) {
+	void AudioManager::setListenerData(caveVec3f pos, caveVec3f vel) {
 		alListener3f(AL_POSITION, pos.x, pos.y, pos.z);
 		alListener3f(AL_VELOCITY, vel.x, vel.y, vel.z);
 	}
@@ -41,47 +40,53 @@ namespace cave {
 
 
 	AudioSource::AudioSource() {
-		m_sourceId = alGenSources();
+		alGenSources(1, &m_sourceId);
 	}
-	AudioSource::play(int buffer) {
+	void AudioSource::play(int buffer) {
 		alSourceStop(m_sourceId);
 		alSourcei(m_sourceId, AL_BUFFER, buffer);
 		alSourcePlay(m_sourceId);
 	}
-	AudioSource::deleteSource() {
+	void AudioSource::deleteSource() {
 		alSourceStop(m_sourceId);
 		alDeleteSources(1, &m_sourceId);
 	}
-	AudioSource::setVolume(float volume) {
+	void AudioSource::setVolume(float volume) {
 		alSourcef(m_sourceId, AL_GAIN, volume);
 	}
-	AudioSource::setPitch(float pitch) {
+	void AudioSource::setPitch(float pitch) {
 		alSourcef(m_sourceId, AL_PITCH, pitch);
 	}
-	AudioSource::setPosition(caveVec3f pos) {
+	void AudioSource::setPosition(caveVec3f pos) {
 		alSource3f(m_sourceId, AL_POSITION, pos.x, pos.y, pos.z);
 	}
-	AudioSource::setVelocity(caveVec3f vel) {
+	void AudioSource::setVelocity(caveVec3f vel) {
 		alSource3f(m_sourceId, AL_VELOCITY, vel.x, vel.y, vel.z);
 	}
-	AudioSource::setLooping(bool setLoop) {
+	void AudioSource::setLooping(bool setLoop) {
 		alSourcei(m_sourceId, AL_LOOPING, setLoop ? AL_TRUE : AL_FALSE);
 	}
-	AudioSource::isPlaying() {
-		return alGetSourcei(m_sourceId, AL_SOURCE_STATE) == AL_PLAYING;
+	bool AudioSource::isPlaying() {
+		ALint sourceState;
+		alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState);
+		return  sourceState == AL_PLAYING;
 	}
 
-	AudioSource::isPaused() {
-		return alGetSourcei(m_sourceId, AL_SOURCE_STATE) == AL_PAUSED;
+	bool AudioSource::isPaused() {
+		ALint sourceState;
+		alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState);
+		return  sourceState == AL_PAUSED;
 	}
-	AudioSource::isStopped() {
-		return alGetSourcei(m_sourceId, AL_SOURCE_STATE) == AL_STOPPED;
+	bool AudioSource::isStopped() {
+		ALint sourceState;
+		alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState);
+		return  sourceState == AL_STOPPED;
 	}
 
-	AudioSource::pause() {
+	void AudioSource::pause() {
 		alSourcePause(m_sourceId);
 	}
-	AudioSource::continuePlaying() {
+	void AudioSource::continuePlaying() {
 		alSourcePlay(m_sourceId);
 	}
 

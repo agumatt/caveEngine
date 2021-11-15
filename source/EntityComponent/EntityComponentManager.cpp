@@ -2,6 +2,13 @@
 
 namespace cave {
 
+	entt::registry EntityComponentManager::m_Registry;
+	std::map<std::string, entt::entity> EntityComponentManager::m_entities;
+
+	void EntityComponentManager::StartUp() {
+		m_entities = {};
+	}
+
 	void EntityComponentManager::createEntity(std::string uniqueName) {
 		entt::entity entity = m_Registry.create();
 		m_entities[uniqueName] = entity;
@@ -12,9 +19,10 @@ namespace cave {
 		auto skeletalMeshEntitiesView = getEntityView<SkeletalMeshComponent>();
 		for (auto entity : skeletalMeshEntitiesView) {
 			SkeletalMeshComponent& skeletalMeshComponent = skeletalMeshEntitiesView.get<SkeletalMeshComponent>(entity);
-			if (!skeletalMeshComponent.initialized) {
-				RenderingManager::addModelsToScene({ skeletalMeshComponent.model });
-				skeletalMeshComponent.initialized = true;
+			if (!skeletalMeshComponent.m_initialized) {
+				std::vector<Model> models = { skeletalMeshComponent.m_model };
+				RenderingManager::addModelsToScene(models);
+				skeletalMeshComponent.m_initialized = true;
 			}			
 		}
 	}
@@ -24,7 +32,8 @@ namespace cave {
 		auto skeletalMeshEntitiesView = getEntityView<SkeletalMeshComponent>();
 		for (auto entity : skeletalMeshEntitiesView) {
 			SkeletalMeshComponent& skeletalMeshComponent = skeletalMeshEntitiesView.get<SkeletalMeshComponent>(entity);
-			RenderingManager::updateModelsInScene({ skeletalMeshComponent.model });
+			std::vector<Model> models = { skeletalMeshComponent.m_model };
+			RenderingManager::updateModelsInScene(models);
 		}
 	}
 

@@ -2,41 +2,41 @@
 
 namespace cave {
 	
-	AudioSourceComponent::AudioSourceComponent(float volume, float pitch, bool setLoop = true, caveVec3f pos = caveVec3f(0, 0, 0), caveVec3f vel = caveVec3f(0, 0, 0)) {
+	AudioSourceComponent::AudioSourceComponent(float volume, float pitch, bool setLoop, caveVec3f pos , caveVec3f vel) {
 		m_audioSource = AudioSource::AudioSource();
 	}
 
-	AudioSourceComponent::play(std::string uniqueName) {
-		m_audioSource::play(AudioManager::m_buffers[uniqueName]);
+	void AudioSourceComponent::play(std::string uniqueName) {
+		m_audioSource.play(AudioManager::m_buffers[uniqueName]);
 	}
-	AudioSourceComponent::setVolume(float volume) {
+	void AudioSourceComponent::setVolume(float volume) {
 		m_audioSource.setVolume(volume);
 	}
-	AudioSourceComponent::setPitch(float pitch) {
+	void AudioSourceComponent::setPitch(float pitch) {
 		m_audioSource.setPitch(pitch);
 	}
-	AudioSourceComponent::setPosition(caveVec3f pos) {
+	void AudioSourceComponent::setPosition(caveVec3f pos) {
 		m_audioSource.setPosition(pos);
 	}
-	AudioSourceComponent::setVelocity(caveVec3f vel) {
+	void AudioSourceComponent::setVelocity(caveVec3f vel) {
 		m_audioSource.setVelocity(vel);
 	}
-	AudioSourceComponent::setLooping(bool setLoop) {
+	void AudioSourceComponent::setLooping(bool setLoop) {
 		m_audioSource.setLooping(setLoop);
 	}
-	AudioSourceComponent::isPlaying() {
+	bool AudioSourceComponent::isPlaying() {
 		return m_audioSource.isPlaying();
 	}
-	AudioSourceComponent::isPaused() {
+	bool AudioSourceComponent::isPaused() {
 		return m_audioSource.isPaused();
 	}
-	AudioSourceComponent::isStopped() {
+	bool AudioSourceComponent::isStopped() {
 		return m_audioSource.isStopped();
 	}
-	AudioSourceComponent::pause() {
+	void AudioSourceComponent::pause() {
 		m_audioSource.pause();
 	}
-	AudioSourceComponent::continuePlaying() {
+	void AudioSourceComponent::continuePlaying() {
 		m_audioSource.continuePlaying();
 	}
 

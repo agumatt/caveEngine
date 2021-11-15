@@ -1,3 +1,6 @@
+#pragma once
+#ifndef UTILS_HPP
+#define UTILS_HPP
 
 namespace cave {
 
@@ -7,8 +10,11 @@ namespace cave {
 		float y;
 		float z;
 
-		caveVec(float x, float y, float z);
-		~caveVec();
+		caveVec3f(float x, float y, float z) {
+				this->x = x;
+				this->y = y;
+				this->z = z;
+		}
 	};
 
 
@@ -18,9 +24,16 @@ namespace cave {
 		float fY;
 		float fZ;
 
-		caveQuat(float fW, float fX, float fY, float fZ);
-		~caveQuat();
+		caveQuat(float fW, float fX, float fY, float fZ) {
+			this->fW = fW;
+			this->fX = fX;
+			this->fY = fY;
+			this->fZ = fZ;
+		}
 	};
 
 
 }
+
+
+#endif

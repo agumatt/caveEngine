@@ -1,13 +1,15 @@
+#pragma once
+#ifndef SKELETALMESHCOMPONENT_HPP
+#define SKELETALMESHCOMPONENT_HPP
 #include "RenderingManager.hpp"
-#include "../Utils/Utils.hpp"
 
 
 namespace cave {
 	
 	struct SkeletalMeshComponent {
 
-		Model model;
-		bool initialized;
+		Model m_model;
+		bool m_initialized;
 
 		SkeletalMeshComponent(std::string meshFileName, std::string nodeName, std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName = "RootSceneNode");
 
@@ -23,3 +25,5 @@ namespace cave {
 
 
 }
+
+#endif

@@ -13,8 +13,8 @@ namespace cave {
 			EntityComponentManager::createEntity("sinbad2");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad1", "exSinbad.mesh", "sinbad1", "Example1Resources");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad2", "exSinbad.mesh", "sinbad2", "Example1Resources");
-			SkeletalMeshComponent& sinbad1Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad1");
-			SkeletalMeshComponent& sinbad2Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad2");
+			SkeletalMeshComponent sinbad1Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad1");
+			SkeletalMeshComponent sinbad2Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad2");
 			sinbad1Mesh.setScaling(caveVec3f(5, 5, 5));
 			sinbad2Mesh.setTranslation(caveVec3f(5, 15, 0));
 			EntityComponentManager::initEntities();
@@ -26,12 +26,14 @@ namespace cave {
 		}
 
 	};
-	int main()
+}
+
+	int main(int argc, char* argv[])
 	{
 		std::cout << "Example main.";
-		Example1 example1;
-		Engine engine(example1);
+		cave::Example1 example1;
+		cave::Engine engine(example1);
 		engine.StartMainLoop();
+		return 0;
 	}
 
-}

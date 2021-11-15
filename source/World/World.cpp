@@ -6,9 +6,12 @@ namespace cave {
 	World::World(Application& app):
 		m_application(app),
 		m_running(true),
+		m_renderingManager()
 	{
 		std::cout << "World creado.";
 		RenderingManager::StartUp();
+		EntityComponentManager::StartUp();
+		AudioManager::StartUp();
 		m_application.UserStartUp(*this);
 		
 	}

@@ -40,8 +40,8 @@ namespace cave {
 		void setParentNodeName(std::string parentNodeName);
 		void setTransformInheritance(bool inheritScale, bool inheritRotation);
 
+		Model();
 		Model(std::string meshFileName, std::string nodeName,std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName = "RootSceneNode");
-		~Model();
 	};
 
 	class Font {
@@ -112,7 +112,6 @@ namespace cave {
 		static void drawText(Overlay& overlay, std::string& textElementName, std::string& caption);
 		
 		RenderingManager();
-		~RenderingManager();
 
 
 

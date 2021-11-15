@@ -3,6 +3,8 @@
 #define WORLD_HPP
 #include "../Application.hpp"
 #include "../Rendering/RenderingManager.hpp"
+#include "../EntityComponent/EntityComponentManager.hpp"
+#include "../Audio/AudioManager.hpp"
 
 #include <memory>
 #include <array>
@@ -25,6 +27,7 @@ namespace cave {
 
 		Application& m_application;
 		bool m_running;
+		RenderingManager m_renderingManager;
 				
 	};
 

@@ -17,7 +17,6 @@ namespace cave {
 		AudioSource m_audioSource;
 
 		AudioSourceComponent(float volume, float pitch, bool setLoop=true, caveVec3f pos=caveVec3f(0,0,0), caveVec3f vel=caveVec3f(0,0,0));
-		~AudioSourceComponent();
 
 		void play(std::string fileName);
 		void setVolume(float volume);
@@ -37,3 +36,5 @@ namespace cave {
 
 
 }
+
+#endif

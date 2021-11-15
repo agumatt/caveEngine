@@ -1,11 +1,20 @@
 set(CAVE_HEADERS 
 				Core/RootDirectory.hpp
 				Rendering/RenderingManager.hpp
+				Rendering/SkeletalMeshComponent.hpp
+				EntityComponent/EntityComponentManager.hpp
+				Audio/AudioSourceComponent.hpp
+				Audio/AudioManager.hpp
 				World/World.hpp
+				Utils/Utils.hpp
 				Engine.hpp
 				Application.hpp)
 set(CAVE_SOURCES 
 				Rendering/RenderingManager.cpp
+				Rendering/SkeletalMeshComponent.cpp
+				EntityComponent/EntityComponentManager.cpp
+				Audio/AudioSourceComponent.cpp
+				Audio/AudioManager.cpp
 				World/World.cpp
 				Application.cpp)
 file(GLOB_RECURSE Shaders  "${CMAKE_SOURCE_DIR}/Assets/Shaders/*")
