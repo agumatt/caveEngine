@@ -1,7 +1,6 @@
 #pragma once
 #ifndef AUDIOMANAGER_HPP
 #define AUDIOMANAGER_HPP
-#define STRING(s) #s
 #include <AL/al.h>
 #include <AL/alc.h>
 #include <map>

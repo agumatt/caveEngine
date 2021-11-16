@@ -24,7 +24,11 @@ namespace cave {
 			sinbad1Mesh.setScaling(caveVec3f(5, 5, 5));
 			sinbad2Mesh.setTranslation(caveVec3f(5, 15, 0));
 			sinbad2Audio.setPosition(caveVec3f(5, 15, 0));
+			std::cout<<"ESTADO DE LA FUENTE EN EXAMPLE1 PREVIO A PLAY: " << sinbad2Audio.m_audioSource.getALSourceState();
+			std::cout << "ESTADO DE ERROR EN EXAMPLE1 PREVIO A PLAY: " << AudioManager::getALError();
 			sinbad2Audio.play("survival");
+			std::cout << "ESTADO DE LA FUENTE EN EXAMPLE1 DESPUES DE PLAY: " << sinbad2Audio.m_audioSource.getALSourceState();
+			std::cout << "ESTADO DE ERROR EN EXAMPLE1 DESPUES A PLAY: " << AudioManager::getALError();
 			EntityComponentManager::initEntities();
 		}
 

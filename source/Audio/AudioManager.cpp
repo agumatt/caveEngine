@@ -74,7 +74,7 @@ namespace cave {
 
 	ALuint AudioManager::loadSound(std::string audioFilePath, std::string uniqueName) {
 		WavData audioData;
-		ALuint buffer = 666;
+		ALuint buffer = 0;
 		drwav_int16* sampleData = drwav_open_file_and_read_pcm_frames_s16(audioFilePath.c_str(), &audioData.channels,
 			&audioData.sampleRate,
 			&audioData.totalPCMFrameCount,
@@ -90,6 +90,9 @@ namespace cave {
 			m_buffers[uniqueName] = buffer;
 		}
 		else {
+			//Si la carga usando dr_wav fue exitosa se comienza el transpaso de estos datos a OpenAL.
+			audioData.pcmData.resize(size_t(audioData.GetTotalSamples()));
+
 			//Primero se copian todos los datos a un vector de uint16_t, para luego liberar los datos recien copiados.
 			std::memcpy(audioData.pcmData.data(), sampleData, audioData.pcmData.size() * 2);
 			drwav_free(sampleData, nullptr);
