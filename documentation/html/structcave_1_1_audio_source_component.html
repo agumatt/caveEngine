@@ -79,14 +79,16 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae58d05131a0e31b120fcec1c02a945fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#ae58d05131a0e31b120fcec1c02a945fd">AudioSourceComponent</a> (float volume, float pitch, bool setLoop=true, <a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos=<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>(0, 0, 0), <a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel=<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>(0, 0, 0))</td></tr>
-<tr class="separator:ae58d05131a0e31b120fcec1c02a945fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0382d1943c36567cd4e60f80b7d7a419"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#a0382d1943c36567cd4e60f80b7d7a419">AudioSourceComponent</a> (float volume, float pitch, float radius, bool setLoop=true, <a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos=<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>(0, 0, 0), <a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel=<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>(0, 0, 0))</td></tr>
+<tr class="separator:a0382d1943c36567cd4e60f80b7d7a419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a12fabf13bf463d0aa619175d173de869"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#a12fabf13bf463d0aa619175d173de869">play</a> (std::string uniqueName)</td></tr>
 <tr class="separator:a12fabf13bf463d0aa619175d173de869"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad04d803852b7bead49b44420fe396a2c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#ad04d803852b7bead49b44420fe396a2c">setVolume</a> (float volume)</td></tr>
 <tr class="separator:ad04d803852b7bead49b44420fe396a2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f280c976c46885b6ef784ea6efcb583"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#a1f280c976c46885b6ef784ea6efcb583">setPitch</a> (float pitch)</td></tr>
 <tr class="separator:a1f280c976c46885b6ef784ea6efcb583"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fcdfcb6819e5c2b6e9f23f65eed1746"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#a4fcdfcb6819e5c2b6e9f23f65eed1746">setRadius</a> (float radius)</td></tr>
+<tr class="separator:a4fcdfcb6819e5c2b6e9f23f65eed1746"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa53cdeb94aa12bafd226a3de69db3d8f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#aa53cdeb94aa12bafd226a3de69db3d8f">setPosition</a> (<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos)</td></tr>
 <tr class="separator:aa53cdeb94aa12bafd226a3de69db3d8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3196ff085916c4e35ae8aca9139953ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_audio_source_component.html#a3196ff085916c4e35ae8aca9139953ca">setVelocity</a> (<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel)</td></tr>
@@ -112,8 +114,8 @@ Public Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Componente que representa una fuente de audio. Permite reproducir pistas de sonido asociadas a un buffer. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae58d05131a0e31b120fcec1c02a945fd" name="ae58d05131a0e31b120fcec1c02a945fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae58d05131a0e31b120fcec1c02a945fd">&#9670;&nbsp;</a></span>AudioSourceComponent()</h2>
+<a id="a0382d1943c36567cd4e60f80b7d7a419" name="a0382d1943c36567cd4e60f80b7d7a419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0382d1943c36567cd4e60f80b7d7a419">&#9670;&nbsp;</a></span>AudioSourceComponent()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -129,6 +131,12 @@ Public Attributes</h2></td></tr>
           <td></td>
           <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>pitch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -322,6 +330,25 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Setea la posicion </p>
+
+</div>
+</div>
+<a id="a4fcdfcb6819e5c2b6e9f23f65eed1746" name="a4fcdfcb6819e5c2b6e9f23f65eed1746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fcdfcb6819e5c2b6e9f23f65eed1746">&#9670;&nbsp;</a></span>setRadius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cave::AudioSourceComponent::setRadius </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>radius</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p >Setea la distancia maxima a la que se escucha </p>
 
 </div>
 </div>

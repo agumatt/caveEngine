@@ -60,9 +60,12 @@ namespace cave {
 		if (!alcMakeContextCurrent(m_ALcontext)) {
 			std::cout << "OPENAL FAILED TO MAKE CONTEXT CURRENT.";
 		}
-		alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
+		//alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
 		m_masterVolume = 1.0f;
 		alListenerf(AL_GAIN, m_masterVolume);
+		caveVec3f lisPos = RenderingManager::getPlayerPosition();
+		alListener3f(AL_POSITION, lisPos.x, lisPos.y, lisPos.z);
+		alListener3f(AL_VELOCITY, 0, 0, 0);
 		m_buffers = {};
 	}
 
@@ -108,17 +111,19 @@ namespace cave {
 		return buffer;
 
 	}
-	void AudioManager::setListenerData(caveVec3f pos, caveVec3f vel) {
+	void AudioManager::updateListenerData() {
+		caveVec3f pos = RenderingManager::getPlayerPosition();
 		alListener3f(AL_POSITION, pos.x, pos.y, pos.z);
-		alListener3f(AL_VELOCITY, vel.x, vel.y, vel.z);
+		//alListener3f(AL_VELOCITY, vel.x, vel.y, vel.z);
 	}
 
 
 	//AudioSource
-	AudioSource::AudioSource(float volume, float pitch, bool setLoop, caveVec3f pos, caveVec3f vel) {
+	AudioSource::AudioSource(float volume, float pitch, float radius, bool setLoop, caveVec3f pos, caveVec3f vel) {
 		alGenSources(1, &m_sourceId);
 		alSourcef(m_sourceId, AL_GAIN, volume);
 		alSourcef(m_sourceId, AL_PITCH, pitch);
+		alSourcef(m_sourceId, AL_MAX_DISTANCE, radius);
 		alSourcei(m_sourceId, AL_LOOPING, setLoop ? AL_TRUE : AL_FALSE);
 		alSource3f(m_sourceId, AL_POSITION, pos.x, pos.y, pos.z);
 		alSource3f(m_sourceId, AL_VELOCITY, vel.x, vel.y, vel.z);
@@ -140,6 +145,9 @@ namespace cave {
 	}
 	void AudioSource::setPitch(float pitch) {
 		alSourcef(m_sourceId, AL_PITCH, pitch);
+	}
+	void AudioSource::setRadius(float radius) {
+		alSourcef(m_sourceId, AL_MAX_DISTANCE, radius);
 	}
 	void AudioSource::setPosition(caveVec3f pos) {
 		alSource3f(m_sourceId, AL_POSITION, pos.x, pos.y, pos.z);

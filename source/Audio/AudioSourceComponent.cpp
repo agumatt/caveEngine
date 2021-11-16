@@ -3,12 +3,11 @@
 
 namespace cave {
 	
-	AudioSourceComponent::AudioSourceComponent(float volume, float pitch, bool setLoop, caveVec3f pos , caveVec3f vel) {
-		m_audioSource = AudioSource::AudioSource(volume, pitch, setLoop, pos, vel);
+	AudioSourceComponent::AudioSourceComponent(float volume, float pitch, float radius, bool setLoop, caveVec3f pos , caveVec3f vel) {
+		m_audioSource = AudioSource::AudioSource(volume, pitch, radius,setLoop, pos, vel);
 	}
 
 	void AudioSourceComponent::play(std::string uniqueName) {
-		std::cout << "ABOUT TO PLAY: " << AudioManager::m_buffers[uniqueName];
 		m_audioSource.play(AudioManager::m_buffers[uniqueName]);
 	}
 	void AudioSourceComponent::setVolume(float volume) {
@@ -17,6 +16,9 @@ namespace cave {
 	void AudioSourceComponent::setPitch(float pitch) {
 		m_audioSource.setPitch(pitch);
 	}
+	void AudioSourceComponent::setRadius(float radius) {
+		m_audioSource.setRadius(radius);
+	};
 	void AudioSourceComponent::setPosition(caveVec3f pos) {
 		m_audioSource.setPosition(pos);
 	}

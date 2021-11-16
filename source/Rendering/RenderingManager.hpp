@@ -102,7 +102,9 @@ namespace cave {
 		static OgreBites::ApplicationContext* m_context;/**< Contexto de ogre */
 		//Ogre::OverlaySystem* m_overlaySystem;
 
-		static void loadResourcesFolder(std::string path, std::string resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+		static caveVec3f getPlayerPosition();/**< Retorna la posicion del nodo que contiene la camara*/
+
+		static void loadResourcesFolder(std::string path, std::string resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);/**< Carga recursos de la carpeta especificada */
 
 		static void addModelsToScene(std::vector<Model> &models);/**< Agrega modelos a la escena */
 

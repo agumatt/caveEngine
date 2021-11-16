@@ -89,8 +89,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a368315f5648a31eb17ba8610062903cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad1c544a2b8283c5aa2877ce78fe395c3"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_audio_manager.html#ad1c544a2b8283c5aa2877ce78fe395c3">StartUp</a> ()</td></tr>
 <tr class="separator:ad1c544a2b8283c5aa2877ce78fe395c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80b86726884fb4826ba8b3cd37474db4"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_audio_manager.html#a80b86726884fb4826ba8b3cd37474db4">setListenerData</a> (<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos, <a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel=<a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>(0, 0, 0))</td></tr>
-<tr class="separator:a80b86726884fb4826ba8b3cd37474db4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e3d366bfae1b26aebdb6f7d25be7ecf"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_audio_manager.html#a8e3d366bfae1b26aebdb6f7d25be7ecf">updateListenerData</a> ()</td></tr>
+<tr class="separator:a8e3d366bfae1b26aebdb6f7d25be7ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a28b3a664a26bf1e1df0ee79cfba2c308"><td class="memItemLeft" align="right" valign="top">static ALuint&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_audio_manager.html#a28b3a664a26bf1e1df0ee79cfba2c308">loadSound</a> (std::string audioFilePath, std::string uniqueName)</td></tr>
 <tr class="separator:a28b3a664a26bf1e1df0ee79cfba2c308"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4ed19dd22715ddb4d2580a30a2ada309"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_audio_manager.html#a4ed19dd22715ddb4d2580a30a2ada309">ShutDown</a> ()</td></tr>
@@ -191,43 +191,6 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a80b86726884fb4826ba8b3cd37474db4" name="a80b86726884fb4826ba8b3cd37474db4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80b86726884fb4826ba8b3cd37474db4">&#9670;&nbsp;</a></span>setListenerData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void cave::AudioManager::setListenerData </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>&#160;</td>
-          <td class="paramname"><em>vel</em> = <code><a class="el" href="structcave_1_1cave_vec3f.html">caveVec3f</a>(0,0,0)</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<p >Configuracion del listener de OpenAL </p>
-
-</div>
-</div>
 <a id="a4ed19dd22715ddb4d2580a30a2ada309" name="a4ed19dd22715ddb4d2580a30a2ada309"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ed19dd22715ddb4d2580a30a2ada309">&#9670;&nbsp;</a></span>ShutDown()</h2>
 
@@ -277,6 +240,32 @@ Static Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p >Inizializacion de elementos de la clase </p>
+
+</div>
+</div>
+<a id="a8e3d366bfae1b26aebdb6f7d25be7ecf" name="a8e3d366bfae1b26aebdb6f7d25be7ecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e3d366bfae1b26aebdb6f7d25be7ecf">&#9670;&nbsp;</a></span>updateListenerData()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void cave::AudioManager::updateListenerData </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p >Configuracion del listener de OpenAL </p>
 
 </div>
 </div>

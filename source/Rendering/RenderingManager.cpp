@@ -13,6 +13,12 @@ namespace cave {
 	OgreBites::ApplicationContext* RenderingManager::m_context;
 
 
+	caveVec3f RenderingManager::getPlayerPosition() {
+		Ogre::Vector3 pos = m_cameraNode->_getDerivedPosition();
+		return caveVec3f(pos.x, pos.y, pos.z);
+	}
+
+
 	bool RenderingManager::keyPressed(const OgreBites::KeyboardEvent& evt)
 	{
 		if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)

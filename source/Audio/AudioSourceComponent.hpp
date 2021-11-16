@@ -13,11 +13,12 @@ namespace cave {
 
 		AudioSource m_audioSource; /**< Fuente de sonido asociada al componente*/
 
-		AudioSourceComponent(float volume, float pitch, bool setLoop=true, caveVec3f pos=caveVec3f(0,0,0), caveVec3f vel=caveVec3f(0,0,0));
+		AudioSourceComponent(float volume, float pitch, float radius, bool setLoop=true, caveVec3f pos=caveVec3f(0,0,0), caveVec3f vel=caveVec3f(0,0,0));
 
 		void play(std::string uniqueName); /**< Reproduce la fuente de audio asociada a un nombre desde el comienzo*/
 		void setVolume(float volume); /**< Setea el volumen*/
 		void setPitch(float pitch);/**< Setea el tono */
+		void setRadius(float radius); /**< Setea la distancia maxima a la que se escucha */
 		void setPosition(caveVec3f pos);/**< Setea la posicion */
 		void setVelocity(caveVec3f vel);/**< Setea la velocidad */
 		void setLooping(bool setLoop); /**< Setea si la fuente de audio reproduce la pista en loop o no */

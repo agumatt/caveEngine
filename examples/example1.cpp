@@ -16,19 +16,14 @@ namespace cave {
 			EntityComponentManager::createEntity("sinbad2");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad1", "exSinbad.mesh", "sinbad1", "Example1Resources");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad2", "exSinbad.mesh", "sinbad2", "Example1Resources");
-			EntityComponentManager::addComponent<AudioSourceComponent>("sinbad2", 1.0f, 1.0f);
+			EntityComponentManager::addComponent<AudioSourceComponent>("sinbad1", 1.0f, 1.0f, 100.0f);
 			SkeletalMeshComponent& sinbad1Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad1");
 			SkeletalMeshComponent& sinbad2Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad2");
-			AudioSourceComponent& sinbad2Audio = EntityComponentManager::getComponent<AudioSourceComponent>("sinbad2");
-			AudioManager::setListenerData(caveVec3f(0, 0, 0));
+			AudioSourceComponent& sinbad2Audio = EntityComponentManager::getComponent<AudioSourceComponent>("sinbad1");
 			sinbad1Mesh.setScaling(caveVec3f(5, 5, 5));
 			sinbad2Mesh.setTranslation(caveVec3f(5, 15, 0));
-			sinbad2Audio.setPosition(caveVec3f(5, 15, 0));
-			std::cout<<"ESTADO DE LA FUENTE EN EXAMPLE1 PREVIO A PLAY: " << sinbad2Audio.m_audioSource.getALSourceState();
-			std::cout << "ESTADO DE ERROR EN EXAMPLE1 PREVIO A PLAY: " << AudioManager::getALError();
+			sinbad2Audio.setPosition(caveVec3f(0, 0, 0));
 			sinbad2Audio.play("survival");
-			std::cout << "ESTADO DE LA FUENTE EN EXAMPLE1 DESPUES DE PLAY: " << sinbad2Audio.m_audioSource.getALSourceState();
-			std::cout << "ESTADO DE ERROR EN EXAMPLE1 DESPUES A PLAY: " << AudioManager::getALError();
 			EntityComponentManager::initEntities();
 		}
 

@@ -40,8 +40,7 @@ namespace cave {
 	{
 		//para lo que envía el usuario y lo que debe hacer el motor en cada ciclo
 		RenderingManager::render();
-		AudioSourceComponent& sinbad2Audio = EntityComponentManager::getComponent<AudioSourceComponent>("sinbad2");
-		
+		AudioManager::updateListenerData();
 	}
 
 

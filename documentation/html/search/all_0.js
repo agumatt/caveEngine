@@ -11,8 +11,8 @@ var searchData=
   ['audiomanager_2ecpp_8',['AudioManager.cpp',['../_audio_manager_8cpp.html',1,'']]],
   ['audiomanager_2ehpp_9',['AudioManager.hpp',['../_audio_manager_8hpp.html',1,'']]],
   ['audiomanager_5fhpp_10',['AUDIOMANAGER_HPP',['../_audio_manager_8hpp.html#a167a1278f19072b10ff502d951146d60',1,'AudioManager.hpp']]],
-  ['audiosource_11',['AudioSource',['../classcave_1_1_audio_source.html#a2522886f7e2b7a0434b022e61ab9d45f',1,'cave::AudioSource::AudioSource(float volume, float pitch, bool setLoop, caveVec3f pos, caveVec3f vel)'],['../classcave_1_1_audio_source.html#a440835d16e0534bd871970b67ce8da63',1,'cave::AudioSource::AudioSource()'],['../classcave_1_1_audio_source.html',1,'cave::AudioSource']]],
-  ['audiosourcecomponent_12',['AudioSourceComponent',['../structcave_1_1_audio_source_component.html#ae58d05131a0e31b120fcec1c02a945fd',1,'cave::AudioSourceComponent::AudioSourceComponent()'],['../structcave_1_1_audio_source_component.html',1,'cave::AudioSourceComponent']]],
+  ['audiosource_11',['AudioSource',['../classcave_1_1_audio_source.html#acf036b7f0e5db4063f492a0944a5814a',1,'cave::AudioSource::AudioSource(float volume, float pitch, float radius, bool setLoop, caveVec3f pos, caveVec3f vel)'],['../classcave_1_1_audio_source.html#a440835d16e0534bd871970b67ce8da63',1,'cave::AudioSource::AudioSource()'],['../classcave_1_1_audio_source.html',1,'cave::AudioSource']]],
+  ['audiosourcecomponent_12',['AudioSourceComponent',['../structcave_1_1_audio_source_component.html#a0382d1943c36567cd4e60f80b7d7a419',1,'cave::AudioSourceComponent::AudioSourceComponent()'],['../structcave_1_1_audio_source_component.html',1,'cave::AudioSourceComponent']]],
   ['audiosourcecomponent_2ecpp_13',['AudioSourceComponent.cpp',['../_audio_source_component_8cpp.html',1,'']]],
   ['audiosourcecomponent_2ehpp_14',['AudioSourceComponent.hpp',['../_audio_source_component_8hpp.html',1,'']]],
   ['audiosourcecomponent_5fhpp_15',['AUDIOSOURCECOMPONENT_HPP',['../_audio_source_component_8hpp.html#a0a1eabd0cb717dc63e54aa56b3fd7e17',1,'AudioSourceComponent.hpp']]]

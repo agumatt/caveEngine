@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>caveEngine: source/Audio/AudioManager.hpp File Reference</title>
+<title>caveEngine: source/Core/RootDirectory.hpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -63,38 +63,20 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_e399ecd6505846059073078e54f4ef41.html">Audio</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_1f10682fec53f0772108851bfcef2e4d.html">Core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a>  </div>
-  <div class="headertitle"><div class="title">AudioManager.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">RootDirectory.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;AL/al.h&gt;</code><br />
-<code>#include &lt;AL/alc.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="_rendering_manager_8hpp_source.html">../Rendering/RenderingManager.hpp</a>&quot;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
-<code>#include &lt;iostream&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &quot;<a class="el" href="_utils_8hpp_source.html">../Utils/Utils.hpp</a>&quot;</code><br />
-<code>#include &lt;dr_wav.h&gt;</code><br />
+<div class="textblock"><code>#include &lt;filesystem&gt;</code><br />
 </div>
-<p><a href="_audio_manager_8hpp_source.html">Go to the source code of this file.</a></p>
+<p><a href="_root_directory_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_audio_manager.html">cave::AudioManager</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_audio_source.html">cave::AudioSource</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structcave_1_1_wav_data.html">cave::WavData</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacecave"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacecave.html">cave</a></td></tr>
@@ -102,18 +84,18 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a167a1278f19072b10ff502d951146d60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_audio_manager_8hpp.html#a167a1278f19072b10ff502d951146d60">AUDIOMANAGER_HPP</a></td></tr>
-<tr class="separator:a167a1278f19072b10ff502d951146d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8ce68c81f6b1a74576b75a265837055"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_root_directory_8hpp.html#af8ce68c81f6b1a74576b75a265837055">ROOTDIRECTORY_HPP</a></td></tr>
+<tr class="separator:af8ce68c81f6b1a74576b75a265837055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a167a1278f19072b10ff502d951146d60" name="a167a1278f19072b10ff502d951146d60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a167a1278f19072b10ff502d951146d60">&#9670;&nbsp;</a></span>AUDIOMANAGER_HPP</h2>
+<a id="af8ce68c81f6b1a74576b75a265837055" name="af8ce68c81f6b1a74576b75a265837055"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af8ce68c81f6b1a74576b75a265837055">&#9670;&nbsp;</a></span>ROOTDIRECTORY_HPP</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define AUDIOMANAGER_HPP</td>
+          <td class="memname">#define ROOTDIRECTORY_HPP</td>
         </tr>
       </table>
 </div><div class="memdoc">
