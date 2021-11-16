@@ -16,7 +16,7 @@ namespace cave {
 			EntityComponentManager::createEntity("sinbad2");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad1", "exSinbad.mesh", "sinbad1", "Example1Resources");
 			EntityComponentManager::addComponent<SkeletalMeshComponent>("sinbad2", "exSinbad.mesh", "sinbad2", "Example1Resources");
-			EntityComponentManager::addComponent<AudioSourceComponent>("sinbad1", 1.0f, 1.0f, 100.0f);
+			EntityComponentManager::addComponent<AudioSourceComponent>("sinbad1", 0.3f, 1.0f, 100.0f);
 			SkeletalMeshComponent& sinbad1Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad1");
 			SkeletalMeshComponent& sinbad2Mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad2");
 			AudioSourceComponent& sinbad2Audio = EntityComponentManager::getComponent<AudioSourceComponent>("sinbad1");
