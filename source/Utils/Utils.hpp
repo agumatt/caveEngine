@@ -4,7 +4,9 @@
 
 namespace cave {
 
-
+	/**Vector de tres componentes.
+*
+*/
 	struct caveVec3f {
 		float x;
 		float y;
@@ -17,7 +19,9 @@ namespace cave {
 		}
 	};
 
-
+	/**Cuaternion.
+*
+*/
 	struct caveQuat {
 		float fW;
 		float fX;
