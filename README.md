@@ -4,7 +4,8 @@
 2) Compilar en modo "Release x64".
 3) Dentro de la carpeta de build, en "examples\Release" se encontrará el archivo de prueba "Example1.exe".
 4) Para hacerlo funcionar, copiar ahí el contenido de la carpeta "thirdParty\ogre\bin\release".
-5) Agregar también la carpeta "Meshes", que se encuentra en la carpeta source.
+5) Agregar también la carpeta "Resources", que se encuentra en la carpeta source.
+6) La documentacion generada por doxygen se encuentra en caveEngine/documentation/html/index.html.
 
 ## Modulo de Rendering
 
