@@ -11,7 +11,7 @@ namespace cave {
 	Ogre::Camera* RenderingManager::m_camera;
 	Ogre::SceneNode* RenderingManager::m_cameraNode;
 	OgreBites::ApplicationContext* RenderingManager::m_context;
-
+	Ogre::OverlaySystem* RenderingManager::m_overlaySystem;
 
 	caveVec3f RenderingManager::getPlayerPosition() {
 		Ogre::Vector3 pos = m_cameraNode->_getDerivedPosition();
@@ -38,7 +38,7 @@ namespace cave {
 		m_cameraNode = nullptr;
 		m_camera = nullptr;
 		m_context->initApp();
-		//m_overlaySystem = nullptr;
+		m_overlaySystem = nullptr;
 
 		// register for input events
 		m_context->addInputListener(this);
@@ -66,11 +66,13 @@ namespace cave {
 		m_cameraNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
 		m_cameraNode->attachObject(m_camera);
 
-		//overlay
-		//Ogre::OverlaySystem* m_overlaySystem = new Ogre::OverlaySystem();
-		//m_sceneManager->addRenderQueueListener(m_overlaySystem);
 
 		try {
+			//overlay
+			m_overlaySystem = m_context->getOverlaySystem();
+			m_sceneManager->addRenderQueueListener(m_overlaySystem);
+
+
 			std::cout << "RenderingManager startUp init.";
 			//get render window
 			m_window = m_context->getRenderWindow();
@@ -98,14 +100,12 @@ namespace cave {
 
 	}
 
-	void RenderingManager::configureTextResources(std::vector<Font>& fonts) {
-		for (unsigned int i = 0; i < fonts.size(); i = i + 1) {
-			Font font = fonts[i];
-			Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(font.m_fontName, font.m_groupName);
-			fontPtr->setType(font.m_fontType);
-			fontPtr->setSource(font.m_fontFileName);		
-		}	
-	};
+	void RenderingManager::loadFont(std::string fontName, std::string fontFileName, std::string groupName, Ogre::FontType fontType) {
+		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(fontName, groupName);
+		fontPtr->setType(fontType);
+		fontPtr->setSource(fontFileName);
+	}
+
 
 	void RenderingManager::addModelsToScene(std::vector<Model> &models) {
 		for (unsigned int i = 0; i < models.size(); i = i + 1) {
@@ -159,12 +159,6 @@ namespace cave {
 			node->scale(model.m_scaling);		
 		}
 
-	}
-
-	void RenderingManager::drawText(Overlay& overlay, std::string& textElementName, std::string& caption) {
-		auto textElement = overlay.m_textElements[textElementName];
-		textElement->setCaption(caption);
-		overlay.m_overlay->show();
 	}
 
 	
@@ -227,17 +221,12 @@ namespace cave {
 		m_inheritRotation = inheritRotation;
 	}
 
-	//Font
-	Font::Font(std::string fontName, std::string fontFileName, std::string groupName, Ogre::FontType fontType) {
-		m_fontName = fontName;
-		m_fontFileName = fontFileName;
-		m_groupName = groupName;
-		m_fontType = fontType;
-	}
-	Font::~Font() {	}
-
 	//Overlay
-	Overlay::Overlay(std::string containerName, std::string overlayName) {
+	int Overlay::m_count = 0;
+	Overlay::Overlay() {
+		std::string overlayName = "overlay" + std::to_string(m_count);
+		std::string containerName = "container" + std::to_string(m_count);
+		m_count = m_count + 1;
 		m_overlayName= overlayName;
 		m_containerName = containerName;
 		m_textElements = {};
@@ -254,6 +243,16 @@ namespace cave {
 	void Overlay::configureContainer(float positionLeft, float positionTop, float width, float height) {
 		m_container->setPosition(positionLeft, positionTop);
 		m_container->setDimensions(width, height);
+	}
+
+	void Overlay::displayText(std::string& textElementName, std::string& caption) {
+		auto textElement = m_textElements[textElementName];
+		textElement->setCaption(caption);
+		m_overlay->show();
+	}
+
+	void Overlay::hideText(std::string& textElementName) {
+		m_overlay->hide();
 	}
 
 	void Overlay::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {

@@ -10,6 +10,8 @@
 #include <vector>
 #include "../Utils/Utils.hpp"
 #include <dr_wav.h>
+#include "../Core/Log.hpp"
+#include "AudioMacros.hpp"
 namespace cave {
 
 	/**Esta clase maneja el sistema de sonido del engine.
@@ -34,10 +36,8 @@ namespace cave {
 	*/
 	class AudioSource {
 
-	private:
-		ALuint m_sourceId = 1234;/**< Identificador de la fuente de audio */
-
 	public:
+		ALuint m_sourceId = 1234;/**< Identificador de la fuente de audio */
 		void play(ALuint buffer); /**< Reproduce la fuente de audio desde el comienzo*/
 		void deleteSource(); /**< Elimina la fuente de audio */
 		void setVolume(float volume); /**< Setea el volumen */

@@ -2,6 +2,7 @@ set(CAVE_HEADERS
 				Core/RootDirectory.hpp
 				Rendering/RenderingManager.hpp
 				Rendering/SkeletalMeshComponent.hpp
+				Rendering/TextComponent.hpp
 				EntityComponent/EntityComponentManager.hpp
 				Audio/AudioSourceComponent.hpp
 				Audio/AudioManager.hpp
@@ -12,6 +13,7 @@ set(CAVE_HEADERS
 set(CAVE_SOURCES 
 				Rendering/RenderingManager.cpp
 				Rendering/SkeletalMeshComponent.cpp
+				Rendering/TextComponent.cpp
 				EntityComponent/EntityComponentManager.cpp
 				Audio/AudioSourceComponent.cpp
 				Audio/AudioManager.cpp

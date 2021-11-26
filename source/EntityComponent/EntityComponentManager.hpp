@@ -5,6 +5,7 @@
 #include <string>
 #include "../Rendering/RenderingManager.hpp"
 #include "../Rendering/SkeletalMeshComponent.hpp"
+#include "../Rendering/TextComponent.hpp"
 #include "../Audio/AudioSourceComponent.hpp"
 
 namespace cave {

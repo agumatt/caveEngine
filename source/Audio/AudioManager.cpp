@@ -1,6 +1,5 @@
 #include "AudioManager.hpp"
 
-
 namespace cave {
 
 	//AudioManager
@@ -62,10 +61,10 @@ namespace cave {
 		}
 		//alDistanceModel(AL_LINEAR_DISTANCE_CLAMPED);
 		m_masterVolume = 1.0f;
-		alListenerf(AL_GAIN, m_masterVolume);
+		ALCALL(alListenerf(AL_GAIN, m_masterVolume));
 		caveVec3f lisPos = RenderingManager::getPlayerPosition();
-		alListener3f(AL_POSITION, lisPos.x, lisPos.y, lisPos.z);
-		alListener3f(AL_VELOCITY, 0, 0, 0);
+		ALCALL(alListener3f(AL_POSITION, lisPos.x, lisPos.y, lisPos.z));
+		ALCALL(alListener3f(AL_VELOCITY, 0, 0, 0));
 		m_buffers = {};
 	}
 
@@ -101,11 +100,10 @@ namespace cave {
 			drwav_free(sampleData, nullptr);
 
 			//Se pasa este vector de uint16_t a OpenAL
-			ALuint buffer = 666;
-			alGenBuffers(1, &buffer);
+			ALCALL(alGenBuffers(1, &buffer));
 			m_buffers[uniqueName] = buffer;
-			alBufferData(buffer, audioData.channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, audioData.pcmData.data(), audioData.pcmData.size() * 2, audioData.sampleRate);
-			std::cout << "LOADED FILE:  " << audioFilePath << "  TO BUFFER" << buffer;
+			ALCALL(alBufferData(buffer, audioData.channels > 1 ? AL_FORMAT_STEREO16 : AL_FORMAT_MONO16, audioData.pcmData.data(), audioData.pcmData.size() * 2, audioData.sampleRate));
+			std::cout << "LOADED FILE:  " << audioFilePath << " WITH CHANNELS: "<< audioData.channels <<"TO BUFFER: " << buffer<<std::endl;
 		}
 
 		return buffer;
@@ -113,73 +111,73 @@ namespace cave {
 	}
 	void AudioManager::updateListenerData() {
 		caveVec3f pos = RenderingManager::getPlayerPosition();
-		alListener3f(AL_POSITION, pos.x, pos.y, pos.z);
+		ALCALL(alListener3f(AL_POSITION, pos.x, pos.y, pos.z));
 		//alListener3f(AL_VELOCITY, vel.x, vel.y, vel.z);
 	}
 
 
 	//AudioSource
 	AudioSource::AudioSource(float volume, float pitch, float radius, bool setLoop, caveVec3f pos, caveVec3f vel) {
-		alGenSources(1, &m_sourceId);
-		alSourcef(m_sourceId, AL_GAIN, volume);
-		alSourcef(m_sourceId, AL_PITCH, pitch);
-		alSourcef(m_sourceId, AL_MAX_DISTANCE, radius);
-		alSourcei(m_sourceId, AL_LOOPING, setLoop ? AL_TRUE : AL_FALSE);
-		alSource3f(m_sourceId, AL_POSITION, pos.x, pos.y, pos.z);
-		alSource3f(m_sourceId, AL_VELOCITY, vel.x, vel.y, vel.z);
+		ALCALL(alGenSources(1, &m_sourceId));
+		ALCALL(alSourcef(m_sourceId, AL_GAIN, volume));
+		ALCALL(alSourcef(m_sourceId, AL_PITCH, pitch));
+		ALCALL(alSourcef(m_sourceId, AL_MAX_DISTANCE, radius));
+		ALCALL(alSourcei(m_sourceId, AL_LOOPING, setLoop ? AL_TRUE : AL_FALSE));
+		ALCALL(alSource3f(m_sourceId, AL_POSITION, pos.x, pos.y, pos.z));
+		ALCALL(alSource3f(m_sourceId, AL_VELOCITY, vel.x, vel.y, vel.z));
 	}
 	AudioSource::AudioSource() {
 
 	}
 	void AudioSource::play(ALuint buffer) {
-		alSourceStop(m_sourceId);
-		alSourcei(m_sourceId, AL_BUFFER, buffer);
-		alSourcePlay(m_sourceId);
+		ALCALL(alSourceStop(m_sourceId));
+		ALCALL(alSourcei(m_sourceId, AL_BUFFER, buffer));
+		ALCALL(alSourcePlay(m_sourceId));
 	}
 	void AudioSource::deleteSource() {
-		alSourceStop(m_sourceId);
-		alDeleteSources(1, &m_sourceId);
+		ALCALL(alSourceStop(m_sourceId));
+		ALCALL(alDeleteSources(1, &m_sourceId));
 	}
 	void AudioSource::setVolume(float volume) {
-		alSourcef(m_sourceId, AL_GAIN, volume);
+		ALCALL(alSourcef(m_sourceId, AL_GAIN, volume));
 	}
 	void AudioSource::setPitch(float pitch) {
-		alSourcef(m_sourceId, AL_PITCH, pitch);
+		ALCALL(alSourcef(m_sourceId, AL_PITCH, pitch));
 	}
 	void AudioSource::setRadius(float radius) {
-		alSourcef(m_sourceId, AL_MAX_DISTANCE, radius);
+		ALCALL(alSourcef(m_sourceId, AL_MAX_DISTANCE, radius));
 	}
 	void AudioSource::setPosition(caveVec3f pos) {
-		alSource3f(m_sourceId, AL_POSITION, pos.x, pos.y, pos.z);
+		ALCALL(alSource3f(m_sourceId, AL_POSITION, pos.x, pos.y, pos.z));
 	}
 	void AudioSource::setVelocity(caveVec3f vel) {
-		alSource3f(m_sourceId, AL_VELOCITY, vel.x, vel.y, vel.z);
+		ALCALL(alSource3f(m_sourceId, AL_VELOCITY, vel.x, vel.y, vel.z));
 	}
 	void AudioSource::setLooping(bool setLoop) {
-		alSourcei(m_sourceId, AL_LOOPING, setLoop ? AL_TRUE : AL_FALSE);
+		ALCALL(alSourcei(m_sourceId, AL_LOOPING, setLoop ? AL_TRUE : AL_FALSE));
 	}
 	bool AudioSource::isPlaying() {
 		ALint sourceState = 0;
-		alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState);
+		ALCALL(alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState));
 		return  sourceState == AL_PLAYING;
 	}
 
 	bool AudioSource::isPaused() {
 		ALint sourceState;
-		alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState);
+		ALCALL(alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState));
 		return  sourceState == AL_PAUSED;
 	}
 	bool AudioSource::isStopped() {
 		ALint sourceState;
-		alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState);
+		ALCALL(alGetSourcei(m_sourceId, AL_SOURCE_STATE, &sourceState));
 		return  sourceState == AL_STOPPED;
 	}
 
 	void AudioSource::pause() {
-		alSourcePause(m_sourceId);
+		ALCALL(alSourcePause(m_sourceId));
 	}
 	void AudioSource::continuePlaying() {
-		alSourcePlay(m_sourceId);
+		ALCALL(alSourcePlay(m_sourceId));
 	}
 
 
