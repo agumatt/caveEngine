@@ -5,6 +5,7 @@ This source file is part of OGRE
 For the latest info, see http://www.ogre3d.org
 
 Copyright (c) 2000-2014 Torus Knot Software Ltd
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -24,69 +25,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 -----------------------------------------------------------------------------
 */
-#ifndef _ShaderGLSLESProgramProcessor_
-#define _ShaderGLSLESProgramProcessor_
+#ifndef __VulkanPlugin_H__
+#define __VulkanPlugin_H__
 
-#include "OgreShaderPrerequisites.h"
-#include "OgreShaderProgramProcessor.h"
-#include "OgreStringVector.h"
+#include "OgrePlugin.h"
+#include "OgreVulkanRenderSystem.h"
 
-namespace Ogre {
-namespace RTShader {
-
-/** \addtogroup Optional
-*  @{
-*/
-/** \addtogroup RTShader
-*  @{
-*/
-
-/** GLSL ES Language program processor class.
-*/
-class GLSLESProgramProcessor : public ProgramProcessor
+namespace Ogre
 {
+    /** Plugin instance for Vulkan Manager */
+    class VulkanPlugin : public Plugin
+    {
+    public:
+        VulkanPlugin();
 
-// Interface.
-public: 
+        /// @copydoc Plugin::getName
+        const String &getName() const;
 
-    /** Class constructor.
-    */
-    GLSLESProgramProcessor();
+        /// @copydoc Plugin::install
+        void install();
 
-    /** Class destructor */
-    virtual ~GLSLESProgramProcessor();
+        /// @copydoc Plugin::initialise
+        void initialise();
 
-    /** Return the target language of this processor. */
-    virtual const String& getTargetLanguage() const { return TargetLanguage; }
+        /// @copydoc Plugin::shutdown
+        void shutdown();
 
-    /** 
-    @see ProgramProcessor::preCreateGpuPrograms
-    */
-    virtual bool preCreateGpuPrograms(ProgramSet* programSet);
+        /// @copydoc Plugin::uninstall
+        void uninstall();
 
-    /** 
-    @see ProgramProcessor::postCreateGpuPrograms
-    */
-    virtual bool postCreateGpuPrograms(ProgramSet* programSet);
-
-
-private:
-
-    /** Bind texture samplers. */
-    void bindTextureSamplers(Program* pCpuProgram, GpuProgramPtr pGpuProgram);
-
-    static String TargetLanguage;
-
-    // The list of created library shaders.
-    StringVector mLibraryPrograms;
-};
-
-
-/** @} */
-/** @} */
-
-}
-}
+    protected:
+        VulkanRenderSystem *mRenderSystem;
+    };
+}  // namespace Ogre
 
 #endif
-

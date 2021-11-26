@@ -52,16 +52,13 @@ ProgramManager& ProgramManager::getSingleton()
 ProgramManager::ProgramManager()
 {
     createDefaultProgramProcessors();
-    createDefaultProgramWriterFactories();
 }
 
 //-----------------------------------------------------------------------------
 ProgramManager::~ProgramManager()
 {
     flushGpuProgramsCache();
-    destroyDefaultProgramWriterFactories();
     destroyDefaultProgramProcessors();  
-    destroyProgramWriters();
 }
 
 //-----------------------------------------------------------------------------
@@ -121,77 +118,27 @@ void ProgramManager::flushGpuProgramsCache(GpuProgramsMap& gpuProgramsMap)
         gpuProgramsMap.erase(it);
     }
 }
-
-//-----------------------------------------------------------------------------
-void ProgramManager::createDefaultProgramWriterFactories()
-{
-    // Add standard shader writer factories 
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
-    mProgramWriterFactories.push_back(OGRE_NEW ShaderProgramWriterCGFactory());
-    mProgramWriterFactories.push_back(OGRE_NEW ShaderProgramWriterGLSLFactory());
-    mProgramWriterFactories.push_back(OGRE_NEW ShaderProgramWriterHLSLFactory());
-#endif
-    mProgramWriterFactories.push_back(OGRE_NEW ShaderProgramWriterGLSLESFactory());
-    
-    for (unsigned int i=0; i < mProgramWriterFactories.size(); ++i)
-    {
-        ProgramWriterManager::getSingletonPtr()->addFactory(mProgramWriterFactories[i]);
-    }
-}
-
-//-----------------------------------------------------------------------------
-void ProgramManager::destroyDefaultProgramWriterFactories()
-{ 
-    for (unsigned int i=0; i<mProgramWriterFactories.size(); i++)
-    {
-        ProgramWriterManager::getSingletonPtr()->removeFactory(mProgramWriterFactories[i]);
-        OGRE_DELETE mProgramWriterFactories[i];
-    }
-    mProgramWriterFactories.clear();
-}
-
 //-----------------------------------------------------------------------------
 void ProgramManager::createDefaultProgramProcessors()
 {
     // Add standard shader processors
-#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
     mDefaultProgramProcessors.push_back(OGRE_NEW GLSLProgramProcessor);
+    addProgramProcessor("glsles", mDefaultProgramProcessors.back());
+#if OGRE_PLATFORM != OGRE_PLATFORM_ANDROID
+    addProgramProcessor("glsl", mDefaultProgramProcessors.back());
+    addProgramProcessor("glslang", mDefaultProgramProcessors.back());
     mDefaultProgramProcessors.push_back(OGRE_NEW HLSLProgramProcessor);
+    addProgramProcessor("hlsl", mDefaultProgramProcessors.back());
 #endif
-    mDefaultProgramProcessors.push_back(OGRE_NEW GLSLESProgramProcessor);
-
-    for (unsigned int i=0; i < mDefaultProgramProcessors.size(); ++i)
-    {
-        addProgramProcessor(mDefaultProgramProcessors[i]);
-    }
 }
 
 //-----------------------------------------------------------------------------
 void ProgramManager::destroyDefaultProgramProcessors()
 {
-    for (unsigned int i=0; i < mDefaultProgramProcessors.size(); ++i)
-    {
-        removeProgramProcessor(mDefaultProgramProcessors[i]);
-        OGRE_DELETE mDefaultProgramProcessors[i];
-    }
+    // removing unknown is not an error
+    for(auto lang : {"glsl", "glsles", "glslang", "hlsl"})
+        removeProgramProcessor(lang);
     mDefaultProgramProcessors.clear();
-}
-
-//-----------------------------------------------------------------------------
-void ProgramManager::destroyProgramWriters()
-{
-    ProgramWriterIterator it    = mProgramWritersMap.begin();
-    ProgramWriterIterator itEnd = mProgramWritersMap.end();
-
-    for (; it != itEnd; ++it)
-    {
-        if (it->second != NULL)
-        {
-            OGRE_DELETE it->second;
-            it->second = NULL;
-        }                   
-    }
-    mProgramWritersMap.clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -210,19 +157,8 @@ void ProgramManager::createGpuPrograms(ProgramSet* programSet)
 
     // Grab the matching writer.
     const String& language = ShaderGenerator::getSingleton().getTargetLanguage();
-    ProgramWriterIterator itWriter = mProgramWritersMap.find(language);
-    ProgramWriter* programWriter = NULL;
 
-    // No writer found -> create new one.
-    if (itWriter == mProgramWritersMap.end())
-    {
-        programWriter = ProgramWriterManager::getSingletonPtr()->createProgramWriter(language);
-        mProgramWritersMap[language] = programWriter;
-    }
-    else
-    {
-        programWriter = itWriter->second;
-    }
+    auto programWriter = ProgramWriterManager::getSingleton().getProgramWriter(language);
 
     ProgramProcessorIterator itProcessor = mProgramProcessorsMap.find(language);
     ProgramProcessor* programProcessor = NULL;
@@ -302,7 +238,7 @@ GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram,
     // Case cache directory specified -> create program from file.
     if (!cachePath.empty())
     {
-        const String  programFullName = programName + "." + language;
+        const String  programFullName = programName + "." + programWriter->getTargetLanguage();
         const String  programFileName = cachePath + programFullName;
         std::ifstream programFile;
 
@@ -339,8 +275,12 @@ GpuProgramPtr ProgramManager::createGpuProgram(Program* shaderProgram,
         pGpuProgram->setParameter("enable_backwards_compatibility", "true");
         pGpuProgram->setParameter("column_major_matrices", StringConverter::toString(shaderProgram->getUseColumnMajorMatrices()));
     }
-    else if (language == "cg")
-        pGpuProgram->setParameter("profiles", profiles);
+    else if (language == "glsl")
+    {
+        auto* rs = Root::getSingleton().getRenderSystem();
+        if( rs && rs->getNativeShadingLanguageVersion() >= 420)
+            pGpuProgram->setParameter("has_sampler_binding", "true");
+    }
 
     pGpuProgram->load();
 
@@ -381,25 +321,23 @@ String ProgramManager::generateHash(const String& programString, const String& d
 
 
 //-----------------------------------------------------------------------------
-void ProgramManager::addProgramProcessor(ProgramProcessor* processor)
+void ProgramManager::addProgramProcessor(const String& lang, ProgramProcessor* processor)
 {
     
-    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(processor->getTargetLanguage());
+    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(lang);
 
     if (itFind != mProgramProcessorsMap.end())
     {
-        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM,
-            "A processor for language '" + processor->getTargetLanguage() + "' already exists.",
-            "ProgramManager::addProgramProcessor");
-    }       
+        OGRE_EXCEPT(Exception::ERR_DUPLICATE_ITEM, "A processor for language '" + lang + "' already exists.");
+    }
 
-    mProgramProcessorsMap[processor->getTargetLanguage()] = processor;
+    mProgramProcessorsMap[lang] = processor;
 }
 
 //-----------------------------------------------------------------------------
-void ProgramManager::removeProgramProcessor(ProgramProcessor* processor)
+void ProgramManager::removeProgramProcessor(const String& lang)
 {
-    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(processor->getTargetLanguage());
+    ProgramProcessorIterator itFind = mProgramProcessorsMap.find(lang);
 
     if (itFind != mProgramProcessorsMap.end())
         mProgramProcessorsMap.erase(itFind);

@@ -30,26 +30,14 @@ THE SOFTWARE.
 namespace Ogre {
 namespace RTShader {
 
-String GLSLProgramProcessor::TargetLanguage = "glsl";
-
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::GLSLProgramProcessor()
 {
-
 }
 
 //-----------------------------------------------------------------------------
 GLSLProgramProcessor::~GLSLProgramProcessor()
 {
-    StringVector::iterator it = mLibraryPrograms.begin();
-    StringVector::iterator itEnd = mLibraryPrograms.end();
-    
-    for (; it != itEnd; ++it)
-    {
-        HighLevelGpuProgramManager::getSingleton().remove(
-            *it, ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
-    }
-    mLibraryPrograms.clear();
 }
 
 //-----------------------------------------------------------------------------
@@ -86,6 +74,9 @@ bool GLSLProgramProcessor::postCreateGpuPrograms(ProgramSet* programSet)
 //-----------------------------------------------------------------------------
 void GLSLProgramProcessor::bindTextureSamplers(Program* pCpuProgram, GpuProgramPtr pGpuProgram)
 {
+    if (StringConverter::parseBool(pGpuProgram->getParameter("has_sampler_binding")))
+        return;
+
     GpuProgramParametersSharedPtr pGpuParams = pGpuProgram->getDefaultParameters();
 
     // Bind the samplers.

@@ -81,9 +81,6 @@ protected:
     /** Initialize string maps. */
     void initializeStringMaps();
 
-    /** Write a local parameter. */
-    void writeLocalParameter(std::ostream& os, ParameterPtr parameter);
-
     /** Write the program dependencies. */
     void writeProgramDependencies(std::ostream& os, Program* program);
 
@@ -93,19 +90,13 @@ protected:
     /** Write the output params of the function */
     void writeOutParameters(std::ostream& os, Function* function, GpuProgramType gpuType);
 
+    void writeUniformBlock(std::ostream& os, const String& name, int binding, const UniformParameterList& uniforms);
+
 protected:
-    typedef std::map<GpuConstantType, const char*>     GpuConstTypeToStringMap;
-    typedef std::map<Parameter::Semantic, const char*> ParamSemanticToStringMap;
     typedef std::map<Parameter::Content, const char*>  ParamContentToStringMap;
-    typedef std::map<String, String>                   StringMap;
 
     // Attributes.
 protected:
-    // Map between GPU constant type to string value.
-    GpuConstTypeToStringMap mGpuConstTypeMap;
-    // Map between parameter semantic to string value.
-    ParamSemanticToStringMap mParamSemanticMap;
-
     std::set<String> mLocalRenames;
 
     // Map parameter content to vertex attributes 
@@ -114,40 +105,8 @@ protected:
     int mGLSLVersion;
     // set by derived class
     bool mIsGLSLES;
+    bool mIsVulkan;
 };
-
-/** GLSL program writer factory implementation.
-@see ProgramWriterFactory
-*/
-class ShaderProgramWriterGLSLFactory : public ProgramWriterFactory
-{
-public:
-    ShaderProgramWriterGLSLFactory() : mLanguage("glsl")
-    {
-    }
-    virtual ~ShaderProgramWriterGLSLFactory() {}
-
-    /** 
-    @see ProgramWriterFactory::getTargetLanguage
-    */
-    virtual const String& getTargetLanguage(void) const
-    {
-        return mLanguage;
-    }
-
-    /** 
-    @see ProgramWriterFactory::create
-    */
-    virtual ProgramWriter* create(void)
-    {
-        return OGRE_NEW GLSLProgramWriter();
-    }
-
-private:
-    String mLanguage;
-
-};
-
 /** @} */
 /** @} */
 

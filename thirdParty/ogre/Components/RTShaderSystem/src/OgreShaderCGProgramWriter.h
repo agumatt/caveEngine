@@ -83,67 +83,16 @@ protected:
 
     /** Write the program dependencies. */
     virtual void writeProgramDependencies(std::ostream& os, Program* program);
-    
-    /** Write a uniform parameter. */
-    virtual void writeUniformParameter(std::ostream& os, const UniformParameterPtr& parameter);
 
     /** Write a function parameter. */
     void writeFunctionParameter(std::ostream& os, ParameterPtr parameter);
-
-    /** Write a local parameter. */
-    void writeLocalParameter(std::ostream& os, ParameterPtr parameter);
 
     /** Write a function declaration. */
     void writeFunctionDeclaration(std::ostream& os, Function* function);
 
     /** Write function atom instance. */
     void writeAtomInstance(std::ostream& os, FunctionAtom* atom);
-
-
-protected:
-    typedef std::map<GpuConstantType, const char*> GpuConstTypeToStringMap;
-    typedef std::map<Parameter::Semantic, const char*> ParamSemanticToStringMap;
-
-// Attributes.
-protected:
-    // Map between GPU constant type to string value.
-    GpuConstTypeToStringMap mGpuConstTypeMap;
-    // Map between parameter semantic to string value.
-    ParamSemanticToStringMap mParamSemanticMap;
 };
-
-/** CG program writer factory implementation.
-@see ProgramWriterFactory
-*/
-class ShaderProgramWriterCGFactory : public ProgramWriterFactory
-{
-public:
-    ShaderProgramWriterCGFactory() : mLanguage("cg")
-    {
-    }
-    virtual ~ShaderProgramWriterCGFactory() {}
-
-    /** 
-    @see ProgramWriterFactory::getTargetLanguage
-    */
-    virtual const String& getTargetLanguage(void) const
-    {
-        return mLanguage;
-    }
-
-    /** 
-    @see ProgramWriterFactory::create
-    */
-    virtual ProgramWriter* create(void)
-    {
-        return OGRE_NEW CGProgramWriter();
-    }
-
-private:
-    String mLanguage;
-
-};
-
 /** @} */
 /** @} */
 }

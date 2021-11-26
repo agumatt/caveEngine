@@ -114,15 +114,6 @@ private:
     /** Destroy default program processors. */
     void destroyDefaultProgramProcessors();
 
-    /** Create default program processors. */
-    void createDefaultProgramWriterFactories();
-
-    /** Destroy default program processors. */
-    void destroyDefaultProgramWriterFactories();
-
-    /** Destroy all program writers. */
-    void destroyProgramWriters();
-
     /** Create CPU program .    
     @param type The type of the program to create.
     */
@@ -164,13 +155,13 @@ private:
     Add program processor instance to this manager.
     @param processor The instance to add.
     */
-    void addProgramProcessor(ProgramProcessor* processor);
+    void addProgramProcessor(const String& lang, ProgramProcessor* processor);
 
     /** 
     Remove program processor instance from this manager. 
     @param processor The instance to remove.
     */
-    void removeProgramProcessor(ProgramProcessor* processor);
+    void removeProgramProcessor(const String& lang);
 
     /** Destroy a GPU program by name.
     @param gpuProgram The program to destroy.
@@ -188,8 +179,6 @@ private:
     /** Fix the input of the pixel shader to be the same as the output of the vertex shader */
     void synchronizePixelnToBeVertexOut(ProgramSet* programSet);
 
-    // Map between target language and shader program writer.                   
-    ProgramWriterMap mProgramWritersMap;
     // Map between target language and shader program processor.    
     ProgramProcessorMap mProgramProcessorsMap;
     // Holds standard shader writer factories

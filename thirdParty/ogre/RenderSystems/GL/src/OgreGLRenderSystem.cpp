@@ -353,6 +353,13 @@ namespace Ogre {
     {
         GLRenderSystemCommon::initConfigOptions();
 
+        ConfigOption optRTTMode;
+        optRTTMode.name = "RTT Preferred Mode";
+        optRTTMode.possibleValues = {"FBO", "PBuffer", "Copy"};
+        optRTTMode.currentValue = optRTTMode.possibleValues[0];
+        optRTTMode.immutable = true;
+        mOptions[optRTTMode.name] = optRTTMode;
+
         ConfigOption opt;
         opt.name = "Fixed Pipeline Enabled";
         opt.possibleValues = {"Yes", "No"};
@@ -445,9 +452,6 @@ namespace Ogre {
             rsc->setCapability(RSC_VERTEX_PROGRAM);
 
             // Vertex Program Properties
-            rsc->setVertexProgramConstantBoolCount(0);
-            rsc->setVertexProgramConstantIntCount(0);
-
             GLint floatConstantCount;
             glGetProgramivARB(GL_VERTEX_PROGRAM_ARB, GL_MAX_PROGRAM_LOCAL_PARAMETERS_ARB, &floatConstantCount);
             rsc->setVertexProgramConstantFloatCount(floatConstantCount);
@@ -483,11 +487,6 @@ namespace Ogre {
         // NFZ - check for ATI fragment shader support
         if (GLEW_ATI_fragment_shader)
         {
-            // no boolean params allowed
-            rsc->setFragmentProgramConstantBoolCount(0);
-            // no integer params allowed
-            rsc->setFragmentProgramConstantIntCount(0);
-
             // only 8 Vector4 constant floats supported
             rsc->setFragmentProgramConstantFloatCount(8);
 
@@ -500,9 +499,6 @@ namespace Ogre {
         if (GLEW_ARB_fragment_program)
         {
             // Fragment Program Properties
-            rsc->setFragmentProgramConstantBoolCount(0);
-            rsc->setFragmentProgramConstantIntCount(0);
-
             GLint floatConstantCount;
             glGetProgramivARB(GL_FRAGMENT_PROGRAM_ARB, GL_MAX_PROGRAM_LOCAL_PARAMETERS_ARB, &floatConstantCount);
             rsc->setFragmentProgramConstantFloatCount(floatConstantCount);
@@ -546,12 +542,9 @@ namespace Ogre {
             GLEW_EXT_geometry_shader4)
         {
             rsc->setCapability(RSC_GEOMETRY_PROGRAM);
-            rsc->setGeometryProgramConstantBoolCount(0);
-            rsc->setGeometryProgramConstantIntCount(0);
-
             GLint floatConstantCount = 0;
             glGetIntegerv(GL_MAX_GEOMETRY_UNIFORM_COMPONENTS_EXT, &floatConstantCount);
-            rsc->setGeometryProgramConstantFloatCount(floatConstantCount);
+            rsc->setGeometryProgramConstantFloatCount(floatConstantCount/4);
 
             GLint maxOutputVertices;
             glGetIntegerv(GL_MAX_GEOMETRY_OUTPUT_VERTICES_EXT,&maxOutputVertices);
@@ -918,7 +911,7 @@ namespace Ogre {
                 {
                     // Use PBuffers
                     mRTTManager = new GLPBRTTManager(mGLSupport, primary);
-                    LogManager::getSingleton().logMessage("GL: Using PBuffers for rendering to textures");
+                    LogManager::getSingleton().logWarning("GL: Using PBuffers for rendering to textures");
 
                     //TODO: Depth buffer sharing in pbuffer is left unsupported
                 }
@@ -927,8 +920,8 @@ namespace Ogre {
             {
                 // No pbuffer support either -- fallback to simplest copying from framebuffer
                 mRTTManager = new GLCopyingRTTManager();
-                LogManager::getSingleton().logMessage("GL: Using framebuffer copy for rendering to textures (worst)");
-                LogManager::getSingleton().logMessage("GL: Warning: RenderTexture size is restricted to size of framebuffer. If you are on Linux, consider using GLX instead of SDL.");
+                LogManager::getSingleton().logWarning("GL: Using framebuffer copy for rendering to textures (worst)");
+                LogManager::getSingleton().logWarning("GL: RenderTexture size is restricted to size of framebuffer. If you are on Linux, consider using GLX instead of SDL.");
 
                 //Copy method uses the main depth buffer but no other depth buffer
                 caps->setCapability(RSC_RTT_MAIN_DEPTHBUFFER_ATTACHABLE);

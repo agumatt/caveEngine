@@ -3,7 +3,7 @@
 @tableofcontents
 
 Ogre uses [CMake](https://cmake.org/) as its build system on all supported platforms.
-This guide will explain to you how to use CMake to build Ogre from source. You need a CMake version >= 3.3.
+This guide will explain to you how to use CMake to build Ogre from source. You need a CMake version >= 3.10.
 
 What is CMake?
 -------------------
@@ -28,7 +28,7 @@ working from the same Ogre source.
 Getting dependencies
 --------------------
 
-By default ogre will build the essential dependencies automatically when you run cmake configure the first time.
+By default ogre will build the recommended dependencies automatically when you run cmake configure the first time.
 Ogre will install the dependencies into the subfolder `Dependencies` in the build dir by default. You can configure it by setting `OGRE_DEPENDENCIES_DIR` in cmake.
 
 @note As the dependencies are built during the *configure* stage of CMake, you must specify the desired `CMAKE_BUILD_TYPE` via command-line. Changing the value in the CMake GUI will have no effect.
@@ -41,30 +41,27 @@ For manually building the dependencies, please refer to the list below and get a
 
 ### Linux
 
-On linux you additionally need the following system headers to build the GL & GLES2 RenderSystems (command for Ubuntu):
+On linux you additionally need the following system headers to build the GL, GL3+, GLES2 & Vulkan RenderSystems (command for Ubuntu):
 
-    sudo apt-get install libgles2-mesa-dev
+    sudo apt-get install libgles2-mesa-dev libvulkan-dev glslang-dev
 
 furthermore we recommend installing the following optional packages
 
     sudo apt-get install libsdl2-dev libxt-dev libxaw7-dev doxygen
 
-these will enable input handling in the SampleBrowser and building the documentation.
-
-### Essential dependencies
-
-* freetype: http://www.freetype.org
+these will enable input handling in the SampleBrowser, the X11 ConfigDialog and allow building the documentation.
 
 ### Recommended dependencies
 
-* zlib: http://www.zlib.net
-* zziplib: https://github.com/gdraheim/zziplib
 * pugixml: https://github.com/zeux/pugixml
 * SDL: https://www.libsdl.org/
+* zlib: http://www.zlib.net
+* freetype: http://www.freetype.org
 
 ### Optional dependencies
 
 * DirectX SDK: http://msdn.microsoft.com/en-us/directx/
+* Vulkan SDK: https://vulkan.lunarg.com/
 * FreeImage: http://freeimage.sourceforge.net
 * Doxygen: http://doxygen.org
 * Cg: http://developer.nvidia.com/object/cg_toolkit.html
@@ -219,8 +216,6 @@ Building as Windows Store or Windows Phone application
 You need Windows 8.0 or later, Windows 10 is recommended.
 
 Visual Studio 2015 is recommended as it is bundled with Universal 10.0.240.0, WinStore 8.0/8.1 and WinPhone 8.0/8.1 SDKs.
-
-Download and install CMake 3.4 or later.
 
 Dependencies for Win32 and for WinRT must be located in
 separate folders. Cg is not supported.

@@ -56,9 +56,6 @@ public:
     /** Class destructor */
     virtual ~GLSLProgramProcessor();
 
-    /** Return the target language of this processor. */
-    virtual const String& getTargetLanguage() const { return TargetLanguage; }
-
     /** 
     @see ProgramProcessor::preCreateGpuPrograms
     */
@@ -74,14 +71,7 @@ private:
 
     /** Bind texture samplers. */
     void bindTextureSamplers(Program* pCpuProgram, GpuProgramPtr pGpuProgram);
-
-    static String TargetLanguage;
-
-    // The list of created library shaders.
-    StringVector mLibraryPrograms;
-
 };
-
 
 /** @} */
 /** @} */
