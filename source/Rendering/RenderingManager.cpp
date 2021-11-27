@@ -13,7 +13,7 @@ namespace cave {
 	OgreBites::ApplicationContext* RenderingManager::m_context;
 	Ogre::OverlaySystem* RenderingManager::m_overlaySystem;
 	Ogre::Overlay* RenderingManager::m_overlay;
-	std::string RenderingManager::m_resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+	std::string RenderingManager::m_resourcesGroupName;
 
 	caveVec3f RenderingManager::getPlayerPosition() {
 		Ogre::Vector3 pos = m_cameraNode->_getDerivedPosition();
@@ -41,7 +41,7 @@ namespace cave {
 		m_camera = nullptr;
 		m_context->initApp();
 		m_overlaySystem = nullptr;
-		//m_resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
+		m_resourcesGroupName = "caveResourcesGroup";
 
 		// register for input events
 		m_context->addInputListener(this);
@@ -77,8 +77,6 @@ namespace cave {
 			auto overlayManager = Ogre::OverlayManager::getSingletonPtr();
 			m_overlay = overlayManager->create("overlay");
 
-
-			std::cout << "RenderingManager startUp init.";
 			//get render window
 			m_window = m_context->getRenderWindow();
 
@@ -87,11 +85,6 @@ namespace cave {
 			m_viewport->setClearEveryFrame(true);
 			//set lighting
 			m_sceneManager->setAmbientLight(Ogre::ColourValue::White);
-
-			std::cout << "RenderingManager startUp finished.";
-
-			//initialize resource group
-			//Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
 		}
 		catch(Ogre::Exception& ex){
 			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
@@ -107,6 +100,7 @@ namespace cave {
 
 	void RenderingManager::loadFont(std::string fontName, std::string fontFileName) {
 		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(fontName, m_resourcesGroupName);
+		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
 		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
 		fontPtr->setParameter("source", fontFileName);
 		fontPtr->setParameter("type", "image");
