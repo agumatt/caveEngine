@@ -12,6 +12,8 @@ namespace cave {
 	Ogre::SceneNode* RenderingManager::m_cameraNode;
 	OgreBites::ApplicationContext* RenderingManager::m_context;
 	Ogre::OverlaySystem* RenderingManager::m_overlaySystem;
+	Ogre::Overlay* RenderingManager::m_overlay;
+	std::string RenderingManager::m_resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
 
 	caveVec3f RenderingManager::getPlayerPosition() {
 		Ogre::Vector3 pos = m_cameraNode->_getDerivedPosition();
@@ -39,6 +41,7 @@ namespace cave {
 		m_camera = nullptr;
 		m_context->initApp();
 		m_overlaySystem = nullptr;
+		//m_resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME;
 
 		// register for input events
 		m_context->addInputListener(this);
@@ -71,6 +74,8 @@ namespace cave {
 			//overlay
 			m_overlaySystem = m_context->getOverlaySystem();
 			m_sceneManager->addRenderQueueListener(m_overlaySystem);
+			auto overlayManager = Ogre::OverlayManager::getSingletonPtr();
+			m_overlay = overlayManager->create("overlay");
 
 
 			std::cout << "RenderingManager startUp init.";
@@ -84,6 +89,9 @@ namespace cave {
 			m_sceneManager->setAmbientLight(Ogre::ColourValue::White);
 
 			std::cout << "RenderingManager startUp finished.";
+
+			//initialize resource group
+			//Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
 		}
 		catch(Ogre::Exception& ex){
 			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
@@ -91,19 +99,20 @@ namespace cave {
 	}
 
 
-	void RenderingManager::loadResourcesFolder(std::string path, std::string resourcesGroupName) {
-
-		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, "FileSystem", resourcesGroupName);
-		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(resourcesGroupName);
-		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(resourcesGroupName);
-
-
+	void RenderingManager::loadResourcesFolder(std::string path) {
+		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, "FileSystem", m_resourcesGroupName);
+		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
+		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
 	}
 
-	void RenderingManager::loadFont(std::string fontName, std::string fontFileName, std::string groupName, Ogre::FontType fontType) {
-		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(fontName, groupName);
-		fontPtr->setType(fontType);
-		fontPtr->setSource(fontFileName);
+	void RenderingManager::loadFont(std::string fontName, std::string fontFileName) {
+		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(fontName, m_resourcesGroupName);
+		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
+		fontPtr->setParameter("source", fontFileName);
+		fontPtr->setParameter("type", "image");
+		fontPtr->setParameter("size", "26");
+		fontPtr->setParameter("resolution", "96");
+		fontPtr->load();
 	}
 
 
@@ -188,9 +197,9 @@ namespace cave {
 	
 	//Model
 
-	Model::Model(std::string meshFileName, std::string nodeName, std::string groupName, std::string parentNodeName) {
+	Model::Model(std::string meshFileName, std::string nodeName, std::string parentNodeName) {
 		m_meshFileName = meshFileName;
-		m_groupName = groupName;
+		m_groupName = RenderingManager::m_resourcesGroupName;
 		m_nodeName = nodeName;
 		m_parentNodeName = parentNodeName;
 		m_rotation = Ogre::Quaternion::IDENTITY;
@@ -221,17 +230,15 @@ namespace cave {
 		m_inheritRotation = inheritRotation;
 	}
 
-	//Overlay
-	int Overlay::m_count = 0;
-	Overlay::Overlay() {
-		std::string overlayName = "overlay" + std::to_string(m_count);
+	//Container
+	int Container::m_count = 0;
+	Container::Container() {
 		std::string containerName = "container" + std::to_string(m_count);
+		m_overlay = RenderingManager::m_overlay;
 		m_count = m_count + 1;
-		m_overlayName= overlayName;
 		m_containerName = containerName;
 		m_textElements = {};
 		m_overlayManager = Ogre::OverlayManager::getSingletonPtr();
-		m_overlay = m_overlayManager->create(m_overlayName);
 		m_container = static_cast<Ogre::OverlayContainer*>(
 			m_overlayManager->createOverlayElement("Panel", m_containerName)
 			);
@@ -240,22 +247,22 @@ namespace cave {
 		
 	}
 
-	void Overlay::configureContainer(float positionLeft, float positionTop, float width, float height) {
+	void Container::configureContainer(float positionLeft, float positionTop, float width, float height) {
 		m_container->setPosition(positionLeft, positionTop);
 		m_container->setDimensions(width, height);
 	}
 
-	void Overlay::displayText(std::string& textElementName, std::string& caption) {
+	void Container::displayText(std::string& textElementName, std::string& caption) {
 		auto textElement = m_textElements[textElementName];
 		textElement->setCaption(caption);
 		m_overlay->show();
 	}
 
-	void Overlay::hideText(std::string& textElementName) {
+	void Container::hideText(std::string& textElementName) {
 		m_overlay->hide();
 	}
 
-	void Overlay::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {
+	void Container::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {
 		
 		Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementName));
 		textArea->setPosition(positionLeft, positionTop);
@@ -264,7 +271,7 @@ namespace cave {
 		m_textElements[textElementName] = textArea;
 	}
 
-	void Overlay::configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour) {
+	void Container::configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour) {
 		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementName];
 		textElement->setCharHeight(fontSize);
 		textElement->setFontName(fontName);

@@ -2,8 +2,8 @@
 
 namespace cave {
 
-	SkeletalMeshComponent::SkeletalMeshComponent(std::string meshFileName, std::string nodeName, std::string groupName, std::string parentNodeName) {
-		m_model = Model(meshFileName, nodeName, groupName, parentNodeName);
+	SkeletalMeshComponent::SkeletalMeshComponent(std::string meshFileName, std::string nodeName, std::string parentNodeName) {
+		m_model = Model(meshFileName, nodeName, parentNodeName);
 		m_initialized = false;
 	}
 	void SkeletalMeshComponent::setRotation(caveQuat rotation) {

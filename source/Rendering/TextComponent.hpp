@@ -12,7 +12,7 @@ namespace cave {
 	struct TextComponent {
 
 	private:
-		Overlay m_overlay;
+		Container m_container;
 
 	public:
 

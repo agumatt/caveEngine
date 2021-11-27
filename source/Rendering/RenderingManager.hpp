@@ -45,22 +45,20 @@ namespace cave {
 		void setTransformInheritance(bool inheritScale, bool inheritRotation);/**<Setea si el nodo hereda las transformaciones nodo padre */
 
 		Model();
-		Model(std::string meshFileName, std::string nodeName,std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName = "RootSceneNode");
+		Model(std::string meshFileName, std::string nodeName, std::string parentNodeName = "RootSceneNode");
 	};
 
 
 	/**Representa un plano contenedor sobre el que se dibujara texto.
 		*
 		*/
-	class Overlay {
+	class Container {
 	public:
 		static int m_count;
-		std::string m_overlayName;/**<Nombre del overlay */
 		std::string m_containerName;/**<Nombre del subcontenedor */
-		std::string m_type;
-		Ogre::OverlayManager* m_overlayManager;/**<Overlay manager de ogre */
 		Ogre::Overlay* m_overlay;/**< overlay de ogre */
 		Ogre::OverlayContainer* m_container;/**<overlay container de ogre */
+		Ogre::OverlayManager* m_overlayManager;
 		std::map<std::string, Ogre::TextAreaOverlayElement*> m_textElements;/**< Mapa que asocia los textElements del overlay a un nombre unico */
 		
 		void displayText(std::string& textElementName, std::string& caption);
@@ -73,7 +71,7 @@ namespace cave {
 
 		void configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
 
-		Overlay();
+		Container();
 	};
 
 	/**Esta clase maneja el sistema de rendering del engine.
@@ -91,10 +89,12 @@ namespace cave {
 		static Ogre::SceneNode* m_cameraNode; /**< Nodo asociado a la camara */
 		static OgreBites::ApplicationContext* m_context;/**< Contexto de ogre */
 		static Ogre::OverlaySystem* m_overlaySystem;
+		static Ogre::Overlay* m_overlay;
+		static std::string m_resourcesGroupName;
 
 		static caveVec3f getPlayerPosition();/**< Retorna la posicion del nodo que contiene la camara*/
 
-		static void loadResourcesFolder(std::string path, std::string resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);/**< Carga recursos de la carpeta especificada */
+		static void loadResourcesFolder(std::string path);/**< Carga recursos de la carpeta especificada */
 
 		static void addModelsToScene(std::vector<Model> &models);/**< Agrega modelos a la escena */
 
@@ -104,8 +104,7 @@ namespace cave {
 		/**Agrega una fuente de texto a Ogre 		
 		* 
 		*/
-		static void loadFont(std::string fontName, std::string fontFileName,
-			std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::FontType fontType = Ogre::FT_TRUETYPE);
+		static void loadFont(std::string fontName, std::string fontFileName);
 
 		/**Setea los valores de la camara
 		*
@@ -117,8 +116,6 @@ namespace cave {
 		static bool keyPressed(const OgreBites::KeyboardEvent& evt);/**< Indica si una tecla fue presionada */
 
 		static void render(); /**< Renderiza la escena */
-
-		static void drawText(Overlay& overlay, std::string& textElementName, std::string& caption); /**< Muestra el texto caption indicado en la escena utilizando un contenedor*/
 		
 		RenderingManager();
 
