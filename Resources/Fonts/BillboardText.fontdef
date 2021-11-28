@@ -1,4 +1,4 @@
-font DejaVuSerifCondensedItalic
+font exFont
 {
 	type 		truetype
 	source 		DejaVuSerifCondensedItalic.ttf
