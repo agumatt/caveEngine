@@ -97,7 +97,6 @@ namespace cave {
 	}
 
 	void RenderingManager::loadFont(std::string fontName, std::string fontFileName) {
-		//Ogre::ResourceGroupManager::getSingletonPtr()->declareResource(fontFileName, "Font", m_resourcesGroupName);
 		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
 		std::cout << "HOLA1" << std::endl;
 		try {
@@ -106,13 +105,7 @@ namespace cave {
 		catch (Ogre::Exception& ex) {
 			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 		}
-		std::cout << "HOLA2" << std::endl;
-		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(fontName, m_resourcesGroupName);
-		std::cout << "HOLA3" << std::endl;
-		fontPtr->setParameter("source", fontFileName);
-		fontPtr->setParameter("type", "truetype");
-		fontPtr->setParameter("size", "26");
-		fontPtr->setParameter("resolution", "96");
+		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().getByName(fontName, m_resourcesGroupName);
 		std::cout << "LOADING FONT" << std::endl;
 		try {
 			fontPtr->load();
@@ -120,6 +113,7 @@ namespace cave {
 		catch (Ogre::Exception& ex) {
 			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 		}
+		std::cout << "FONT LOADED" << std::endl;
 	}
 
 
@@ -252,6 +246,8 @@ namespace cave {
 			m_overlayManager->createOverlayElement("Panel", m_containerName)
 			);
 		m_container->setMetricsMode(Ogre::GMM_RELATIVE);
+		m_container->setPosition(0, 0);
+		m_container->setDimensions(1.0f, 1.0f);
 		m_overlay->add2D(m_container);
 		
 	}
@@ -276,6 +272,7 @@ namespace cave {
 		Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementName));
 		textArea->setPosition(positionLeft, positionTop);
 		textArea->setDimensions(width, height);;
+		textArea->setMetricsMode(Ogre::GMM_RELATIVE);
 		m_container->addChild(textArea);
 		m_textElements[textElementName] = textArea;
 	}
@@ -284,6 +281,7 @@ namespace cave {
 		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementName];
 		textElement->setCharHeight(fontSize);
 		textElement->setFontName(fontName);
+		textElement->setColour(colour);
 	}
 
 

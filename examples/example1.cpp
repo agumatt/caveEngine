@@ -12,7 +12,7 @@ namespace cave {
 			RenderingManager::configureCamera(caveVec3f(0, 0, 80), caveVec3f(0, 0, -1), OgreBites::CameraStyle::CS_FREELOOK);
 			//RenderingManager::loadResourcesFolder("Resources/Meshes");
 			RenderingManager::loadResourcesFolder("Resources/Fonts");
-			RenderingManager::loadFont("font1", "DejaVuSerifCondensedItalic.ttf");
+			RenderingManager::loadFont("exFont", "DejaVuSerifCondensedItalic.ttf");
 			AudioManager::loadSound("Resources/Audio/survival.wav", "survival");
 			EntityComponentManager::createEntity("sinbad1");
 			EntityComponentManager::createEntity("sinbad2");
@@ -27,7 +27,7 @@ namespace cave {
 			std::string textElementName = "textElement1";
 			std::string caption = "soy un OGRO";
 			sinbad1Text.addTextElement(textElementName, 0.0f, 0.0f, 1.0f, 1.0f);
-			sinbad1Text.configureTextElement(textElementName, 10, "font1", caveColour());
+			sinbad1Text.configureTextElement(textElementName, 25, "exFont", caveColour());
 			sinbad1Text.displayText(textElementName, caption);
 			//sinbad1Mesh.setScaling(caveVec3f(5, 5, 5));
 			//sinbad2Mesh.setTranslation(caveVec3f(5, 15, 0));
