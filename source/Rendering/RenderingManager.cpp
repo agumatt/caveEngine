@@ -94,25 +94,40 @@ namespace cave {
 
 	void RenderingManager::loadResourcesFolder(std::string path) {
 		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, "FileSystem", m_resourcesGroupName);
-		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
-		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
 	}
 
 	void RenderingManager::loadFont(std::string fontName, std::string fontFileName) {
-		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(fontName, m_resourcesGroupName);
+		//Ogre::ResourceGroupManager::getSingletonPtr()->declareResource(fontFileName, "Font", m_resourcesGroupName);
 		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
-		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
+		std::cout << "HOLA1" << std::endl;
+		try {
+			Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
+		}
+		catch (Ogre::Exception& ex) {
+			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
+		}
+		std::cout << "HOLA2" << std::endl;
+		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(fontName, m_resourcesGroupName);
+		std::cout << "HOLA3" << std::endl;
 		fontPtr->setParameter("source", fontFileName);
-		fontPtr->setParameter("type", "image");
+		fontPtr->setParameter("type", "truetype");
 		fontPtr->setParameter("size", "26");
 		fontPtr->setParameter("resolution", "96");
-		fontPtr->load();
+		std::cout << "LOADING FONT" << std::endl;
+		try {
+			fontPtr->load();
+		}
+		catch (Ogre::Exception& ex) {
+			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
+		}
 	}
 
 
 	void RenderingManager::addModelsToScene(std::vector<Model> &models) {
 		for (unsigned int i = 0; i < models.size(); i = i + 1) {
 			Model model = models[i];
+			Ogre::ResourceGroupManager::getSingletonPtr()->declareResource(model.m_meshFileName, "Mesh", m_resourcesGroupName);
+			Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
 			std::cout << "Cargando modelo: " << model.m_meshFileName;
 			std::cout << "Nodo padre: " << model.m_parentNodeName;
 			Ogre::SceneNode* parentNode = NULL;
