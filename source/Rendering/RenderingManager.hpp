@@ -69,7 +69,7 @@ namespace cave {
 
 		void addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height);/**<Agrega elemento de texto al overlay */
 
-		void configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
+		void configureTextElement(std::string& textElementName, float fontSize, std::string fontName, Ogre::ColourValue colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
 
 		Container();
 	};
@@ -89,7 +89,6 @@ namespace cave {
 		static Ogre::SceneNode* m_cameraNode; /**< Nodo asociado a la camara */
 		static OgreBites::ApplicationContext* m_context;/**< Contexto de ogre */
 		static Ogre::OverlaySystem* m_overlaySystem;
-		static Ogre::Overlay* m_overlay;
 		static std::string m_resourcesGroupName;
 
 		static caveVec3f getPlayerPosition();/**< Retorna la posicion del nodo que contiene la camara*/

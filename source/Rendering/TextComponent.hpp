@@ -24,7 +24,7 @@ namespace cave {
 
 		void addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height);/**<Agrega elemento de texto al overlay */
 
-		void configureTextElement(std::string& textElementName, int fontSize, std::string fontName, caveColour colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
+		void configureTextElement(std::string& textElementName, float fontSize, std::string fontName, caveColour colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
 		
 		void displayText(std::string& textElementName, std::string& caption);
 

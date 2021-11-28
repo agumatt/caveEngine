@@ -27,7 +27,7 @@ namespace cave {
 			std::string textElementName = "textElement1";
 			std::string caption = "soy un OGRO";
 			sinbad1Text.addTextElement(textElementName, 0.0f, 0.0f, 1.0f, 1.0f);
-			sinbad1Text.configureTextElement(textElementName, 25, "exFont", caveColour());
+			sinbad1Text.configureTextElement(textElementName, 0.5f, "exFont", caveColour(1.0f,0.0f,0.0f));
 			sinbad1Text.displayText(textElementName, caption);
 			//sinbad1Mesh.setScaling(caveVec3f(5, 5, 5));
 			//sinbad2Mesh.setTranslation(caveVec3f(5, 15, 0));

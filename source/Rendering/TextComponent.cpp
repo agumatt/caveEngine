@@ -17,7 +17,7 @@ namespace cave {
 		m_container.addTextElement(textElementName, positionLeft, positionTop, width, height);
 	}
 
-	void TextComponent::configureTextElement(std::string& textElementName, int fontSize, std::string fontName, caveColour colour){
+	void TextComponent::configureTextElement(std::string& textElementName, float fontSize, std::string fontName, caveColour colour){
 		Ogre::ColourValue ogreColour = Ogre::ColourValue(colour.r, colour.g, colour.b, colour.alpha);
 		m_container.configureTextElement(textElementName, fontSize, fontName, ogreColour);
 	}

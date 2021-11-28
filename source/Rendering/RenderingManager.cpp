@@ -12,7 +12,6 @@ namespace cave {
 	Ogre::SceneNode* RenderingManager::m_cameraNode;
 	OgreBites::ApplicationContext* RenderingManager::m_context;
 	Ogre::OverlaySystem* RenderingManager::m_overlaySystem;
-	Ogre::Overlay* RenderingManager::m_overlay;
 	std::string RenderingManager::m_resourcesGroupName;
 
 	caveVec3f RenderingManager::getPlayerPosition() {
@@ -33,13 +32,13 @@ namespace cave {
 
 	RenderingManager::RenderingManager() {
 		m_context = new OgreBites::ApplicationContext("RenderingManager");
+		m_context->initApp();
 		m_window = nullptr;
 		m_viewport = nullptr;
 		m_root = nullptr;
 		m_sceneManager = nullptr;
 		m_cameraNode = nullptr;
 		m_camera = nullptr;
-		m_context->initApp();
 		m_overlaySystem = nullptr;
 		m_resourcesGroupName = "caveResourcesGroup";
 
@@ -71,11 +70,9 @@ namespace cave {
 
 
 		try {
-			//overlay
+			//overlay system
 			m_overlaySystem = m_context->getOverlaySystem();
 			m_sceneManager->addRenderQueueListener(m_overlaySystem);
-			auto overlayManager = Ogre::OverlayManager::getSingletonPtr();
-			m_overlay = overlayManager->create("overlay");
 
 			//get render window
 			m_window = m_context->getRenderWindow();
@@ -106,6 +103,7 @@ namespace cave {
 			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
 		}
 		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().getByName(fontName, m_resourcesGroupName);
+		//fontPtr->setTrueTypeSize(50);
 		std::cout << "LOADING FONT" << std::endl;
 		try {
 			fontPtr->load();
@@ -237,7 +235,9 @@ namespace cave {
 	int Container::m_count = 0;
 	Container::Container() {
 		std::string containerName = "container" + std::to_string(m_count);
-		m_overlay = RenderingManager::m_overlay;
+		std::string overlayName = "overlay" + std::to_string(m_count);
+		auto overlayManager = Ogre::OverlayManager::getSingletonPtr();
+		m_overlay = overlayManager->create(overlayName);
 		m_count = m_count + 1;
 		m_containerName = containerName;
 		m_textElements = {};
@@ -258,9 +258,9 @@ namespace cave {
 	}
 
 	void Container::displayText(std::string& textElementName, std::string& caption) {
+		m_overlay->show();
 		auto textElement = m_textElements[textElementName];
 		textElement->setCaption(caption);
-		m_overlay->show();
 	}
 
 	void Container::hideText(std::string& textElementName) {
@@ -277,9 +277,11 @@ namespace cave {
 		m_textElements[textElementName] = textArea;
 	}
 
-	void Container::configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour) {
+	void Container::configureTextElement(std::string& textElementName, float fontSize, std::string fontName, Ogre::ColourValue colour) {
 		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementName];
+		std::cout << "text size: " << textElement->getCharHeight();
 		textElement->setCharHeight(fontSize);
+		std::cout << "text size: " << textElement->getCharHeight();
 		textElement->setFontName(fontName);
 		textElement->setColour(colour);
 	}
