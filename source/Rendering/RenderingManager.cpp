@@ -236,9 +236,11 @@ namespace cave {
 	Container::Container() {
 		std::string containerName = "container" + std::to_string(m_count);
 		std::string overlayName = "overlay" + std::to_string(m_count);
+		m_id = m_count;
 		auto overlayManager = Ogre::OverlayManager::getSingletonPtr();
 		m_overlay = overlayManager->create(overlayName);
 		m_count = m_count + 1;
+		std::cout << "CONTAINER COUNT: " << m_count;
 		m_containerName = containerName;
 		m_textElements = {};
 		m_overlayManager = Ogre::OverlayManager::getSingletonPtr();
@@ -259,26 +261,28 @@ namespace cave {
 
 	void Container::displayText(std::string& textElementName, std::string& caption) {
 		m_overlay->show();
-		auto textElement = m_textElements[textElementName];
+		std::string textElementNameWid = std::to_string(m_id) + "_" + textElementName;
+		auto textElement = m_textElements[textElementNameWid];
 		textElement->setCaption(caption);
 	}
 
-	void Container::hideText(std::string& textElementName) {
+	void Container::hideTextContainer() {
 		m_overlay->hide();
 	}
 
 	void Container::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {
-		
-		Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementName));
+		std::string textElementNameWid = std::to_string(m_id) + "_" + textElementName;
+		Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementNameWid));
 		textArea->setPosition(positionLeft, positionTop);
-		textArea->setDimensions(width, height);;
+		textArea->setDimensions(width, height);
 		textArea->setMetricsMode(Ogre::GMM_RELATIVE);
 		m_container->addChild(textArea);
-		m_textElements[textElementName] = textArea;
+		m_textElements[textElementNameWid] = textArea;		
 	}
 
 	void Container::configureTextElement(std::string& textElementName, float fontSize, std::string fontName, Ogre::ColourValue colour) {
-		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementName];
+		std::string textElementNameWid = std::to_string(m_id) + "_" + textElementName;
+		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementNameWid];
 		std::cout << "text size: " << textElement->getCharHeight();
 		textElement->setCharHeight(fontSize);
 		std::cout << "text size: " << textElement->getCharHeight();

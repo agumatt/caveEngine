@@ -4,7 +4,6 @@
 namespace cave {
 
 	TextComponent::TextComponent(float positionLeft, float positionTop, float width, float height) {
-		m_container = Container::Container();
 		m_container.configureContainer(positionLeft, positionTop, width, height);
 		m_initialized = false;
 	}
@@ -26,8 +25,8 @@ namespace cave {
 		m_container.displayText(textElementName, caption);
 	}
 
-	void TextComponent::hideText(std::string& textElementName) {
-		m_container.hideText(textElementName);
+	void TextComponent::hideTextContainer() {
+		m_container.hideTextContainer();
 	}
 
 }

@@ -59,11 +59,12 @@ namespace cave {
 		Ogre::Overlay* m_overlay;/**< overlay de ogre */
 		Ogre::OverlayContainer* m_container;/**<overlay container de ogre */
 		Ogre::OverlayManager* m_overlayManager;
+		int m_id;
 		std::map<std::string, Ogre::TextAreaOverlayElement*> m_textElements;/**< Mapa que asocia los textElements del overlay a un nombre unico */
 		
 		void displayText(std::string& textElementName, std::string& caption);
 
-		void hideText(std::string& textElementName);
+		void hideTextContainer();
 
 		void configureContainer(float positionLeft, float positionTop, float width, float height);/**<Configura tamanño y posicion del subcontenedor */
 

@@ -28,7 +28,7 @@ namespace cave {
 		
 		void displayText(std::string& textElementName, std::string& caption);
 
-		void hideText(std::string& textElementName);
+		void hideTextContainer();
 
 
 	};
