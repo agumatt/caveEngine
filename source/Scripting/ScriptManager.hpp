@@ -1,3 +1,6 @@
+#pragma once
+#ifndef SCRIPTMANAGER_HPP
+#define SCRIPTMANAGER_HPP
 #include <lua.hpp>
 #include <string>
 #include "../Core/Log.hpp"
@@ -11,6 +14,9 @@ namespace cave {
 		static lua_State* L;
 		static void processEventScript();
 		static void processInitEntitiesScript();
+		static void processLoadResourcesScript();
+		static void processConfigEntitiesScript();
+		static void StartUp();
 
 
 	};
@@ -19,3 +25,4 @@ namespace cave {
 
 }
 
+#endif

@@ -12,6 +12,7 @@ namespace cave {
 		RenderingManager::StartUp();
 		EntityComponentManager::StartUp();
 		AudioManager::StartUp();
+		ScriptManager::StartUp();
 		m_application.UserStartUp(*this);
 		
 	}

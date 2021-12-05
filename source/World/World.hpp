@@ -5,6 +5,7 @@
 #include "../Rendering/RenderingManager.hpp"
 #include "../EntityComponent/EntityComponentManager.hpp"
 #include "../Audio/AudioManager.hpp"
+#include "../Scripting/ScriptManager.hpp"
 
 #include <memory>
 #include <array>

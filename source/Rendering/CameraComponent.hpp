@@ -1,3 +1,6 @@
+#pragma once
+#ifndef CAMERACOMPONENT_HPP
+#define CAMERACOMPONENT_HPP
 #include "RenderingManager.hpp"
 
 namespace cave {
@@ -17,3 +20,5 @@ namespace cave {
 
 
 }
+
+#endif

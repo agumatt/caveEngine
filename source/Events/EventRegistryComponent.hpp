@@ -1,3 +1,6 @@
+#pragma once
+#ifndef EVENTMANAGER_HPP
+#define EVENTMANAGER_HPP
 #include "EventManager.hpp"
 
 namespace cave {

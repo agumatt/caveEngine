@@ -272,12 +272,14 @@ namespace cave {
 
 	void Container::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {
 		std::string textElementNameWid = std::to_string(m_id) + "_" + textElementName;
-		Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementNameWid));
-		textArea->setPosition(positionLeft, positionTop);
-		textArea->setDimensions(width, height);
-		textArea->setMetricsMode(Ogre::GMM_RELATIVE);
-		m_container->addChild(textArea);
-		m_textElements[textElementNameWid] = textArea;		
+		if (m_textElements.count(textElementNameWid) == 0) {
+			Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementNameWid));
+			textArea->setPosition(positionLeft, positionTop);
+			textArea->setDimensions(width, height);
+			textArea->setMetricsMode(Ogre::GMM_RELATIVE);
+			m_container->addChild(textArea);
+			m_textElements[textElementNameWid] = textArea;
+		}			
 	}
 
 	void Container::configureTextElement(std::string& textElementName, float fontSize, std::string fontName, Ogre::ColourValue colour) {

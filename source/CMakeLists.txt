@@ -3,7 +3,11 @@ set(CAVE_HEADERS
 				Rendering/RenderingManager.hpp
 				Rendering/SkeletalMeshComponent.hpp
 				Rendering/TextComponent.hpp
+				Rendering/CameraComponent.hpp
+				Scripting/ScriptManager.hpp
 				EntityComponent/EntityComponentManager.hpp
+				Events/EventManager.hpp
+				Events/EventRegistryComponent.hpp
 				Audio/AudioSourceComponent.hpp
 				Audio/AudioManager.hpp
 				World/World.hpp
@@ -14,7 +18,11 @@ set(CAVE_SOURCES
 				Rendering/RenderingManager.cpp
 				Rendering/SkeletalMeshComponent.cpp
 				Rendering/TextComponent.cpp
+				Rendering/CameraComponent.cpp
+				Scripting/ScriptManager.cpp
 				EntityComponent/EntityComponentManager.cpp
+				Events/EventRegistryComponent.cpp
+				Events/EventManager.cpp
 				Audio/AudioSourceComponent.cpp
 				Audio/AudioManager.cpp
 				World/World.cpp
