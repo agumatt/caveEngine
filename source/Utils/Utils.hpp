@@ -17,6 +17,8 @@ namespace cave {
 				this->y = y;
 				this->z = z;
 		}
+
+		caveVec3f() = default;
 	};
 
 	/**Cuaternion.
@@ -34,9 +36,11 @@ namespace cave {
 			this->y = y;
 			this->z = z;
 		}
+
+		caveQuat() = default;
 	};
 
-	/**Cuaternion.
+	/**Colur.
 *
 */
 	struct caveColour {
@@ -51,6 +55,8 @@ namespace cave {
 			this->b = b;
 			this->alpha = alpha;
 		}
+
+		caveColour() = default;
 	};
 
 

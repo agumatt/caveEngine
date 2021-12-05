@@ -7,7 +7,7 @@ namespace cave {
 		m_activeEvents = {};
 	}
 
-	EventManager::handleEvent(void (*callback)(), std::string eventName) {
+	void EventManager::handleScriptedEvent(std::string eventName) {
 
 
 	}

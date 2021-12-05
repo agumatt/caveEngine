@@ -10,9 +10,8 @@
 namespace cave {
 
 	class ScriptManager {
-
-		static lua_State* L;
-		static void processEventScript();
+	public: 
+		static void processEventsScript();
 		static void processInitEntitiesScript();
 		static void processLoadResourcesScript();
 		static void processConfigEntitiesScript();

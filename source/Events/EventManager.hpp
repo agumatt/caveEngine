@@ -14,7 +14,7 @@ namespace cave {
 		static void handleActiveEvents();
 
 	private:
-		void handleScriptedEvent(void (*callback)() , std::string eventName);
+		void handleScriptedEvent( std::string eventName);
 
 		
 
