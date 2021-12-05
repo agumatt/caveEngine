@@ -7,7 +7,7 @@ namespace cave {
 		m_initialized = false;
 	}
 	void SkeletalMeshComponent::setRotation(caveQuat rotation) {
-		m_model.setRotation(Ogre::Quaternion(rotation.fW, rotation.fX, rotation.fY, rotation.fZ));
+		m_model.setRotation(Ogre::Quaternion(rotation.w, rotation.x, rotation.y, rotation.z));
 	}
 	void SkeletalMeshComponent::setTranslation(caveVec3f translation) {
 		m_model.setTranslation(Ogre::Vector3(translation.x, translation.y, translation.z));

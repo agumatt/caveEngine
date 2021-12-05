@@ -9,7 +9,7 @@ namespace cave {
 		Example1() = default;
 		~Example1() = default;
 		virtual void UserStartUp(World& world) noexcept override {
-			RenderingManager::configureCamera(caveVec3f(0, 0, 80), caveVec3f(0, 0, -1), OgreBites::CameraStyle::CS_FREELOOK);
+			RenderingManager::configureCamera(caveVec3f(0, 0, 80), caveVec3f(0, 0, -1));
 			RenderingManager::loadResourcesFolder("Resources/Meshes");
 			RenderingManager::loadResourcesFolder("Resources/Fonts");
 			RenderingManager::loadFont("exFont", "DejaVuSerifCondensedItalic.ttf");

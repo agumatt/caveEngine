@@ -109,7 +109,7 @@ namespace cave {
 		/**Setea los valores de la camara
 		*
 		*/
-		static void configureCamera(caveVec3f position, caveVec3f lookAt, OgreBites::CameraStyle cameraStyle= OgreBites::CameraStyle::CS_ORBIT, float nearClipDistance=1, float farClipDistance=1000);
+		static void configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance=1, float farClipDistance=1000);
 
 		static void StartUp();/**< Inizializacion de elementos de la clase */
 

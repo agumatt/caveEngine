@@ -178,7 +178,7 @@ namespace cave {
 	}
 
 
-	void RenderingManager::configureCamera(caveVec3f position, caveVec3f lookAt, OgreBites::CameraStyle cameraStyle, float nearClipDistance, float farClipDistance) {
+	void RenderingManager::configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance, float farClipDistance) {
 		//config camera
 		Ogre::Vector3 ogrePos = Ogre::Vector3(position.x, position.y, position.z);
 		Ogre::Vector3 ogreLookAt = Ogre::Vector3(lookAt.x, lookAt.y, lookAt.z);
@@ -189,7 +189,7 @@ namespace cave {
 		m_cameraNode->lookAt(ogreLookAt, Ogre::Node::TS_PARENT);
 		//create cameraMan
 		OgreBites::CameraMan* cameraMan = new OgreBites::CameraMan(m_cameraNode);
-		cameraMan->setStyle(cameraStyle);
+		cameraMan->setStyle(OgreBites::CameraStyle::CS_FREELOOK);
 		cameraMan->setTopSpeed(60);
 		//cameraMan.setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.3), 15);
 		m_context->addInputListener(cameraMan);
