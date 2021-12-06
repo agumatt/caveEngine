@@ -17,23 +17,46 @@ namespace cave {
 				this->y = y;
 				this->z = z;
 		}
+
+		caveVec3f() = default;
 	};
 
 	/**Cuaternion.
 *
 */
 	struct caveQuat {
-		float fW;
-		float fX;
-		float fY;
-		float fZ;
+		float x;
+		float y;
+		float z;
+		float w;
 
-		caveQuat(float fW, float fX, float fY, float fZ) {
-			this->fW = fW;
-			this->fX = fX;
-			this->fY = fY;
-			this->fZ = fZ;
+		caveQuat(float x, float y, float z, float w) {
+			this->w = w;
+			this->x = x;
+			this->y = y;
+			this->z = z;
 		}
+
+		caveQuat() = default;
+	};
+
+	/**Colur.
+*
+*/
+	struct caveColour {
+		float r;
+		float g;
+		float b;
+		float alpha;
+
+		caveColour(float r=1.0f, float g=1.0f, float b=1.0f, float alpha=1.0f) {
+			this->r = r;
+			this->g = g;
+			this->b = b;
+			this->alpha = alpha;
+		}
+
+		caveColour() = default;
 	};
 
 

@@ -18,6 +18,7 @@
 #include "../Utils/Utils.hpp"
 #include <iostream>
 #include <map>
+#include "../Core/Log.hpp"
 
 namespace cave {
 
@@ -43,47 +44,35 @@ namespace cave {
 		void setParentNodeName(std::string parentNodeName);/**<Setea el nombre del nodo padre en el scene graph */
 		void setTransformInheritance(bool inheritScale, bool inheritRotation);/**<Setea si el nodo hereda las transformaciones nodo padre */
 
-		Model();
-		Model(std::string meshFileName, std::string nodeName,std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName = "RootSceneNode");
+		Model() = default;
+		Model(std::string meshFileName, std::string nodeName, std::string parentNodeName = "RootSceneNode");
 	};
 
-	/**Esta clase representa una fuente de texto.
-		*
-		*/
-	class Font {
-		public:
-		std::string m_fontName;/**<Nombre de la fuente */
-		std::string m_fontFileName;/**<Path de la fuente */
-		Ogre::FontType m_fontType;/**<Tipo de la fuente */
-		std::string m_groupName;/**< Nombre del grupo de recursos de Ogre al que estara asociada la fuente*/
-
-		Font(std::string fontName, std::string fontFileName, 
-			std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, Ogre::FontType fontType = Ogre::FT_TRUETYPE);
-		~Font();
-	};
 
 	/**Representa un plano contenedor sobre el que se dibujara texto.
 		*
 		*/
-	class Overlay {
+	class Container {
 	public:
-		std::string m_overlayName;/**<Nombre del overlay */
+		static int m_count;
 		std::string m_containerName;/**<Nombre del subcontenedor */
-		std::string m_type;
-		Ogre::OverlayManager* m_overlayManager;/**<Overlay manager de ogre */
 		Ogre::Overlay* m_overlay;/**< overlay de ogre */
 		Ogre::OverlayContainer* m_container;/**<overlay container de ogre */
+		Ogre::OverlayManager* m_overlayManager;
+		int m_id;
 		std::map<std::string, Ogre::TextAreaOverlayElement*> m_textElements;/**< Mapa que asocia los textElements del overlay a un nombre unico */
 		
-		
+		void displayText(std::string& textElementName, std::string& caption);
+
+		void hideTextContainer();
+
 		void configureContainer(float positionLeft, float positionTop, float width, float height);/**<Configura tamanño y posicion del subcontenedor */
 
 		void addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height);/**<Agrega elemento de texto al overlay */
 
-		void configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
+		void configureTextElement(std::string& textElementName, float fontSize, std::string fontName, Ogre::ColourValue colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
 
-		Overlay(std::string containerName, std::string overlayName = "overlay");
-		~Overlay();
+		Container();
 	};
 
 	/**Esta clase maneja el sistema de rendering del engine.
@@ -100,30 +89,35 @@ namespace cave {
 		static Ogre::Camera* m_camera; /**< Camara de ogre */
 		static Ogre::SceneNode* m_cameraNode; /**< Nodo asociado a la camara */
 		static OgreBites::ApplicationContext* m_context;/**< Contexto de ogre */
-		//Ogre::OverlaySystem* m_overlaySystem;
+		static Ogre::OverlaySystem* m_overlaySystem;
+		static std::string m_resourcesGroupName;
 
 		static caveVec3f getPlayerPosition();/**< Retorna la posicion del nodo que contiene la camara*/
 
-		static void loadResourcesFolder(std::string path, std::string resourcesGroupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);/**< Carga recursos de la carpeta especificada */
+		static void loadResourcesFolder(std::string path);/**< Carga recursos de la carpeta especificada */
 
 		static void addModelsToScene(std::vector<Model> &models);/**< Agrega modelos a la escena */
 
 		static void updateModelsInScene(std::vector<Model>& models);/**< Actualiza los modelos de la escena */
 
-		static void configureTextResources(std::vector<Font>& fonts); /**< Setea las propiedades de las fuentes de texto en Ogre */
+
+		/**Agrega una fuente de texto a Ogre 		
+		* 
+		*/
+		static void loadFont(std::string fontName, std::string fontFileName);
 
 		/**Setea los valores de la camara
 		*
 		*/
-		static void configureCamera(caveVec3f position, caveVec3f lookAt, OgreBites::CameraStyle cameraStyle= OgreBites::CameraStyle::CS_ORBIT, float nearClipDistance=1, float farClipDistance=1000);
+		static void configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance=1, float farClipDistance=1000);
+
+		static void setUpCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance = 1, float farClipDistance = 1000);
 
 		static void StartUp();/**< Inizializacion de elementos de la clase */
 
 		static bool keyPressed(const OgreBites::KeyboardEvent& evt);/**< Indica si una tecla fue presionada */
 
 		static void render(); /**< Renderiza la escena */
-
-		static void drawText(Overlay& overlay, std::string& textElementName, std::string& caption); /**< Muestra el texto caption indicado en la escena utilizando un contenedor*/
 		
 		RenderingManager();
 

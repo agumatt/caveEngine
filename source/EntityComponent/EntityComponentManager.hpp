@@ -4,8 +4,11 @@
 #include "../../thirdParty/entt/entt.hpp"
 #include <string>
 #include "../Rendering/RenderingManager.hpp"
+#include "../Rendering/CameraComponent.hpp"
 #include "../Rendering/SkeletalMeshComponent.hpp"
+#include "../Rendering/TextComponent.hpp"
 #include "../Audio/AudioSourceComponent.hpp"
+#include "../Events/EventRegistryComponent.hpp"
 
 namespace cave {
 	

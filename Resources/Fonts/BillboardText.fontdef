@@ -1,0 +1,7 @@
+font exFont
+{
+	type 		truetype
+	source 		DejaVuSerifCondensedItalic.ttf
+	size 		15
+	resolution 	180
+}

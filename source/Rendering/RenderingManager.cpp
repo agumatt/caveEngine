@@ -11,7 +11,8 @@ namespace cave {
 	Ogre::Camera* RenderingManager::m_camera;
 	Ogre::SceneNode* RenderingManager::m_cameraNode;
 	OgreBites::ApplicationContext* RenderingManager::m_context;
-
+	Ogre::OverlaySystem* RenderingManager::m_overlaySystem;
+	std::string RenderingManager::m_resourcesGroupName;
 
 	caveVec3f RenderingManager::getPlayerPosition() {
 		Ogre::Vector3 pos = m_cameraNode->_getDerivedPosition();
@@ -31,14 +32,15 @@ namespace cave {
 
 	RenderingManager::RenderingManager() {
 		m_context = new OgreBites::ApplicationContext("RenderingManager");
+		m_context->initApp();
 		m_window = nullptr;
 		m_viewport = nullptr;
 		m_root = nullptr;
 		m_sceneManager = nullptr;
 		m_cameraNode = nullptr;
 		m_camera = nullptr;
-		m_context->initApp();
-		//m_overlaySystem = nullptr;
+		m_overlaySystem = nullptr;
+		m_resourcesGroupName = "caveResourcesGroup";
 
 		// register for input events
 		m_context->addInputListener(this);
@@ -66,12 +68,12 @@ namespace cave {
 		m_cameraNode = m_sceneManager->getRootSceneNode()->createChildSceneNode();
 		m_cameraNode->attachObject(m_camera);
 
-		//overlay
-		//Ogre::OverlaySystem* m_overlaySystem = new Ogre::OverlaySystem();
-		//m_sceneManager->addRenderQueueListener(m_overlaySystem);
 
 		try {
-			std::cout << "RenderingManager startUp init.";
+			//overlay system
+			m_overlaySystem = m_context->getOverlaySystem();
+			m_sceneManager->addRenderQueueListener(m_overlaySystem);
+
 			//get render window
 			m_window = m_context->getRenderWindow();
 
@@ -80,8 +82,6 @@ namespace cave {
 			m_viewport->setClearEveryFrame(true);
 			//set lighting
 			m_sceneManager->setAmbientLight(Ogre::ColourValue::White);
-
-			std::cout << "RenderingManager startUp finished.";
 		}
 		catch(Ogre::Exception& ex){
 			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
@@ -89,29 +89,37 @@ namespace cave {
 	}
 
 
-	void RenderingManager::loadResourcesFolder(std::string path, std::string resourcesGroupName) {
-
-		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, "FileSystem", resourcesGroupName);
-		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(resourcesGroupName);
-		Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(resourcesGroupName);
-
-
+	void RenderingManager::loadResourcesFolder(std::string path) {
+		Ogre::ResourceGroupManager::getSingletonPtr()->addResourceLocation(path, "FileSystem", m_resourcesGroupName);
 	}
 
-	void RenderingManager::configureTextResources(std::vector<Font>& fonts) {
-		for (unsigned int i = 0; i < fonts.size(); i = i + 1) {
-			Font font = fonts[i];
-			Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().create(font.m_fontName, font.m_groupName);
-			fontPtr->setType(font.m_fontType);
-			fontPtr->setSource(font.m_fontFileName);		
-		}	
-	};
+	void RenderingManager::loadFont(std::string fontName, std::string fontFileName) {
+		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
+		try {
+			Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
+		}
+		catch (Ogre::Exception& ex) {
+			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
+		}
+		Ogre::FontPtr fontPtr = Ogre::FontManager::getSingleton().getByName(fontName, m_resourcesGroupName);
+		//fontPtr->setTrueTypeSize(50);
+		std::cout << "LOADING FONT" << std::endl;
+		try {
+			fontPtr->load();
+		}
+		catch (Ogre::Exception& ex) {
+			std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
+		}
+		std::cout << "FONT LOADED" << std::endl;
+	}
+
 
 	void RenderingManager::addModelsToScene(std::vector<Model> &models) {
 		for (unsigned int i = 0; i < models.size(); i = i + 1) {
 			Model model = models[i];
+			Ogre::ResourceGroupManager::getSingletonPtr()->declareResource(model.m_meshFileName, "Mesh", m_resourcesGroupName);
+			Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
 			std::cout << "Cargando modelo: " << model.m_meshFileName;
-			std::cout << "Nodo padre: " << model.m_parentNodeName;
 			Ogre::SceneNode* parentNode = NULL;
 			if (model.m_parentNodeName == "RootSceneNode") {
 				parentNode = m_sceneManager->getRootSceneNode();
@@ -133,7 +141,6 @@ namespace cave {
 			newNode->setInheritScale(model.m_inheritScale);
 			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshFileName);
 			newNode->attachObject(newEntity);
-
 		}
 	}
 
@@ -161,20 +168,13 @@ namespace cave {
 
 	}
 
-	void RenderingManager::drawText(Overlay& overlay, std::string& textElementName, std::string& caption) {
-		auto textElement = overlay.m_textElements[textElementName];
-		textElement->setCaption(caption);
-		overlay.m_overlay->show();
-	}
-
 	
 	void RenderingManager::render() {
 		m_root->renderOneFrame();
 		Ogre::WindowEventUtilities::messagePump();
 	}
 
-
-	void RenderingManager::configureCamera(caveVec3f position, caveVec3f lookAt, OgreBites::CameraStyle cameraStyle, float nearClipDistance, float farClipDistance) {
+	void RenderingManager::setUpCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance, float farClipDistance) {
 		//config camera
 		Ogre::Vector3 ogrePos = Ogre::Vector3(position.x, position.y, position.z);
 		Ogre::Vector3 ogreLookAt = Ogre::Vector3(lookAt.x, lookAt.y, lookAt.z);
@@ -185,18 +185,27 @@ namespace cave {
 		m_cameraNode->lookAt(ogreLookAt, Ogre::Node::TS_PARENT);
 		//create cameraMan
 		OgreBites::CameraMan* cameraMan = new OgreBites::CameraMan(m_cameraNode);
-		cameraMan->setStyle(cameraStyle);
+		cameraMan->setStyle(OgreBites::CameraStyle::CS_FREELOOK);
 		cameraMan->setTopSpeed(60);
-		//cameraMan.setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.3), 15);
 		m_context->addInputListener(cameraMan);
 	}
-	
-	
+
+	void RenderingManager::configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance, float farClipDistance) {
+		//config camera
+		Ogre::Vector3 ogrePos = Ogre::Vector3(position.x, position.y, position.z);
+		Ogre::Vector3 ogreLookAt = Ogre::Vector3(lookAt.x, lookAt.y, lookAt.z);
+		m_camera->setAutoAspectRatio(true);
+		m_camera->setNearClipDistance(nearClipDistance);
+		m_camera->setFarClipDistance(farClipDistance);
+		m_cameraNode->setPosition(ogrePos);
+		m_cameraNode->lookAt(ogreLookAt, Ogre::Node::TS_PARENT);
+	}
+
 	//Model
 
-	Model::Model(std::string meshFileName, std::string nodeName, std::string groupName, std::string parentNodeName) {
+	Model::Model(std::string meshFileName, std::string nodeName, std::string parentNodeName) {
 		m_meshFileName = meshFileName;
-		m_groupName = groupName;
+		m_groupName = RenderingManager::m_resourcesGroupName;
 		m_nodeName = nodeName;
 		m_parentNodeName = parentNodeName;
 		m_rotation = Ogre::Quaternion::IDENTITY;
@@ -204,9 +213,6 @@ namespace cave {
 		m_scaling = Ogre::Vector3(1, 1, 1);
 		m_inheritScale = false;
 		m_inheritRotation = false;
-	}
-	Model::Model() {
-
 	}
 
 	void Model::setRotation(Ogre::Quaternion rotation) {
@@ -227,48 +233,64 @@ namespace cave {
 		m_inheritRotation = inheritRotation;
 	}
 
-	//Font
-	Font::Font(std::string fontName, std::string fontFileName, std::string groupName, Ogre::FontType fontType) {
-		m_fontName = fontName;
-		m_fontFileName = fontFileName;
-		m_groupName = groupName;
-		m_fontType = fontType;
-	}
-	Font::~Font() {	}
-
-	//Overlay
-	Overlay::Overlay(std::string containerName, std::string overlayName) {
-		m_overlayName= overlayName;
+	//Container
+	int Container::m_count = 0;
+	Container::Container() {
+		std::string containerName = "container" + std::to_string(m_count);
+		std::string overlayName = "overlay" + std::to_string(m_count);
+		m_id = m_count;
+		auto overlayManager = Ogre::OverlayManager::getSingletonPtr();
+		m_overlay = overlayManager->create(overlayName);
+		m_count = m_count + 1;
 		m_containerName = containerName;
 		m_textElements = {};
 		m_overlayManager = Ogre::OverlayManager::getSingletonPtr();
-		m_overlay = m_overlayManager->create(m_overlayName);
 		m_container = static_cast<Ogre::OverlayContainer*>(
 			m_overlayManager->createOverlayElement("Panel", m_containerName)
 			);
 		m_container->setMetricsMode(Ogre::GMM_RELATIVE);
+		m_container->setPosition(0, 0);
+		m_container->setDimensions(1.0f, 1.0f);
 		m_overlay->add2D(m_container);
 		
 	}
 
-	void Overlay::configureContainer(float positionLeft, float positionTop, float width, float height) {
+	void Container::configureContainer(float positionLeft, float positionTop, float width, float height) {
 		m_container->setPosition(positionLeft, positionTop);
 		m_container->setDimensions(width, height);
 	}
 
-	void Overlay::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {
-		
-		Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementName));
-		textArea->setPosition(positionLeft, positionTop);
-		textArea->setDimensions(width, height);;
-		m_container->addChild(textArea);
-		m_textElements[textElementName] = textArea;
+	void Container::displayText(std::string& textElementName, std::string& caption) {
+		m_overlay->show();
+		std::string textElementNameWid = std::to_string(m_id) + "_" + textElementName;
+		auto textElement = m_textElements[textElementNameWid];
+		textElement->setCaption(caption);
 	}
 
-	void Overlay::configureTextElement(std::string& textElementName, int fontSize, std::string fontName, Ogre::ColourValue colour) {
-		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementName];
+	void Container::hideTextContainer() {
+		m_overlay->hide();
+	}
+
+	void Container::addTextElement(std::string& textElementName, float positionLeft, float positionTop, float width, float height) {
+		std::string textElementNameWid = std::to_string(m_id) + "_" + textElementName;
+		if (m_textElements.count(textElementNameWid) == 0) {
+			Ogre::TextAreaOverlayElement* textArea = static_cast<Ogre::TextAreaOverlayElement*> (m_overlayManager->createOverlayElement("TextArea", textElementNameWid));
+			textArea->setPosition(positionLeft, positionTop);
+			textArea->setDimensions(width, height);
+			textArea->setMetricsMode(Ogre::GMM_RELATIVE);
+			m_container->addChild(textArea);
+			m_textElements[textElementNameWid] = textArea;
+		}			
+	}
+
+	void Container::configureTextElement(std::string& textElementName, float fontSize, std::string fontName, Ogre::ColourValue colour) {
+		std::string textElementNameWid = std::to_string(m_id) + "_" + textElementName;
+		Ogre::TextAreaOverlayElement* textElement = m_textElements[textElementNameWid];
+		std::cout << "text size: " << textElement->getCharHeight();
 		textElement->setCharHeight(fontSize);
+		std::cout << "text size: " << textElement->getCharHeight();
 		textElement->setFontName(fontName);
+		textElement->setColour(colour);
 	}
 
 
