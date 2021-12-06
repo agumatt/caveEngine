@@ -44,7 +44,7 @@ namespace cave {
 		void setParentNodeName(std::string parentNodeName);/**<Setea el nombre del nodo padre en el scene graph */
 		void setTransformInheritance(bool inheritScale, bool inheritRotation);/**<Setea si el nodo hereda las transformaciones nodo padre */
 
-		Model();
+		Model() = default;
 		Model(std::string meshFileName, std::string nodeName, std::string parentNodeName = "RootSceneNode");
 	};
 

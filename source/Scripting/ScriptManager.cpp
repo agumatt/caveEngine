@@ -252,7 +252,7 @@ namespace cave {
 						if (lua_istable(L, -1)) {
 							if (!addedCameraComponent) {
 								float defaultNearClipDistance = 1.0f;
-								float defaultFarClipDistance = 1.0f;
+								float defaultFarClipDistance = 1000.0f;
 								caveVec3f camPosition = getFieldVector("position", &caveVec3f(0.0f, 0.0f, 0.0f));
 								caveVec3f camLookAt = getFieldVector("lookAt");
 								float camNearClipDistance = getFieldNumber("nearClipDistance", &defaultNearClipDistance);
@@ -320,7 +320,6 @@ namespace cave {
 							while (!loadedAllTextElements) {
 								lua_geti(L, -1, textElementIndex);
 								if (lua_istable(L, -1)) {
-									textElementIndex += 1;
 									std::string textElementName = getFieldString("name");
 									float textElPositionLeft = getFieldNumber("positionLeft");
 									float textElPositionTop = getFieldNumber("positionTop");
@@ -334,7 +333,11 @@ namespace cave {
 									text.configureTextElement(textElementName, textElFontSize, textElFontName, textElTextColour);
 									text.displayText(textElementName, caption);
 								}
+								else {
+									loadedAllTextElements = true;
+								}
 								lua_pop(L, 1); // remove textElement from stack
+								textElementIndex += 1;
 							}
 						}
 						lua_pop(L, 1); // remove component from stack
@@ -344,7 +347,6 @@ namespace cave {
 						if (lua_istable(L, -1)) {
 							AudioSourceComponent& audio = EntityComponentManager::getComponent<AudioSourceComponent>(entityName);
 							std::string audioClipName = getFieldString("audioClipName");
-							std::cout << "AUDIOCLINNAME: " << audioClipName << std::endl;
 							audio.play(audioClipName);
 						}
 						lua_pop(L, 1); // remove component from stack

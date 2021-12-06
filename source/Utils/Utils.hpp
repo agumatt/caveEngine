@@ -25,12 +25,12 @@ namespace cave {
 *
 */
 	struct caveQuat {
-		float w;
 		float x;
 		float y;
 		float z;
+		float w;
 
-		caveQuat(float w, float x, float y, float z) {
+		caveQuat(float x, float y, float z, float w) {
 			this->w = w;
 			this->x = x;
 			this->y = y;

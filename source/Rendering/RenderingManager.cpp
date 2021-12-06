@@ -120,7 +120,6 @@ namespace cave {
 			Ogre::ResourceGroupManager::getSingletonPtr()->declareResource(model.m_meshFileName, "Mesh", m_resourcesGroupName);
 			Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
 			std::cout << "Cargando modelo: " << model.m_meshFileName;
-			std::cout << "Nodo padre: " << model.m_parentNodeName;
 			Ogre::SceneNode* parentNode = NULL;
 			if (model.m_parentNodeName == "RootSceneNode") {
 				parentNode = m_sceneManager->getRootSceneNode();
@@ -215,9 +214,6 @@ namespace cave {
 		m_inheritScale = false;
 		m_inheritRotation = false;
 	}
-	Model::Model() {
-
-	}
 
 	void Model::setRotation(Ogre::Quaternion rotation) {
 		m_rotation = rotation;
@@ -246,7 +242,6 @@ namespace cave {
 		auto overlayManager = Ogre::OverlayManager::getSingletonPtr();
 		m_overlay = overlayManager->create(overlayName);
 		m_count = m_count + 1;
-		std::cout << "CONTAINER COUNT: " << m_count;
 		m_containerName = containerName;
 		m_textElements = {};
 		m_overlayManager = Ogre::OverlayManager::getSingletonPtr();
