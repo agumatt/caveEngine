@@ -2,10 +2,9 @@
 #ifndef SCRIPTMANAGER_HPP
 #define SCRIPTMANAGER_HPP
 #include <lua.hpp>
-#include <string>
 #include "../Core/Log.hpp"
-#include <iostream>
 #include "../Utils/Utils.hpp"
+#include "../Utils/LibUtils.hpp"
 #include "../EntityComponent/EntityComponentManager.hpp"
 namespace cave {
 

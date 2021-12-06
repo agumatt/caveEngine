@@ -15,9 +15,8 @@
 #include <OgreOverlaySystem.h>
 #include <OgreOverlayElement.h>
 #include <OgreTextAreaOverlayElement.h>
+#include "../Utils/LibUtils.hpp"
 #include "../Utils/Utils.hpp"
-#include <iostream>
-#include <map>
 #include "../Core/Log.hpp"
 
 namespace cave {

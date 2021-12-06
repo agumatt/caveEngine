@@ -9,6 +9,7 @@ namespace cave {
 		Example1() = default;
 		~Example1() = default;
 		virtual void UserStartUp(World& world) noexcept override {
+
 		}
 
 		virtual void UserShutDown(World& world) noexcept override {

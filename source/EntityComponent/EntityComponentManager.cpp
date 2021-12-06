@@ -43,4 +43,14 @@ namespace cave {
 		m_entities.erase(entityName);
 	}
 
+	std::string EntityComponentManager::getEntityName(entt::entity entity) {
+		for (auto const& [key, val] : m_entities)
+		{
+			if (m_entities[key] == entity) {
+				return key;
+			}
+		}
+		std::cerr << "No existe un nombre asociado a la entidad"<<std::endl;
+	}
+
 }

@@ -1,6 +1,5 @@
 #include "EventManager.hpp"
 
-
 namespace cave {
 
 	EventManager::EventManager() {

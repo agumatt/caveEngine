@@ -39,7 +39,8 @@ namespace cave {
 	{
 		//para lo que envía el usuario y lo que debe hacer el motor en cada ciclo
 		RenderingManager::render();
-		AudioManager::updateListenerData();
+		AudioManager::updateListenerData();		
+		
 	}
 
 

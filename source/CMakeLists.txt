@@ -8,10 +8,12 @@ set(CAVE_HEADERS
 				EntityComponent/EntityComponentManager.hpp
 				Events/EventManager.hpp
 				Events/EventRegistryComponent.hpp
+				Events/EventUtils.hpp
 				Audio/AudioSourceComponent.hpp
 				Audio/AudioManager.hpp
 				World/World.hpp
 				Utils/Utils.hpp
+				Utils/LibUtils.hpp
 				Engine.hpp
 				Application.hpp)
 set(CAVE_SOURCES 

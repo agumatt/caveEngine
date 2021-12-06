@@ -1,14 +1,12 @@
 #pragma once
 #ifndef ENTITYCOMPONENTMANAGER_HPP
 #define ENTITYCOMPONENTMANAGER_HPP
-#include "../../thirdParty/entt/entt.hpp"
-#include <string>
-#include "../Rendering/RenderingManager.hpp"
 #include "../Rendering/CameraComponent.hpp"
 #include "../Rendering/SkeletalMeshComponent.hpp"
 #include "../Rendering/TextComponent.hpp"
 #include "../Audio/AudioSourceComponent.hpp"
 #include "../Events/EventRegistryComponent.hpp"
+#include "../../thirdParty/entt/entt.hpp"
 
 namespace cave {
 	
@@ -55,6 +53,7 @@ namespace cave {
 
 		static void deleteEntity(std::string entityName); /**< Elimina una entidad*/
 
+		static std::string getEntityName(entt::entity entity); /**< Retorna el nombre asociado a la entidad*/
 	};
 
 

@@ -6,6 +6,7 @@
 #include "../EntityComponent/EntityComponentManager.hpp"
 #include "../Audio/AudioManager.hpp"
 #include "../Scripting/ScriptManager.hpp"
+#include "../Events/EventUtils.hpp"
 
 #include <memory>
 #include <array>

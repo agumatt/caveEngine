@@ -1,6 +1,8 @@
-#include <string>
-#include <vector>
-#include <map>
+#pragma once
+#ifndef EVENTMANAGER_HPP
+#define EVENTMANAGER_HPP
+#include "../Utils/LibUtils.hpp"
+
 
 namespace cave {
 
@@ -13,12 +15,14 @@ namespace cave {
 		EventManager();
 		static void handleActiveEvents();
 
+
 	private:
 		void handleScriptedEvent( std::string eventName);
 
-		
 
 	};
 
 
 }
+
+#endif
