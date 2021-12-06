@@ -32,9 +32,7 @@ namespace cave {
 			startTime = newTime;
 			float timeStep = std::chrono::duration_cast<std::chrono::duration<float>>(frameTime).count();
 			Update(timeStep);
-		}
-		//m_eventManager.Publish(ApplicationEndEvent());
-		
+		}		
 	}
 
 	void World::Update(float timeStep) noexcept

@@ -8,7 +8,7 @@ Audio = {}
 Fonts = {}
 ResourcesFolders = {}
 
-Audio[0] = {audioFilePath = "Resources/Audio/survival.wav", uniqueName ="survival"};
-ResourcesFolders[0] = {folderPath = "Resources/Fonts"}
-ResourcesFolders[1] = {folderPath = "Resources/Meshes"}
-Fonts[0] = {fontFileName = "DejaVuSerifCondensedItalic.ttf", uniqueName ="exFont"};
+Audio[1] = {audioFilePath = "Resources/Audio/survival.wav", uniqueName ="survival"};
+ResourcesFolders[1] = {folderPath = "Resources/Fonts"}
+ResourcesFolders[2] = {folderPath = "Resources/Meshes"}
+Fonts[1] = {fontFileName = "DejaVuSerifCondensedItalic.ttf", uniqueName ="exFont"};

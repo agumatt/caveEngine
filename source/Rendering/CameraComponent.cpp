@@ -12,7 +12,7 @@ namespace cave {
 		m_lookAt = lookAt;
 		m_nearClipDistance = nearClipDistance;
 		m_farClipDistance = farClipDistance;
-		RenderingManager::configureCamera(position, lookAt, nearClipDistance, farClipDistance);
+		RenderingManager::setUpCamera(position, lookAt, nearClipDistance, farClipDistance);
 
 	}
 

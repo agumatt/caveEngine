@@ -111,6 +111,8 @@ namespace cave {
 		*/
 		static void configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance=1, float farClipDistance=1000);
 
+		static void setUpCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance = 1, float farClipDistance = 1000);
+
 		static void StartUp();/**< Inizializacion de elementos de la clase */
 
 		static bool keyPressed(const OgreBites::KeyboardEvent& evt);/**< Indica si una tecla fue presionada */

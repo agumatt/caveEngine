@@ -7,21 +7,22 @@
 -- EventRegistryComponent = {}
 
 
-Entities = {}
+Entities = {{},{},{}}
 
-Entities[0]["name"] = "player"
-Entities[0]["CameraComponent"] = {position={x=0, y=0, z=80}, lookAt={x=0, y=0, z=-1}}
-Entities[0]["TextComponent"] = {positionLeft= 0, positionTop=0, width =1, height = 1}
-Entities[0]["AudioSourceComponent"] = {volume= 0 , pitch=1, radius=100}
-Entities[0]["EventRegistryComponent"] = {}
-
-Entities[1]["name"] = "sinbad1"
-Entities[1]["SkeletalMeshComponent"] = {meshFileName= "exSinbad.mesh", nodeName="sinbad1", translation={x=0,y=0,z=0}, rotation={x=0f,y=0,z=0,w=1}, scaling={x=5,y=5,z=5} }
+Entities[1]["name"] = "player"
+Entities[1]["CameraComponent"] = {position={x=0, y=0, z=80}, lookAt={x=0, y=0, z=-1}}
 Entities[1]["TextComponent"] = {positionLeft= 0, positionTop=0, width =1, height = 1}
-Entities[1]["AudioSourceComponent"] = {volume= 0 , pitch=1, radius=100}
+Entities[1]["AudioSourceComponent"] = {volume= 0.3 , pitch=1, radius=100}
 Entities[1]["EventRegistryComponent"] = {}
 
-Entities[2]["name"] = "sinbad2"
-Entities[2]["SkeletalMeshComponent"] = {meshFileName= "exSinbad.mesh", nodeName="sinbad2", translation={x=5,y=15,z=0}}
-Entities[2]["AudioSourceComponent"] = {volume= 0 , pitch=1, radius=100}
+Entities[2]["name"] = "sinbad1"
+Entities[2]["SkeletalMeshComponent"] = {meshFileName= "exSinbad.mesh", nodeName="sinbad1", 
+translation={x=0,y=0,z=0}, rotation={x=0,y=0,z=0,w=1}, scaling={x=5,y=5,z=5} }
+Entities[2]["TextComponent"] = {positionLeft= 0, positionTop=0, width =1, height = 1}
+Entities[2]["AudioSourceComponent"] = {volume= 0.3 , pitch=1, radius=100}
 Entities[2]["EventRegistryComponent"] = {}
+
+Entities[3]["name"] = "sinbad2"
+Entities[3]["SkeletalMeshComponent"] = {meshFileName= "exSinbad.mesh", nodeName="sinbad2", translation={x=5,y=15,z=0}}
+Entities[3]["AudioSourceComponent"] = {volume= 0.3 , pitch=1, radius=100}
+Entities[3]["EventRegistryComponent"] = {}

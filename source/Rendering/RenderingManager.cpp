@@ -95,7 +95,6 @@ namespace cave {
 
 	void RenderingManager::loadFont(std::string fontName, std::string fontFileName) {
 		Ogre::ResourceGroupManager::getSingletonPtr()->initialiseResourceGroup(m_resourcesGroupName);
-		std::cout << "HOLA1" << std::endl;
 		try {
 			Ogre::ResourceGroupManager::getSingletonPtr()->loadResourceGroup(m_resourcesGroupName);
 		}
@@ -143,7 +142,6 @@ namespace cave {
 			newNode->setInheritScale(model.m_inheritScale);
 			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshFileName);
 			newNode->attachObject(newEntity);
-
 		}
 	}
 
@@ -177,8 +175,7 @@ namespace cave {
 		Ogre::WindowEventUtilities::messagePump();
 	}
 
-
-	void RenderingManager::configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance, float farClipDistance) {
+	void RenderingManager::setUpCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance, float farClipDistance) {
 		//config camera
 		Ogre::Vector3 ogrePos = Ogre::Vector3(position.x, position.y, position.z);
 		Ogre::Vector3 ogreLookAt = Ogre::Vector3(lookAt.x, lookAt.y, lookAt.z);
@@ -191,11 +188,20 @@ namespace cave {
 		OgreBites::CameraMan* cameraMan = new OgreBites::CameraMan(m_cameraNode);
 		cameraMan->setStyle(OgreBites::CameraStyle::CS_FREELOOK);
 		cameraMan->setTopSpeed(60);
-		//cameraMan.setYawPitchDist(Ogre::Radian(0), Ogre::Radian(0.3), 15);
 		m_context->addInputListener(cameraMan);
 	}
-	
-	
+
+	void RenderingManager::configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance, float farClipDistance) {
+		//config camera
+		Ogre::Vector3 ogrePos = Ogre::Vector3(position.x, position.y, position.z);
+		Ogre::Vector3 ogreLookAt = Ogre::Vector3(lookAt.x, lookAt.y, lookAt.z);
+		m_camera->setAutoAspectRatio(true);
+		m_camera->setNearClipDistance(nearClipDistance);
+		m_camera->setFarClipDistance(farClipDistance);
+		m_cameraNode->setPosition(ogrePos);
+		m_cameraNode->lookAt(ogreLookAt, Ogre::Node::TS_PARENT);
+	}
+
 	//Model
 
 	Model::Model(std::string meshFileName, std::string nodeName, std::string parentNodeName) {
