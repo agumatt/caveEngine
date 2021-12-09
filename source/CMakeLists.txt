@@ -5,6 +5,7 @@ set(CAVE_HEADERS
 				Rendering/TextComponent.hpp
 				Rendering/CameraComponent.hpp
 				Scripting/ScriptManager.hpp
+				Scripting/EventUtilsScripts.hpp
 				EntityComponent/EntityComponentManager.hpp
 				Events/EventManager.hpp
 				Events/EventRegistryComponent.hpp

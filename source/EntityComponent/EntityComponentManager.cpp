@@ -27,13 +27,27 @@ namespace cave {
 		}
 	}
 
-	void EntityComponentManager::updateEntities() {
+	void EntityComponentManager::updateEntities(float timeStep) {
 		// SkeletalMeshComponents
 		auto skeletalMeshEntitiesView = getEntityView<SkeletalMeshComponent>();
 		for (auto entity : skeletalMeshEntitiesView) {
 			SkeletalMeshComponent& skeletalMeshComponent = skeletalMeshEntitiesView.get<SkeletalMeshComponent>(entity);
 			std::vector<Model> models = { skeletalMeshComponent.m_model };
+			if (skeletalMeshComponent.m_moving) {
+				caveVec3f dir = skeletalMeshComponent.m_movementDirection;
+				float speed = skeletalMeshComponent.m_speed;
+				caveVec3f velocity = caveVec3f(speed * dir.x, speed * dir.y, speed * dir.z);
+				skeletalMeshComponent.moveMesh(velocity, timeStep);
+			}
 			RenderingManager::updateModelsInScene(models);
+			bool hasAudio = m_Registry.all_of<AudioSourceComponent>(entity);
+			if (hasAudio) {
+				AudioSourceComponent& audioSourceComponent = m_Registry.get<AudioSourceComponent>(entity);
+				Ogre::SceneNode* node = RenderingManager::m_sceneManager->getSceneNode(skeletalMeshComponent.m_model.m_nodeName);
+				Ogre::Vector3f ogrePos = node->_getDerivedPosition();
+				audioSourceComponent.setPosition(caveVec3f(ogrePos.x, ogrePos.y, ogrePos.z));
+			}		
+			
 		}
 	}
 

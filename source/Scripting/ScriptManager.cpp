@@ -364,10 +364,218 @@ namespace cave {
 
 	}
 
+
+
 	
 
 	void ScriptManager::processEventsScript() {
 		lua_settop(L, 0);
+		if (CheckLua(L, luaL_dofile(L, "Scripts/EventsScript.lua"))) {
+			lua_getglobal(L, "Events");
+			bool loadedAllEvents = false;
+			int eventIndex = 1;
+			if (lua_istable(L, -1)) {
+				while (!loadedAllEvents) {
+					lua_geti(L, -1, eventIndex);
+					if (lua_istable(L, -1)) {
+						std::string eventName = getFieldString("name");
+						float defaultTimeOut = 0.0f;
+						float eventTimeOut = getFieldNumber("timeOut", &defaultTimeOut);
+						EventManager::m_eventTimeOuts.emplace(std::make_pair(eventName, eventTimeOut));
+						EventManager::m_eventElapsedTime.emplace(std::make_pair(eventName, eventTimeOut));
+
+					}
+					else {
+						loadedAllEvents = true;
+					}
+					lua_pop(L, 1); // remove event from stack
+					eventIndex += 1;
+				}
+			}
+			lua_pop(L, 1); // remove table from stack
+
+			lua_getglobal(L, "EventsPerEntity");
+			if (lua_istable(L, -1)) {
+				lua_pushnil(L);  // first key
+				while (lua_next(L, -1) != 0)
+				{
+					// uses 'key' (at index -2) and 'value' (at index -1)
+					std::string entityName = lua_tostring(L, -2);
+					auto evRegComp = EntityComponentManager::getComponent<EventRegistryComponent>(entityName);
+					// get events
+					if (lua_istable(L, -1)) {
+						lua_pushnil(L);  // first key
+						while (lua_next(L, -1) != 0) {
+							std::string eventToAdd = lua_tostring(L, -1);
+							evRegComp.addEvent(eventToAdd);
+							// removes 'value'; keeps 'key' for next iteration
+							lua_pop(L, 1);
+						}
+					}
+					// removes 'value'; keeps 'key' for next iteration
+					lua_pop(L, 1);
+				}				
+			}
+			lua_pop(L, 1); // remove table from stack
+
+			lua_getglobal(L, "EventTriggers");
+			if (lua_istable(L, -1)) {
+				lua_pushnil(L);  // first key
+				while (lua_next(L, -1) != 0)
+				{
+					// uses 'key' (at index -2) and 'value' (at index -1)
+					if (lua_istable(L, -1)) { // iterar sobre eventos
+						std::string eventName = lua_tostring(L, -2);
+						lua_pushnil(L);  // first key
+						while (lua_next(L, -1) != 0) {  // iterar sobre triggers
+							if (lua_isfunction(L, -1)) {
+								std::function<std::vector<std::string>()> trigger = [&]() -> std::vector<std::string> {
+									std::vector<std::string> triggerEntities = {};
+									if (CheckLua(L, lua_pcall(L, 0, 1, 0))) {
+										if (lua_istable(L, -1)) {
+											lua_pushnil(L);  // first key
+											while (lua_next(L, -1) != 0) {
+												std::string triggerEntity = lua_tostring(L, -1);
+												triggerEntities.push_back(triggerEntity);
+												// removes 'value'; keeps 'key' for next iteration
+												lua_pop(L, 1);
+											}
+										}
+									}
+									else {
+										std::cerr << "Error al crear la funcion trigger" << std::endl;
+									}
+									return triggerEntities;
+								};
+								if (EventManager::m_eventTriggers.find(eventName) == EventManager::m_eventTriggers.end()) {
+									EventManager::m_eventTriggers[eventName] = { trigger };
+								}
+								else {
+									EventManager::m_eventTriggers[eventName].push_back(trigger);
+								}
+							}
+							// removes 'value'; keeps 'key' for next iteration
+							lua_pop(L, 1);
+						}
+					}
+					
+					// removes 'value'; keeps 'key' for next iteration
+					lua_pop(L, 1);
+				}
+			}
+			lua_pop(L, 1); // remove table from stack
+
+
+			lua_getglobal(L, "EventReactions");
+			if (lua_istable(L, -1)) {
+				lua_pushnil(L);  // first key
+				while (lua_next(L, -1) != 0) // iterate over events
+				{	
+
+					std::string eventName = lua_tostring(L, -2);
+					std::vector<std::string> affectedEntities = {};
+					// affected entities
+					lua_getfield(L, -1, "targetEntitiesByName");
+					if (lua_istable(L, -1)) {
+						lua_pushnil(L);
+						while (lua_next(L, -1) != 0) { // iterate over target entities
+							affectedEntities.push_back(std::string(lua_tostring(L, -1)));
+							// removes 'value'; keeps 'key' for next iteration
+							lua_pop(L, 1);
+						}
+					}
+					lua_pop(L, 1); // remove table from stack
+					
+					// affect trigger entity
+					bool defaultAffectTriggerEntity = false;
+					bool affectTriggerEntity = getFieldBoolean("affectTriggerEntity", &defaultAffectTriggerEntity);
+
+					// callback
+					lua_getfield(L, -1, "callback");
+					if (lua_isfunction(L, -1)) {
+						std::function<void(std::string)> callback = [](std::string triggerEntity) {
+							lua_pushstring(L, triggerEntity.c_str());
+							if (CheckLua(L, lua_pcall(L, 1, 0, 0))) {
+							}
+							else {
+								std::cerr << "Error al crear la funcion de callback" << std::endl;
+							}
+
+						};
+						if (EventManager::m_eventCallbacks.find(eventName) == EventManager::m_eventCallbacks.end()) {
+							EventManager::m_eventCallbacks[eventName] = { callback };
+						}
+						else {
+							EventManager::m_eventCallbacks[eventName].push_back(callback);
+						}		
+					}
+					lua_pop(L, -1); // remove callback from stack
+
+					
+					// modifiersByComponent
+					lua_getfield(L, -1, "modifiersByComponent");
+					if (lua_istable(L, -1)) {
+						lua_pushnil(L);  
+						while (lua_next(L, -1) != 0) { // iterate over components
+							if (lua_tostring(L, -2) == "TextComponent") {
+								if (lua_isfunction(L, -1)) {
+									std::function<void(std::string)> modifier = [&affectedEntities, &affectTriggerEntity](std::string triggerEntity) {
+										std::vector<std::string> entVec = std::vector(affectedEntities);
+										if (std::find(entVec.begin(), entVec.end(), triggerEntity) == entVec.end()) {
+											if (affectTriggerEntity) {
+												entVec.push_back(triggerEntity);
+											}
+										}
+										if (CheckLua(L, lua_pcall(L, 0, 1, 0))) {
+											if (lua_istable(L, -1)) {
+												lua_pushnil(L);  // first key
+												while (lua_next(L, -1) != 0) { // iterate over text elements
+													if (lua_istable(L, -1)) {
+														for (auto entityName : entVec) {
+															TextComponent& text = EntityComponentManager::getComponent<TextComponent>(entityName);
+															std::string textElementName = getFieldString("name");
+															float textElFontSize = getFieldNumber("fontSize");
+															std::string textElFontName = getFieldString("fontName");
+															caveColour textElTextColour = getFieldColour("textColour");
+															std::string caption = getFieldString("caption");
+															text.configureTextElement(textElementName, textElFontSize, textElFontName, textElTextColour);
+															text.displayText(textElementName, caption);
+														}
+
+													}
+													// removes 'value'; keeps 'key' for next iteration
+													lua_pop(L, 1);
+												}
+											}
+										}
+										else {
+											std::cerr << "Error al crear la funcion modificadora" << std::endl;
+										}
+
+									};
+									if (EventManager::m_eventCallbacks.find(eventName) == EventManager::m_eventCallbacks.end()) {
+										EventManager::m_eventCallbacks[eventName] = { modifier };
+									}
+									else {
+										EventManager::m_eventCallbacks[eventName].push_back(modifier);
+									}
+								}
+							}
+							else if(lua_tostring(L, -2) == "SkeletalMeshComponent") {}
+							else if (lua_tostring(L, -2) == "CameraComponent") {}
+							else if (lua_tostring(L, -2) == "AudioSourceComponent") {}
+							// removes 'value'; keeps 'key' for next iteration
+							lua_pop(L, 1);
+						}
+					}
+					lua_pop(L, 1); // remove table from stack
+				}
+			}
+			lua_pop(L, 1); // remove table from stack
+			
+			
+			}
+
 	}
 
 	void ScriptManager::StartUp() {

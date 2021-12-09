@@ -7,6 +7,7 @@
 #include "../Audio/AudioManager.hpp"
 #include "../Scripting/ScriptManager.hpp"
 #include "../Events/EventUtils.hpp"
+#include "../Events/EventManager.hpp"
 
 #include <memory>
 #include <array>

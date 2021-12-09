@@ -43,7 +43,7 @@ namespace cave {
 		
 		static void initEntities(); /**< Inicializa las entidades*/
 
-		static void updateEntities(); /**< Actualiza las entidades*/
+		static void updateEntities(float timeStep); /**< Actualiza las entidades*/
 
 		template<typename Component>
 		static void deleteComponent(std::string entityName) { /**< Elimina un componente de una entidad*/

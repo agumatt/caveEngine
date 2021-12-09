@@ -21,7 +21,12 @@ namespace cave {
 
 	}
 	
-
+	float minimumFrameTime = 50.0f / 1000.0f;
+	float maximumFrameTime = 0.3f;
+	float renderingAccTime = 0;
+	float renderingRefreshInterval = 1.0f / 60.0f;
+	float audioAccTime = 0;
+	float eventsAccTime = 0;
 	void World::StartMainLoop() noexcept {
 		std::chrono::time_point<std::chrono::steady_clock> startTime = std::chrono::steady_clock::now();
 		std::cout << "MainLoop iniciado.";
@@ -31,18 +36,30 @@ namespace cave {
 			const auto frameTime = newTime - startTime;
 			startTime = newTime;
 			float timeStep = std::chrono::duration_cast<std::chrono::duration<float>>(frameTime).count();
+			if(timeStep < minimumFrameTime){
+				Sleep((minimumFrameTime - timeStep) * 1000);
+			
+			} else if (timeStep >= maximumFrameTime) {
+				timeStep = maximumFrameTime;
+			}
 			Update(timeStep);
 		}		
 	}
 
 	void World::Update(float timeStep) noexcept
 	{
-		//para lo que envía el usuario y lo que debe hacer el motor en cada ciclo
-		RenderingManager::render();
+		renderingAccTime += timeStep;
+		audioAccTime += timeStep;
+		eventsAccTime += timeStep;
+		if (renderingAccTime >= renderingRefreshInterval) {
+			RenderingManager::render();
+			renderingAccTime = 0;
+		}
+		
 		AudioManager::updateListenerData();		
+		EventManager::processEvents(timeStep);
 		
 	}
 
 
 }
-

@@ -7,18 +7,31 @@
 namespace cave {
 
 	class EventManager {
-		/**Mapa que asocia los eventos con las entidades (por nombre)
-		*		que los gatillaron
+
+	public:
+		/**Mapa con los nombres de los eventos activos y las entidades que los gatillaron
 		*/
 		static std::map<std::string, std::vector<std::string>> m_activeEvents;
-
+		/**Tiempo minimo que debe transcurrir entre dos activaciones consecutivas de un mismo evento
+		*/
+		static std::map<std::string, float> m_eventTimeOuts;
+		/**Tiempo transcurrido desde la llamada de cada evento
+		*/
+		static std::map<std::string, float> m_eventElapsedTime;
+		/**Mapa con los nombres de los eventos y las funciones que retornan
+		* la o las entidades gatillantes
+		*/
+		static std::map<std::string, std::vector<std::function<std::vector<std::string> ()>>> m_eventTriggers;
+		/**Mapa con los nombres de los eventos y las funciones asociadas a cada uno
+		*/
+		static std::map<std::string, std::vector<std::function<void (std::string)>>> m_eventCallbacks;
 		EventManager();
-		static void handleActiveEvents();
-
+		static void processEvents(float deltaTime);
 
 	private:
-		void handleScriptedEvent( std::string eventName);
-
+		static void handleActiveEvents();
+		static void checkForEventTriggers(float deltaTime);
+		
 
 	};
 
