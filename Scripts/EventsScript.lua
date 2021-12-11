@@ -85,11 +85,6 @@ function entityOutOfSightCallback()
 	end
 end
 
-
-function dummy()
-	return 0
-end
-
 --
 
 Events = {}
@@ -114,13 +109,11 @@ EventReactions["entityReachedPlayer"]["modifiersByComponent"]["TextComponent"] =
 EventReactions["entityInSight"] = {}
 EventReactions["entityInSight"]["affectTriggerEntity"] = true;
 EventReactions["entityInSight"]["modifiersByComponent"] = {};
-EventReactions["entityInSight"]["modifiersByComponent"]["TextComponent"] = dummy
 EventReactions["entityInSight"]["callback"] = entityInSightCallback;
 
 EventReactions["entityOutOfSight"] = {}
 EventReactions["entityOutOfSight"]["affectTriggerEntity"] = true;
 EventReactions["entityOutOfSight"]["modifiersByComponent"] = {};
-EventReactions["entityOutOfSight"]["modifiersByComponent"]["TextComponent"] = dummy
 EventReactions["entityOutOfSight"]["callback"] = entityOutOfSightCallback;
 
 

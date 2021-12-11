@@ -374,7 +374,6 @@ namespace cave {
 		lua_settop(L, 0);
 		if (CheckLua(L, luaL_dofile(L, "Scripts/EventsScript.lua"))) {
 			lua_getglobal(L, "Events");
-			std::cout << "hola1" << std::endl;
 			if (lua_istable(L, -1)) {
 				lua_pushnil(L);  // first key
 				while (lua_next(L, -2) != 0) {
@@ -390,7 +389,6 @@ namespace cave {
 				}
 			}
 			lua_pop(L, 1); // remove table from stack
-			std::cout << "hola2" << std::endl;
 			lua_getglobal(L, "EventsPerEntity");
 			if (lua_istable(L, -1)) {
 				lua_pushnil(L);  // first key
@@ -414,7 +412,6 @@ namespace cave {
 				}				
 			}
 			lua_pop(L, 1); // remove table from stack
-			std::cout << "hola3" << std::endl;
 			lua_getglobal(L, "EventTriggers");
 			if (lua_istable(L, -1)) {
 				lua_pushnil(L);  // first key
@@ -464,14 +461,12 @@ namespace cave {
 			}
 			lua_pop(L, 1); // remove table from stack
 
-			std::cout << "hola4" << std::endl;
 			lua_getglobal(L, "EventReactions");
 			if (lua_istable(L, -1)) {
 				lua_pushnil(L);  // first key
 				while (lua_next(L, -2) != 0) // iterate over events
 				{	
 					std::string eventName = lua_tostring(L, -2);
-					std::cout << "eventName: " << eventName << std::endl;
 					std::vector<std::string> affectedEntities = {};
 					// affected entities
 					lua_getfield(L, -1, "targetEntitiesByName");
@@ -484,13 +479,11 @@ namespace cave {
 						}
 					}
 					lua_pop(L, 1); // remove table from stack
-					std::cout << "A" << std::endl;
 					// affect trigger entity
 					bool defaultAffectTriggerEntity = false;
 					bool affectTriggerEntity = getFieldBoolean("affectTriggerEntity", &defaultAffectTriggerEntity);
 					// callback
 					lua_getfield(L, -1, "callback");
-					std::cout << "B" << std::endl;
 					if (lua_isfunction(L, -1)) {
 						int regInd = luaL_ref(L, LUA_REGISTRYINDEX);
 						std::function<void(std::string)> callback = [&regInd](std::string triggerEntity) {
@@ -516,12 +509,9 @@ namespace cave {
 
 					// modifiersByComponent
 					lua_getfield(L, -1, "modifiersByComponent");
-					std::cout << "C" << std::endl;
 					if (lua_istable(L, -1)) {
 						lua_pushnil(L);  
-						std::cout << "D" << std::endl;
-						while (lua_next(L, -2) != 0) { // iterate over components
-							std::cout << "D1" << std::endl;
+						while (lua_next(L, -2) != 0) { // iterate over components;
 							std::string component = lua_tostring(L, -2);
 							if (component == "TextComponent") {
 								if (lua_isfunction(L, -1)) {
@@ -572,22 +562,20 @@ namespace cave {
 								else {
 									lua_pop(L, 1);
 								}
-								std::cout << "F" << std::endl;
 							}
 							else if(component == "SkeletalMeshComponent") {}
 							else if (component == "CameraComponent") {}
 							else if (component == "AudioSourceComponent") {}
-							else {}
+							else {
+								lua_pop(L, 1);
+							}
 						}
-						std::cout << "G" << std::endl;
 					}
-					lua_pop(L, 1); // remove key
+					lua_pop(L, 1); // remove modifiersByComponent table
+					lua_pop(L, 1); // remove event table
 				}
-				std::cout << "H" << std::endl;
 			}
 			lua_pop(L, 1); // remove table from stack
-			
-			std::cout << "OUTTT" << std::endl;
 			}
 
 	}
