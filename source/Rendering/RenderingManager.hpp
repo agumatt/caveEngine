@@ -114,7 +114,7 @@ namespace cave {
 
 		static void StartUp();/**< Inizializacion de elementos de la clase */
 
-		static bool keyPressed(const OgreBites::KeyboardEvent& evt);/**< Indica si una tecla fue presionada */
+		bool keyPressed(const OgreBites::KeyboardEvent& evt);/**< Indica si una tecla fue presionada */
 
 		static void render(); /**< Renderiza la escena */
 		

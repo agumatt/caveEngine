@@ -6,11 +6,6 @@
 -- , modifiersByComponent = {SkeletalMeshComponent=function modifier1(), TextComponent = function modifier2(), ...}, callback = function callback} -->Decide which entities (by name and by owned components) are affected and how
 -- modifiersByComponent can hold one function per component. No reciben argumentos y entregan los valores a setear.
 
-Events = {}
-EventsPerEntity = {}
-EventTriggers = {}
-EventReactions = {}
-
 -- functions
 
 function tableContains(table, element)
@@ -22,16 +17,16 @@ function tableContains(table, element)
   return false
 end
 
-function entityReachedPlayerTrigger(){
+function entityReachedPlayerTrigger()
 	return cpp_entityReachedPlayer()
+end
 
-}
-
-function enitityInSightTrigger()
+function entityInSightTrigger()
 	return cpp_entitiesInSight()
+end
 
 
-function enitityOutOfSightTrigger()
+function entityOutOfSightTrigger()
 	local entitiesInSight = cpp_entitiesInSight()
 	local entities = cpp_getEntityNames()
 	result = {}
@@ -39,26 +34,27 @@ function enitityOutOfSightTrigger()
 	for _, entity in pairs(entities) do
 		if entity~="player" and not tableContains(enitityInSight, entity) then
 			result[index] = entity
-			index += 1
+			index = index + 1
 		end
 	end
 	return result
+end
 
 numberOfTimesCaught = 0 
-function entityReachedTextComponentModifier(){
-	numberOfTimesCaught += 1
+function entityReachedPlayerTextComponentModifier()
+	numberOfTimesCaught = numberOfTimesCaught + 1
 	textElementName_ = "vecesAtrapado"
 	caption_ = "Veces atrapado: " .. numberOfTimesCaught
 	fontSize_=0.06*numberOfTimesCaught
 	fontName_="exFont"
 	textColour_ ={r=1,g=1,b=0,alpha=1}
 	return {{textElementName=textElementName_, caption=caption_, fontSize=fontSize_, fontName=fontName_, textColour=textColour_}}
-}
+end
 
 
 
 
-function enitityInSightCallback(){
+function entityInSightCallback()
 	local entitiesInSight = cpp_entitiesInSight();
 	for _, entity in pairs(entitiesInSight) do
 		if entity=="sinbad1" then 
@@ -67,9 +63,9 @@ function enitityInSightCallback(){
 			cpp_stopChasePlayer(entity)
 		end
 	end
-}
+end
 
-function enitityOutOfSightCallback(){
+function entityOutOfSightCallback()
 	local entitiesInSight = cpp_entitiesInSight()
 	local entities = cpp_getEntityNames()
 	entitiesOutOfSight = {}
@@ -77,7 +73,7 @@ function enitityOutOfSightCallback(){
 	for _, entity in pairs(entities) do
 		if entity~="player" and not tableContains(enitityInSight, entity) then
 			entitiesOutOfSight[index] = entity
-			index += 1
+			index = index + 1
 		end
 	end
 	for _, entity in pairs(entitiesOutOfSight) do
@@ -87,32 +83,49 @@ function enitityOutOfSightCallback(){
 			cpp_updateChasePlayer(entity)
 		end
 	end
-}
+end
+
+
+function dummy()
+	return 0
+end
 
 --
 
-
+Events = {}
+EventsPerEntity = {}
+EventTriggers = {}
+EventReactions = {}
+--
 Events[1] = {name = "entityReachedPlayer", timeOut = 2}
 Events[2] = {name = "entityInSight"}
 Events[3] = {name = "entityOutOfSight"}
 
-EventsPerEntity["player"] = {Events[1], Events[2], Events[3]}
-EventsPerEntity["sinbad1"] = {Events[1], Events[2], Events[3]}
-EventsPerEntity["sinbad2"] = {Events[1], Events[2], Events[3]}
+EventsPerEntity["player"] = {Events[1]["name"], Events[2]["name"], Events[3]["name"]}
+EventsPerEntity["sinbad1"] = {Events[1]["name"], Events[2]["name"], Events[3]["name"]}
+EventsPerEntity["sinbad2"] = {Events[1]["name"], Events[2]["name"], Events[3]["name"]}
 
 EventReactions["entityReachedPlayer"] = {}
 EventReactions["entityReachedPlayer"]["targetEntitiesByName"] = {"player"};
 EventReactions["entityReachedPlayer"]["timeOut"] = 2;
 EventReactions["entityReachedPlayer"]["modifiersByComponent"]={}
-EventReactions["entityReachedPlayer"]["modifiersByComponent"]["TextComponent"] = entityReachedTextComponentModifier
+EventReactions["entityReachedPlayer"]["modifiersByComponent"]["TextComponent"] = entityReachedPlayerTextComponentModifier
 
-EventReactions["enitityInSight"] = {}
-EventReactions["enitityInSight"]["affectTriggerEntity"] = true;
-EventReactions["enitityInSight"]["modifiersByComponent"] = {};
-EventReactions["enitityInSight"]["callback"] = entityInSightCallBack;
+EventReactions["entityInSight"] = {}
+EventReactions["entityInSight"]["affectTriggerEntity"] = true;
+EventReactions["entityInSight"]["modifiersByComponent"] = {};
+EventReactions["entityInSight"]["modifiersByComponent"]["TextComponent"] = dummy
+EventReactions["entityInSight"]["callback"] = entityInSightCallback;
+
+EventReactions["entityOutOfSight"] = {}
+EventReactions["entityOutOfSight"]["affectTriggerEntity"] = true;
+EventReactions["entityOutOfSight"]["modifiersByComponent"] = {};
+EventReactions["entityOutOfSight"]["modifiersByComponent"]["TextComponent"] = dummy
+EventReactions["entityOutOfSight"]["callback"] = entityOutOfSightCallback;
 
 
 EventTriggers["entityReachedPlayer"] = {entityReachedPlayerTrigger}
 EventTriggers["entityInSight"] = {entityInSightTrigger}
+EventTriggers["entityOutOfSight"] = {entityOutOfSightTrigger}
 
 

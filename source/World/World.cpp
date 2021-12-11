@@ -21,7 +21,7 @@ namespace cave {
 
 	}
 	
-	float minimumFrameTime = 50.0f / 1000.0f;
+	float minimumFrameTime = 15.0f / 1000.0f;
 	float maximumFrameTime = 0.3f;
 	float renderingAccTime = 0;
 	float renderingRefreshInterval = 1.0f / 60.0f;

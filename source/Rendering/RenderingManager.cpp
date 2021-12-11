@@ -21,9 +21,9 @@ namespace cave {
 
 
 	bool RenderingManager::keyPressed(const OgreBites::KeyboardEvent& evt)
-	{
+	{	
 		if (evt.keysym.sym == OgreBites::SDLK_ESCAPE)
-		{
+		{	
 			m_root->queueEndRendering();
 			m_context->closeApp();
 		}
