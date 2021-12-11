@@ -8,11 +8,7 @@
 #include "../Scripting/ScriptManager.hpp"
 #include "../Events/EventUtils.hpp"
 #include "../Events/EventManager.hpp"
-
-#include <memory>
-#include <array>
-#include <filesystem>
-#include <string>
+#include "../Core/RootDirectory.hpp"
 
 namespace cave {
 

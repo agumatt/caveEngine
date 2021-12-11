@@ -23,6 +23,7 @@ set(CAVE_SOURCES
 				Rendering/TextComponent.cpp
 				Rendering/CameraComponent.cpp
 				Scripting/ScriptManager.cpp
+				Scripting/EventUtilsScripts.cpp
 				EntityComponent/EntityComponentManager.cpp
 				Events/EventRegistryComponent.cpp
 				Events/EventManager.cpp

@@ -1,10 +1,10 @@
 #pragma once
 #ifndef SCRIPTMANAGER_HPP
 #define SCRIPTMANAGER_HPP
-#include "../Core/Log.hpp"
 #include "../Utils/Utils.hpp"
 #include "../Utils/LibUtils.hpp"
 #include "../EntityComponent/EntityComponentManager.hpp"
+#include "../Events/EventManager.hpp"
 #include "EventUtilsScripts.hpp"
 namespace cave {
 

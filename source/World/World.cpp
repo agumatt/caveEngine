@@ -1,6 +1,4 @@
 #include "World.hpp"
-#include "../Core/RootDirectory.hpp"
-#include <chrono>
 namespace cave {
 	
 	World::World(Application& app):

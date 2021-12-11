@@ -6,8 +6,6 @@
 
 namespace cave {
 
-
-
 	struct EventUtils {
 
 
@@ -25,7 +23,7 @@ namespace cave {
 					entitiesInSight.push_back(EntityComponentManager::getEntityName(entity));
 				}
 			}
-			return entitiesInSight;
+			return std::vector(entitiesInSight);
 		}
 
 		static std::string entityReachedPlayer() {
@@ -38,7 +36,8 @@ namespace cave {
 				Ogre::Sphere boundingSphere = ogreEntity->getWorldBoundingSphere();
 				caveVec3f playerPos = RenderingManager::getPlayerPosition();
 				if (boundingSphere.intersects(Ogre::Vector3f(playerPos.x, playerPos.y, playerPos.z))) {
-					return EntityComponentManager::getEntityName(entity);
+					std::string name = EntityComponentManager::getEntityName(entity);
+					return name;
 				}
 			}
 			return "";

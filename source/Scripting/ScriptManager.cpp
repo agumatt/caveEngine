@@ -582,11 +582,7 @@ namespace cave {
 
 	void ScriptManager::StartUp() {
 		luaL_openlibs(L);
-		lua_register(L, "cpp_entitiesInSight", EventUtilsScripts::lua_entitiesInSight);
-		lua_register(L, "cpp_entityReachedPlayer", EventUtilsScripts::lua_entityReachedPlayer);
-		lua_register(L, "cpp_getEntityNames", EventUtilsScripts::lua_getEntityNames);
-		lua_register(L, "cpp_updateChasePlayer", EventUtilsScripts::lua_updateChasePlayer);
-		lua_register(L, "cpp_stopChasePlayer", EventUtilsScripts::lua_stopChasePlayer);
+		EventUtilsScripts::StartUp(L);
 		processLoadResourcesScript();
 		processInitEntitiesScript();
 		processConfigEntitiesScript();

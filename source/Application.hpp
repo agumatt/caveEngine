@@ -1,7 +1,6 @@
 #pragma once
 #ifndef APPLICATION_HPP
 #define APPLICATION_HPP
-#include <memory>
 namespace cave {
 	class World;
 	class Application {

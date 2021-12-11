@@ -1,7 +1,7 @@
 #pragma once
 #ifndef EVENTREGISTRYCOMPONENT_HPP
 #define EVENTREGISTRYCOMPONENT_HPP
-#include "EventManager.hpp"
+#include "../Utils/LibUtils.hpp"
 
 namespace cave {
 

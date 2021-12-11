@@ -4,10 +4,6 @@
 
 #include "Core/RootDirectory.hpp"
 #include "Engine.hpp"
-#include "Application.hpp"
 #include "World/World.hpp"
-#include "Rendering/RenderingManager.hpp"
-#include "EntityComponent/EntityComponentManager.hpp"
-#include <memory>
 
 #endif
