@@ -20,7 +20,7 @@ namespace cave {
 	}
 	
 	float minimumFrameTime = 15.0f / 1000.0f;
-	float maximumFrameTime = 0.3f;
+	float averageFrameTime = 150.0f / 1000.0f;
 	float renderingAccTime = 0;
 	float renderingRefreshInterval = 1.0f / 60.0f;
 	float audioAccTime = 0;
@@ -30,15 +30,17 @@ namespace cave {
 		std::cout << "MainLoop iniciado.";
 		while (m_running)
 		{
+			
 			std::chrono::time_point<std::chrono::steady_clock> newTime = std::chrono::steady_clock::now();
 			const auto frameTime = newTime - startTime;
 			startTime = newTime;
 			float timeStep = std::chrono::duration_cast<std::chrono::duration<float>>(frameTime).count();
+			averageFrameTime = averageFrameTime * 0.9 + timeStep * 0.1;
 			if(timeStep < minimumFrameTime){
 				Sleep((minimumFrameTime - timeStep) * 1000);
 			
-			} else if (timeStep >= maximumFrameTime) {
-				timeStep = maximumFrameTime;
+			} else if (timeStep >= averageFrameTime*4) {
+				timeStep = averageFrameTime * 4;
 			}
 			Update(timeStep);
 		}		

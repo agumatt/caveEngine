@@ -27,6 +27,7 @@ namespace cave {
 			m_root->queueEndRendering();
 			m_context->closeApp();
 		}
+
 		return true;
 	}
 
