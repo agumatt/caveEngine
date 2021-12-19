@@ -124,6 +124,14 @@ namespace cave {
 
 	};
 
+	class RenderingUtils {
+
+	public:
+		RenderingUtils() = default;
+		static void createPlane(caveVec3f upVector, caveVec3f position, std::string nodeName,float tilesX, float tilesY, float width, float height, std::string materialName);
+
+	};
+
 }
 
 

@@ -9,7 +9,9 @@ namespace cave {
 		Example1() = default;
 		~Example1() = default;
 		virtual void UserStartUp(World& world) noexcept override {
-
+			// create plane
+			
+			RenderingUtils::createPlane(caveVec3f(0.0f, 0.0f,1.0f), caveVec3f(0.0f, -25.0f, 0.0f),"plane", 1.0f, 1.0f, 450.0f, 450.0f, "Sinbad/Gold");
 		}
 
 		virtual void UserShutDown(World& world) noexcept override {

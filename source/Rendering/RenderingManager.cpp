@@ -294,5 +294,30 @@ namespace cave {
 	}
 
 
+	// RenderingUtils
+
+	void RenderingUtils::createPlane(caveVec3f upVector, caveVec3f position, std::string nodeName, float tilesX, float tilesY, float width, float height, std::string materialName) {
+		Ogre::Plane plane;
+		plane.normal = Ogre::Vector3::UNIT_Y;
+		plane.d = 0;
+
+		Ogre::MeshManager::getSingleton().createPlane(
+			"floor",
+			RenderingManager::m_resourcesGroupName,
+			plane,
+			width, height,
+			10, 10, true, 1,
+			tilesX, tilesY,
+			Ogre::Vector3(upVector.x, upVector.y, upVector.z));
+
+		Ogre::Entity* plane_entity = RenderingManager::m_sceneManager->createEntity("Plane_Grid", "floor");
+		plane_entity->setMaterialName(materialName, RenderingManager::m_resourcesGroupName);
+
+		Ogre::SceneNode* plane_node = RenderingManager::m_sceneManager->getRootSceneNode()->createChildSceneNode(nodeName);
+		plane_node->translate(Ogre::Vector3(position.x, position.y, position.z));
+		plane_node->attachObject(plane_entity);
+
+	}
+
 
 }
