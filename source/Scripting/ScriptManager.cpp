@@ -226,10 +226,6 @@ namespace cave {
 							std::string meshNodeName = getFieldString("nodeName");
 							std::string meshParentNodeName = getFieldString("parentNodeName", &defaultParentNodeName);
 							EntityComponentManager::addComponent<SkeletalMeshComponent>(entityName, meshFileName, meshNodeName,meshParentNodeName);
-							//auto skeletalMeshComponent = EntityComponentManager::getComponent<SkeletalMeshComponent>(entityName);
-							//std::vector<Model> models = { skeletalMeshComponent.m_model };
-							//RenderingManager::addModelsToScene(models);
-							//skeletalMeshComponent.m_initialized = true;
 						}
 						lua_pop(L, 1); // remove component from stack
 						// TextComponent
@@ -289,7 +285,7 @@ namespace cave {
 
 		}
 	}
-
+	std::map<std::pair<std::string, std::string>, std::pair<bool, bool>> ScriptManager::m_queuedAnimations = {};
 	void ScriptManager::processConfigEntitiesScript() {
 		lua_settop(L, 0);
 		if (CheckLua(L, luaL_dofile(L, "Scripts/ConfigEntitiesScript.lua"))) {
@@ -297,11 +293,9 @@ namespace cave {
 			bool configuredAllEntities = false;
 			int entityIndex = 1;
 			if (lua_istable(L, -1)) {
-				std::cout << "hola1" << std::endl;
 				while (!configuredAllEntities) {
 					lua_geti(L, -1, entityIndex);
 					if (lua_istable(L, -1)) {
-						std::cout << "hola2" << std::endl;
 						std::string entityName = getFieldString("name");
 						// configure components
 						// SkeletalMeshComponent
@@ -323,13 +317,18 @@ namespace cave {
 								lua_pushnil(L);  // first key
 								while (lua_next(L, -2) != 0) {
 									if (lua_istable(L, -1)) {
-										std::string name = getFieldString("name");
+										std::string animName = getFieldString("name");
 										bool enabledDefault = true;
 										bool isLoopingDefault = true;
 										bool enabled = getFieldBoolean("enabled", &enabledDefault);
 										bool isLooping = getFieldBoolean("isLooping", &isLoopingDefault);
-										std::cout << name << std::endl;
-										mesh.addAnimation(name, enabled, isLooping);						
+										std::pair<std::string, std::string> pairStrings;
+										std::pair<bool, bool> pairBooleans;
+										pairStrings.first = entityName;
+										pairStrings.second = animName;
+										pairBooleans.first = enabled;
+										pairBooleans.second = isLooping;
+										m_queuedAnimations.emplace(pairStrings, pairBooleans);					
 									}									
 									// removes 'value'; keeps 'key' for next iteration
 									lua_pop(L, 1);
@@ -612,6 +611,14 @@ namespace cave {
 			}
 
 	}
+	void ScriptManager::processQueuedData() {
+		for (auto const& data : m_queuedAnimations) {
+			auto names = data.first;
+			auto booleans = data.second;
+			SkeletalMeshComponent& mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>(names.first);
+			mesh.addAnimation(names.second, booleans.first, booleans.second);
+		}
+	}
 
 	void ScriptManager::StartUp() {
 		luaL_openlibs(L);
@@ -621,5 +628,6 @@ namespace cave {
 		processConfigEntitiesScript();
 		EntityComponentManager::initEntities();
 		processEventsScript();
+		processQueuedData();
 	}
 }

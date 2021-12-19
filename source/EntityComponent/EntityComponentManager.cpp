@@ -44,6 +44,8 @@ namespace cave {
 			// update animations
 			Ogre::SceneNode* node = RenderingManager::m_sceneManager->getSceneNode(models[0].m_nodeName);
 			Ogre::Entity* ogreEntity = static_cast<Ogre::Entity*>(node->getAttachedObject(0));
+			if (skeletalMeshComponent.m_animations.size() > 0) {
+			}
 			for (std::string name : skeletalMeshComponent.m_animations) {
 				Ogre::AnimationState* anim = ogreEntity->getAnimationState(name);
 				if (anim->getEnabled()) {

@@ -11,7 +11,6 @@ namespace cave {
 		EntityComponentManager::StartUp();
 		AudioManager::StartUp();
 		ScriptManager::StartUp();
-		std::cout << "holaa5" << std::endl;
 		m_application.UserStartUp(*this);
 		
 	}

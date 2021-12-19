@@ -22,9 +22,9 @@ namespace cave {
 		static void processInitEntitiesScript();
 		static void processLoadResourcesScript();
 		static void processConfigEntitiesScript();
+		static void processQueuedData();
 		static void StartUp();
-
-
+		static std::map<std::pair<std::string, std::string>, std::pair<bool, bool>> m_queuedAnimations; // (entity name, anim name), (enabled, isLooping)
 	};
 
 
