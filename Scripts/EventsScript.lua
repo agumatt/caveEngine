@@ -5,7 +5,6 @@
 -- targetEntitiesByComponents = {Component1Name, Component2Name,...},  affectTriggerEntity = boolean affectTriggerEntity (default=false)
 -- , modifiersByComponent = {SkeletalMeshComponent=function modifier1(), TextComponent = function modifier2(), ...}, callback = function callback} -->Decide which entities (by name and by owned components) are affected and how
 -- modifiersByComponent can hold one function per component. No reciben argumentos y entregan los valores a setear.
-
 -- functions
 
 function tableContains(table, element)
@@ -84,6 +83,10 @@ function entityOutOfSightCallback()
 		end
 	end
 end
+--
+
+enableScriptedEvents = false
+
 
 --
 
