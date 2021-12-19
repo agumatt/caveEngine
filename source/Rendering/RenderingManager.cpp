@@ -302,7 +302,7 @@ namespace cave {
 		plane.d = 0;
 
 		Ogre::MeshManager::getSingleton().createPlane(
-			"floor",
+			"floor"+nodeName,
 			RenderingManager::m_resourcesGroupName,
 			plane,
 			width, height,
@@ -310,13 +310,17 @@ namespace cave {
 			tilesX, tilesY,
 			Ogre::Vector3(upVector.x, upVector.y, upVector.z));
 
-		Ogre::Entity* plane_entity = RenderingManager::m_sceneManager->createEntity("Plane_Grid", "floor");
+		Ogre::Entity* plane_entity = RenderingManager::m_sceneManager->createEntity("Plane_Grid"+nodeName, "floor"+nodeName);
 		plane_entity->setMaterialName(materialName, RenderingManager::m_resourcesGroupName);
 
 		Ogre::SceneNode* plane_node = RenderingManager::m_sceneManager->getRootSceneNode()->createChildSceneNode(nodeName);
 		plane_node->translate(Ogre::Vector3(position.x, position.y, position.z));
 		plane_node->attachObject(plane_entity);
 
+	}
+
+	void RenderingUtils::setSkyBox(std::string materialName) {
+		RenderingManager::m_sceneManager->setSkyBox(true, materialName);
 	}
 
 

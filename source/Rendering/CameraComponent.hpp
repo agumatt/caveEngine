@@ -11,9 +11,9 @@ namespace cave {
 		float m_nearClipDistance;
 		float m_farClipDistance;
 
-		CameraComponent(caveVec3f position, caveVec3f lookAt, float nearClipDistance = 1.0f, float farClipDistance = 1000.0f);
+		CameraComponent(caveVec3f position, caveVec3f lookAt, float nearClipDistance = 1.0f, float farClipDistance = 10000.0f);
 
-		void configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance = 1.0f, float farClipDistance = 1000.0f);
+		void configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance = 1.0f, float farClipDistance = 10000.0f);
 
 
 	};

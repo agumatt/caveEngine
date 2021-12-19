@@ -2,7 +2,7 @@
 -- name = string entityName
 -- SkeletalMeshComponent = { meshFileName=string meshFileName, nodeName=string nodeName, parentNodeName=string parentNodeName(default="RootSceneNode") }
 -- TextComponent = { positionLeft=float positionLeft, float positionTop=positionTop, width=float width, height=float height }
--- CameraComponent = {position=vec position, lookAt=vec lookAt, nearClipDistance=float nearClipDistance(default=1.0f), farClipDistance=float farClipDistance(default=1000.0f) }
+-- CameraComponent = {position=vec position, lookAt=vec lookAt, nearClipDistance=float nearClipDistance(default=1.0f), farClipDistance=float farClipDistance(default=10000.0f) }
 -- AudioSourceComponent = { volume=float volume, pitch=float pitch, radius=float radius, setLoop=bool setLoop(default=true), position=caveVec3f pos(default=(0,0,0)) }
 -- EventRegistryComponent = {}
 

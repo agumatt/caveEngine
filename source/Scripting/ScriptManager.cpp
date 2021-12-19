@@ -254,7 +254,7 @@ namespace cave {
 						if (lua_istable(L, -1)) {
 							if (!addedCameraComponent) {
 								float defaultNearClipDistance = 1.0f;
-								float defaultFarClipDistance = 1000.0f;
+								float defaultFarClipDistance = 10000.0f;
 								caveVec3f camPosition = getFieldVector("position", &caveVec3f(0.0f, 0.0f, 0.0f));
 								caveVec3f camLookAt = getFieldVector("lookAt");
 								float camNearClipDistance = getFieldNumber("nearClipDistance", &defaultNearClipDistance);
