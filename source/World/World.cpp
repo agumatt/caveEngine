@@ -11,6 +11,7 @@ namespace cave {
 		EntityComponentManager::StartUp();
 		AudioManager::StartUp();
 		ScriptManager::StartUp();
+		std::cout << "holaa5" << std::endl;
 		m_application.UserStartUp(*this);
 		
 	}
@@ -56,6 +57,7 @@ namespace cave {
 		
 		AudioManager::updateListenerData();		
 		EventManager::processEvents(timeStep);
+		EntityComponentManager::updateEntities(timeStep);
 		
 	}
 

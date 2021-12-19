@@ -140,6 +140,10 @@ namespace cave {
 			newNode->setInheritOrientation(model.m_inheritRotation);
 			newNode->setInheritScale(model.m_inheritScale);
 			Ogre::Entity* newEntity = m_sceneManager->createEntity(model.m_meshFileName);
+			auto skeleton = newEntity->getSkeleton();
+			if (skeleton != nullptr) {
+				skeleton->setBlendMode(Ogre::ANIMBLEND_CUMULATIVE);
+			}
 			newNode->attachObject(newEntity);
 		}
 	}
@@ -151,7 +155,12 @@ namespace cave {
 			Ogre::SceneNode* newParentNode = nullptr;
 			try {
 				node = m_sceneManager->getSceneNode(model.m_nodeName);
-				newParentNode = m_sceneManager->getSceneNode(model.m_parentNodeName);
+				if (model.m_parentNodeName == "RootSceneNode") {
+					newParentNode = m_sceneManager->getRootSceneNode();
+				}
+				else {
+					newParentNode = m_sceneManager->getSceneNode(model.m_parentNodeName);
+				}
 			}
 			catch(Ogre::Exception& ex) {
 				std::cerr << "An exception ocurred: " << ex.getDescription() << std::endl;
@@ -161,9 +170,9 @@ namespace cave {
 			node->setInheritOrientation(model.m_inheritRotation);
 			node->setInheritScale(model.m_inheritScale);
 			
-			node->translate(model.m_translation);
-			node->rotate(model.m_rotation);
-			node->scale(model.m_scaling);		
+			//node->translate(model.m_translation);
+			//node->rotate(model.m_rotation);
+			//node->scale(model.m_scaling);		
 		}
 
 	}

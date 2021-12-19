@@ -33,6 +33,7 @@ namespace cave {
 		for (auto entity : skeletalMeshEntitiesView) {
 			SkeletalMeshComponent& skeletalMeshComponent = skeletalMeshEntitiesView.get<SkeletalMeshComponent>(entity);
 			std::vector<Model> models = { skeletalMeshComponent.m_model };
+			// update mesh position
 			if (skeletalMeshComponent.m_moving) {
 				caveVec3f dir = skeletalMeshComponent.m_movementDirection;
 				float speed = skeletalMeshComponent.m_speed;
@@ -40,6 +41,16 @@ namespace cave {
 				skeletalMeshComponent.moveMesh(velocity, timeStep);
 			}
 			RenderingManager::updateModelsInScene(models);
+			// update animations
+			Ogre::SceneNode* node = RenderingManager::m_sceneManager->getSceneNode(models[0].m_nodeName);
+			Ogre::Entity* ogreEntity = static_cast<Ogre::Entity*>(node->getAttachedObject(0));
+			for (std::string name : skeletalMeshComponent.m_animations) {
+				Ogre::AnimationState* anim = ogreEntity->getAnimationState(name);
+				if (anim->getEnabled()) {
+					anim->addTime(timeStep);
+				}				
+			}
+			// update audio source position
 			bool hasAudio = m_Registry.all_of<AudioSourceComponent>(entity);
 			if (hasAudio) {
 				AudioSourceComponent& audioSourceComponent = m_Registry.get<AudioSourceComponent>(entity);

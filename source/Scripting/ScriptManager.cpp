@@ -226,6 +226,10 @@ namespace cave {
 							std::string meshNodeName = getFieldString("nodeName");
 							std::string meshParentNodeName = getFieldString("parentNodeName", &defaultParentNodeName);
 							EntityComponentManager::addComponent<SkeletalMeshComponent>(entityName, meshFileName, meshNodeName,meshParentNodeName);
+							//auto skeletalMeshComponent = EntityComponentManager::getComponent<SkeletalMeshComponent>(entityName);
+							//std::vector<Model> models = { skeletalMeshComponent.m_model };
+							//RenderingManager::addModelsToScene(models);
+							//skeletalMeshComponent.m_initialized = true;
 						}
 						lua_pop(L, 1); // remove component from stack
 						// TextComponent
@@ -293,9 +297,11 @@ namespace cave {
 			bool configuredAllEntities = false;
 			int entityIndex = 1;
 			if (lua_istable(L, -1)) {
+				std::cout << "hola1" << std::endl;
 				while (!configuredAllEntities) {
 					lua_geti(L, -1, entityIndex);
 					if (lua_istable(L, -1)) {
+						std::cout << "hola2" << std::endl;
 						std::string entityName = getFieldString("name");
 						// configure components
 						// SkeletalMeshComponent
@@ -311,6 +317,25 @@ namespace cave {
 							// scaling
 							caveVec3f meshScaling = getFieldVector("scaling", &caveVec3f(1.0f, 1.0f, 1.0f));
 							mesh.setScaling(meshScaling);
+							//animations
+							lua_getfield(L, -1, "animations");
+							if (lua_istable(L, -1)) {
+								lua_pushnil(L);  // first key
+								while (lua_next(L, -2) != 0) {
+									if (lua_istable(L, -1)) {
+										std::string name = getFieldString("name");
+										bool enabledDefault = true;
+										bool isLoopingDefault = true;
+										bool enabled = getFieldBoolean("enabled", &enabledDefault);
+										bool isLooping = getFieldBoolean("isLooping", &isLoopingDefault);
+										std::cout << name << std::endl;
+										mesh.addAnimation(name, enabled, isLooping);						
+									}									
+									// removes 'value'; keeps 'key' for next iteration
+									lua_pop(L, 1);
+								}
+							}
+							lua_pop(L, 1); // remove animations table from stack
 						}
 						lua_pop(L, 1); // remove component from stack
 						// TextComponent
