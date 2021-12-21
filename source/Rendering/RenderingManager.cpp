@@ -333,5 +333,69 @@ namespace cave {
 		RenderingManager::m_sceneManager->setSkyBox(true, materialName, distance);
 	}
 
+	void RenderingUtils::createBoxRoom(float length, caveVec3f floorCenterPosition, std::string materialNameFloor,
+		std::string materialNameWalls, std::string materialNameCeiling, bool removeCeiling) {
+		// Build Plane and planeMesh
+		Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 0);
+		Ogre::MeshManager::getSingleton().createPlane(
+			"wall",
+			Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+			plane,
+			length, length, 20, 20,
+			true,
+			1, 5, 5,
+			Ogre::Vector3::UNIT_Z);
+
+		// Create Wall entities
+		auto groundEntity = RenderingManager::m_sceneManager->createEntity("wall");
+		auto northWallEntity = RenderingManager::m_sceneManager->createEntity("wall");
+		auto southWallEntity = RenderingManager::m_sceneManager->createEntity("wall");
+		auto eastWallEntity = RenderingManager::m_sceneManager->createEntity("wall");
+		auto westWallEntity = RenderingManager::m_sceneManager->createEntity("wall");
+		auto ceilingEntity = RenderingManager::m_sceneManager->createEntity("wall");
+		
+
+		// Create box room node
+		Ogre::Vector3f ogreFloorCenterPosition = Ogre::Vector3f(floorCenterPosition.x, floorCenterPosition.y, floorCenterPosition.z);
+		Ogre::SceneNode* boxRoom = RenderingManager::m_sceneManager->getRootSceneNode()->createChildSceneNode(ogreFloorCenterPosition);
+
+		// Create wall sceneNodes
+		Ogre::SceneNode* groundNode = boxRoom->createChildSceneNode();
+		Ogre::SceneNode* northWallNode = boxRoom->createChildSceneNode(Ogre::Vector3(0, (length / 2), (length / 2)));
+		Ogre::SceneNode* southWallNode = boxRoom->createChildSceneNode(Ogre::Vector3(0, (length / 2), -(length / 2)));
+		Ogre::SceneNode* eastWallNode = boxRoom->createChildSceneNode(Ogre::Vector3((length / 2), (length / 2), 0));
+		Ogre::SceneNode* westWallNode = boxRoom->createChildSceneNode(Ogre::Vector3(-(length / 2), (length / 2), 0));
+		Ogre::SceneNode* ceilingNode = boxRoom->createChildSceneNode(Ogre::Vector3(0, (length), 0));
+
+		// Orient Walls
+		northWallNode->pitch(Ogre::Degree(-90));
+		southWallNode->pitch(Ogre::Degree(90));
+		eastWallNode->roll(Ogre::Degree(90));
+		eastWallNode->yaw(Ogre::Degree(90));
+		westWallNode->roll(Ogre::Degree(-90));
+		westWallNode->yaw(Ogre::Degree(-90));
+		ceilingNode->pitch(Ogre::Degree(180));
+
+		// Attach WallsQuadro 600
+		groundNode->attachObject(groundEntity);
+		northWallNode->attachObject(northWallEntity);
+		southWallNode->attachObject(southWallEntity);
+		eastWallNode->attachObject(eastWallEntity);
+		westWallNode->attachObject(westWallEntity);
+		if (not removeCeiling) {
+			ceilingNode->attachObject(ceilingEntity);
+		}
+		
+
+		// Set Materials
+		groundEntity->setMaterialName(materialNameFloor);
+		northWallEntity->setMaterialName(materialNameWalls);
+		southWallEntity->setMaterialName(materialNameWalls);
+		eastWallEntity->setMaterialName(materialNameWalls);
+		westWallEntity->setMaterialName(materialNameWalls);
+		if (not removeCeiling) {
+			ceilingEntity->setMaterialName(materialNameCeiling);
+		}
+	}
 
 }

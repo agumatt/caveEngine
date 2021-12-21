@@ -137,10 +137,15 @@ namespace cave {
 		*/
 		static void createPlane(caveVec3f upVector, caveVec3f position, std::string nodeName,float tilesX, float tilesY, float width, float height, std::string materialName);
 
-		/**Crea un cubo texturizado que rodea la escena simulando el cielo
+		/**Crea un cubo texturizado que rodea la escena manteniendose alejado simulando el cielo
 		*
 		*/
 		static void setSkyBox(std::string materialName, float distance);
+		/**Crea un cubo texturizado que puede usarse como habitación
+		*
+		*/
+		static void createBoxRoom(float length, caveVec3f floorCenterPosition, std::string materialNameFloor,
+			std::string materialNameWalls, std::string materialNameCeiling, bool removeCeiling = false);
 	};
 
 }

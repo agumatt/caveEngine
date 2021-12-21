@@ -9,10 +9,8 @@ namespace cave {
 		Example1() = default;
 		~Example1() = default;
 		virtual void UserStartUp(World& world) noexcept override {
-			// create plane
-			
-			RenderingUtils::createPlane(caveVec3f(0.0f, 0.0f,1.0f), caveVec3f(0.0f, -25.0f, 0.0f),"planeBottom", 1.0f, 1.0f, 450.0f, 450.0f, "Sinbad/Gold");
-			RenderingUtils::setSkyBox("Examples/SpaceSkyBox", 1000);
+			RenderingUtils::setSkyBox("Examples/CloudyNoonSkyBox", 1000);
+			RenderingUtils::createBoxRoom(350.0f, caveVec3f(0.0f, -25.0f, 0.0f), "Examples/GrassFloor", "Examples/Rockwall", "Examples/Rockwall", true);
 
 		}
 
