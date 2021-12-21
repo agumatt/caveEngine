@@ -140,7 +140,7 @@ namespace cave {
 		/**Crea un cubo texturizado que rodea la escena simulando el cielo
 		*
 		*/
-		static void setSkyBox(std::string materialName);
+		static void setSkyBox(std::string materialName, float distance);
 	};
 
 }

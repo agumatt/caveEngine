@@ -329,8 +329,8 @@ namespace cave {
 
 	}
 
-	void RenderingUtils::setSkyBox(std::string materialName) {
-		RenderingManager::m_sceneManager->setSkyBox(true, materialName);
+	void RenderingUtils::setSkyBox(std::string materialName, float distance) {
+		RenderingManager::m_sceneManager->setSkyBox(true, materialName, distance);
 	}
 
 
