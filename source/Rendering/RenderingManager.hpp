@@ -61,9 +61,9 @@ namespace cave {
 		int m_id;
 		std::map<std::string, Ogre::TextAreaOverlayElement*> m_textElements;/**< Mapa que asocia los textElements del overlay a un nombre unico */
 		
-		void displayText(std::string& textElementName, std::string& caption);
+		void displayText(std::string& textElementName, std::string& caption);/**< Muestra el texto caption en el textElement indicado */
 
-		void hideTextContainer();
+		void hideTextContainer();/**< Esconde el contenedor de textElements asociado al textComponent */
 
 		void configureContainer(float positionLeft, float positionTop, float width, float height);/**<Configura tamanño y posicion del subcontenedor */
 
@@ -110,6 +110,9 @@ namespace cave {
 		*/
 		static void configureCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance=1, float farClipDistance=1000);
 
+		/**Setea los valores iniciales de la camara
+		*
+		*/
 		static void setUpCamera(caveVec3f position, caveVec3f lookAt, float nearClipDistance = 1, float farClipDistance = 1000);
 
 		static void StartUp();/**< Inizializacion de elementos de la clase */
@@ -128,8 +131,15 @@ namespace cave {
 
 	public:
 		RenderingUtils() = default;
+
+		/**Crea un plano que aparecera en la escena
+		*
+		*/
 		static void createPlane(caveVec3f upVector, caveVec3f position, std::string nodeName,float tilesX, float tilesY, float width, float height, std::string materialName);
 
+		/**Crea un cubo texturizado que rodea la escena simulando el cielo
+		*
+		*/
 		static void setSkyBox(std::string materialName);
 	};
 

@@ -6,9 +6,12 @@
 
 namespace cave {
 
+	/**Funciones de utilidad para el sistema de eventos.
+		*/
 	struct EventUtils {
 
-
+		/**Entrega un vector con las entidades renderizables que estan a la vista de la cámara
+		*/
 		static std::vector<std::string> entitiesInSight() {
 			std::vector<std::string> entitiesInSight = {};
 			auto skeletalMeshEntitiesView = EntityComponentManager::getEntityView<SkeletalMeshComponent>();
@@ -26,6 +29,8 @@ namespace cave {
 			return std::vector(entitiesInSight);
 		}
 
+		/**Chequea si una entidad tocó al jugador y devuelve su nombre
+		*/
 		static std::string entityReachedPlayer() {
 			auto skeletalMeshEntitiesView = EntityComponentManager::getEntityView<SkeletalMeshComponent>();
 			for (auto entity : skeletalMeshEntitiesView) {
@@ -43,6 +48,8 @@ namespace cave {
 			return "";
 		}
 
+		/**Actualiza el estado de persecucion al jugador de una entidad.
+		*/
 		static void updateChasePlayer(std::string entityName) {
 			entt::entity entity = EntityComponentManager::m_entities[entityName];
 			if (EntityComponentManager::m_Registry.all_of<SkeletalMeshComponent>(entity)) {
@@ -58,6 +65,8 @@ namespace cave {
 			
 		}
 
+		/**Detiene el estado de persecucion al jugador de una entidad.
+		*/
 		static void stopChasePlayer(std::string entityName) {
 			entt::entity entity = EntityComponentManager::m_entities[entityName];
 			if (EntityComponentManager::m_Registry.all_of<SkeletalMeshComponent>(entity)) {
@@ -68,6 +77,8 @@ namespace cave {
 
 		}
 
+		/**Devuelve los nombres de todas las entidades
+		*/
 		static std::vector<std::string> getEntityNames() {
 			std::vector<std::string> names = {};
 			auto entities = EntityComponentManager::m_entities;

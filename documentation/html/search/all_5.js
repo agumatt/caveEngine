@@ -1,9 +1,4 @@
 var searchData=
 [
-  ['getalerror_0',['getALError',['../classcave_1_1_audio_manager.html#a368315f5648a31eb17ba8610062903cc',1,'cave::AudioManager']]],
-  ['getalsourcestate_1',['getALSourceState',['../classcave_1_1_audio_source.html#abb0018c1e07dbab14f869438f6028fdb',1,'cave::AudioSource']]],
-  ['getcomponent_2',['getComponent',['../classcave_1_1_entity_component_manager.html#ad8f52418beac40ea15e889c86827afb5',1,'cave::EntityComponentManager']]],
-  ['getentityview_3',['getEntityView',['../classcave_1_1_entity_component_manager.html#a7826b217ac2a9e924c15600b2dd20f86',1,'cave::EntityComponentManager']]],
-  ['getplayerposition_4',['getPlayerPosition',['../classcave_1_1_rendering_manager.html#ab0f6e54c578d04b762a8ebcb4a33b8a8',1,'cave::RenderingManager']]],
-  ['gettotalsamples_5',['GetTotalSamples',['../structcave_1_1_wav_data.html#a9c0e1270f7c780f7f2a4cdff79ae85cb',1,'cave::WavData']]]
+  ['hidetextcontainer_0',['hideTextContainer',['../classcave_1_1_container.html#a81b903af7cb32ae47c8990d397b16818',1,'cave::Container::hideTextContainer()'],['../structcave_1_1_text_component.html#a5c958666de1ea8212496fd382e175a9a',1,'cave::TextComponent::hideTextContainer()']]]
 ];

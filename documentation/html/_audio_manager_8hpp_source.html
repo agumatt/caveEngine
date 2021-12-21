@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>caveEngine: source/Audio/AudioManager.hpp Source File</title>
+<title>caveEngine CC5512: Audio/AudioManager.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -21,9 +25,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">caveEngine<span id="projectnumber">&#160;2.0</span>
+   <div id="projectname">caveEngine CC5512
    </div>
-   <div id="projectbrief">Motor de juegos desarrollado para CC5512</div>
+   <div id="projectbrief">Motor de juegos creado para el ramo</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_audio_manager_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,118 +82,108 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_e399ecd6505846059073078e54f4ef41.html">Audio</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">AudioManager.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_audio_manager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef AUDIOMANAGER_HPP</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_audio_manager_8hpp.html#a167a1278f19072b10ff502d951146d60">    3</a></span><span class="preprocessor">#define AUDIOMANAGER_HPP</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define AUDIOMANAGER_HPP</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;AL/al.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;AL/alc.h&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../Rendering/RenderingManager.hpp&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;map&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;../Utils/Utils.hpp&quot;</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &lt;dr_wav.h&gt;</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecave.html">cave</a> {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcave_1_1_audio_manager.html">AudioManager</a> {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#a659cbf550b671096f0d296aadd17e4d7">   20</a></span>        <span class="keyword">static</span> std::map&lt;std::string, ALuint&gt; <a class="code hl_variable" href="classcave_1_1_audio_manager.html#a659cbf550b671096f0d296aadd17e4d7">m_buffers</a>; </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#ad2969be64eb164011faacc8886e1065c">   21</a></span>        <span class="keyword">static</span> ALCdevice* <a class="code hl_variable" href="classcave_1_1_audio_manager.html#ad2969be64eb164011faacc8886e1065c">m_ALdevice</a>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#a17a1f3ecc1df5cc43a15990c8b45d5d9">   22</a></span>        <span class="keyword">static</span> ALCcontext* <a class="code hl_variable" href="classcave_1_1_audio_manager.html#a17a1f3ecc1df5cc43a15990c8b45d5d9">m_ALcontext</a>;</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#af6102a4b6ce5a1442e4f114875287654">   23</a></span>        <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classcave_1_1_audio_manager.html#af6102a4b6ce5a1442e4f114875287654">m_masterVolume</a>; </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">static</span> std::string <a class="code hl_function" href="classcave_1_1_audio_manager.html#a368315f5648a31eb17ba8610062903cc">getALError</a>(); </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_manager.html#ad1c544a2b8283c5aa2877ce78fe395c3">StartUp</a>(); </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_manager.html#a8e3d366bfae1b26aebdb6f7d25be7ecf">updateListenerData</a>(); </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">static</span> ALuint <a class="code hl_function" href="classcave_1_1_audio_manager.html#a28b3a664a26bf1e1df0ee79cfba2c308">loadSound</a>(std::string audioFilePath, std::string uniqueName); </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_manager.html#a4ed19dd22715ddb4d2580a30a2ada309">ShutDown</a>(); </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#ace442e27100b3cd3088c574a51829753">   29</a></span>        <a class="code hl_function" href="classcave_1_1_audio_manager.html#ace442e27100b3cd3088c574a51829753">AudioManager</a>();</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    };</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_source.html">   35</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcave_1_1_audio_source.html">AudioSource</a> {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        ALuint m_sourceId = 1234;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a8b36fe526a92461caa4a586bdf201829">play</a>(ALuint buffer); </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a6487873c5c9a2347f31e09336c58b58b">deleteSource</a>(); </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ab4a282e5308d06cf03c3a85f598c4ec2">setVolume</a>(<span class="keywordtype">float</span> volume); </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#aee5590a5284c77bc89eafe56b3954393">setPitch</a>(<span class="keywordtype">float</span> pitch); </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ae3ec576af57a304402b6a40f3cbe864c">setRadius</a>(<span class="keywordtype">float</span> radius); </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#afb4d4075b022a892f799f1c90719a50e">setPosition</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos); </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ab50eab1efb38429586e832fe1edc1174">setVelocity</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel); </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a7a63733348f005d601be1d07167144e3">setLooping</a>(<span class="keywordtype">bool</span> setLoop); </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a6c660a80b084b8d67f613d6970af031d">isPlaying</a>(); </div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a003fc307b0c9583d44b8a29418aa95b5">isPaused</a>(); </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ad9a781bd46d5d1c41711ee48e7fc890a">isStopped</a>();</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ad1454a3d1fdda9229eaeec671adad55d">pause</a>(); </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ab55ae91c53d4aca1c6c65a199736e2ff">continuePlaying</a>();</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        std::string <a class="code hl_function" href="classcave_1_1_audio_source.html#abb0018c1e07dbab14f869438f6028fdb">getALSourceState</a>(); </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <a class="code hl_function" href="classcave_1_1_audio_source.html#a440835d16e0534bd871970b67ce8da63">AudioSource</a>(<span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> radius, <span class="keywordtype">bool</span> setLoop, <a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos, <a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_function" href="classcave_1_1_audio_source.html#a440835d16e0534bd871970b67ce8da63">AudioSource</a>();</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../Utils/LibUtils.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;../Utils/Utils.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;dr_wav.h&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &quot;../Core/Log.hpp&quot;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#include &quot;AudioMacros.hpp&quot;</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>cave {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html">   17</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcave_1_1_audio_manager.html">AudioManager</a> {</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#a659cbf550b671096f0d296aadd17e4d7">   19</a></span>        <span class="keyword">static</span> std::map&lt;std::string, ALuint&gt; <a class="code hl_variable" href="classcave_1_1_audio_manager.html#a659cbf550b671096f0d296aadd17e4d7">m_buffers</a>; </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#ad2969be64eb164011faacc8886e1065c">   20</a></span>        <span class="keyword">static</span> ALCdevice* <a class="code hl_variable" href="classcave_1_1_audio_manager.html#ad2969be64eb164011faacc8886e1065c">m_ALdevice</a>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#a17a1f3ecc1df5cc43a15990c8b45d5d9">   21</a></span>        <span class="keyword">static</span> ALCcontext* <a class="code hl_variable" href="classcave_1_1_audio_manager.html#a17a1f3ecc1df5cc43a15990c8b45d5d9">m_ALcontext</a>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_manager.html#af6102a4b6ce5a1442e4f114875287654">   22</a></span>        <span class="keyword">static</span> <span class="keywordtype">float</span> <a class="code hl_variable" href="classcave_1_1_audio_manager.html#af6102a4b6ce5a1442e4f114875287654">m_masterVolume</a>; </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">static</span> std::string <a class="code hl_function" href="classcave_1_1_audio_manager.html#a368315f5648a31eb17ba8610062903cc">getALError</a>(); </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_manager.html#ad1c544a2b8283c5aa2877ce78fe395c3">StartUp</a>(); </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_manager.html#a8e3d366bfae1b26aebdb6f7d25be7ecf">updateListenerData</a>(); </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">static</span> ALuint <a class="code hl_function" href="classcave_1_1_audio_manager.html#a28b3a664a26bf1e1df0ee79cfba2c308">loadSound</a>(std::string audioFilePath, std::string uniqueName); </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_manager.html#a4ed19dd22715ddb4d2580a30a2ada309">ShutDown</a>(); </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <a class="code hl_class" href="classcave_1_1_audio_manager.html">AudioManager</a>();</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    };</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_source.html">   34</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcave_1_1_audio_source.html">AudioSource</a> {</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classcave_1_1_audio_source.html#af6d5493194bb62916794c9629eca1b5d">   37</a></span>        ALuint <a class="code hl_variable" href="classcave_1_1_audio_source.html#af6d5493194bb62916794c9629eca1b5d">m_sourceId</a> = 1234;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a8b36fe526a92461caa4a586bdf201829">play</a>(ALuint buffer); </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a6487873c5c9a2347f31e09336c58b58b">deleteSource</a>(); </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ab4a282e5308d06cf03c3a85f598c4ec2">setVolume</a>(<span class="keywordtype">float</span> volume); </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#aee5590a5284c77bc89eafe56b3954393">setPitch</a>(<span class="keywordtype">float</span> pitch); </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ae3ec576af57a304402b6a40f3cbe864c">setRadius</a>(<span class="keywordtype">float</span> radius); </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#afb4d4075b022a892f799f1c90719a50e">setPosition</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos); </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ab50eab1efb38429586e832fe1edc1174">setVelocity</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel); </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a7a63733348f005d601be1d07167144e3">setLooping</a>(<span class="keywordtype">bool</span> setLoop); </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a6c660a80b084b8d67f613d6970af031d">isPlaying</a>(); </div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#a003fc307b0c9583d44b8a29418aa95b5">isPaused</a>(); </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ad9a781bd46d5d1c41711ee48e7fc890a">isStopped</a>();</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ad1454a3d1fdda9229eaeec671adad55d">pause</a>(); </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_audio_source.html#ab55ae91c53d4aca1c6c65a199736e2ff">continuePlaying</a>();</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        std::string <a class="code hl_function" href="classcave_1_1_audio_source.html#abb0018c1e07dbab14f869438f6028fdb">getALSourceState</a>(); </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <a class="code hl_class" href="classcave_1_1_audio_source.html">AudioSource</a>(<span class="keywordtype">float</span> volume, <span class="keywordtype">float</span> pitch, <span class="keywordtype">float</span> radius, <span class="keywordtype">bool</span> setLoop, <a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> pos, <a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> vel);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_class" href="classcave_1_1_audio_source.html">AudioSource</a>();</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    };</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    };</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="structcave_1_1_wav_data.html">   65</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcave_1_1_wav_data.html">WavData</a> {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno"><a class="line" href="structcave_1_1_wav_data.html#a13c36aaceb104890cbcf17e57262c6ce">   66</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="structcave_1_1_wav_data.html#a13c36aaceb104890cbcf17e57262c6ce">channels</a> = 0;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="structcave_1_1_wav_data.html#a811e1a1ec5487dcb233caf57a9e9aaf6">   67</a></span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="structcave_1_1_wav_data.html#a811e1a1ec5487dcb233caf57a9e9aaf6">sampleRate</a> = 0;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno"><a class="line" href="structcave_1_1_wav_data.html#a0384766555a8aad989896ef301bfaa93">   68</a></span>        drwav_uint64 <a class="code hl_variable" href="structcave_1_1_wav_data.html#a0384766555a8aad989896ef301bfaa93">totalPCMFrameCount</a> = 0;</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="structcave_1_1_wav_data.html#a1cf0a2fdda07a1cb4b17f4196cc78194">   69</a></span>        std::vector&lt;uint16_t&gt; <a class="code hl_variable" href="structcave_1_1_wav_data.html#a1cf0a2fdda07a1cb4b17f4196cc78194">pcmData</a>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="structcave_1_1_wav_data.html#a9c0e1270f7c780f7f2a4cdff79ae85cb">   70</a></span>        drwav_uint64 <a class="code hl_function" href="structcave_1_1_wav_data.html#a9c0e1270f7c780f7f2a4cdff79ae85cb">GetTotalSamples</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code hl_variable" href="structcave_1_1_wav_data.html#a0384766555a8aad989896ef301bfaa93">totalPCMFrameCount</a> * <a class="code hl_variable" href="structcave_1_1_wav_data.html#a13c36aaceb104890cbcf17e57262c6ce">channels</a>; }</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    };</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>}</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html"><div class="ttname"><a href="classcave_1_1_audio_manager.html">cave::AudioManager</a></div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:18</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_a17a1f3ecc1df5cc43a15990c8b45d5d9"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a17a1f3ecc1df5cc43a15990c8b45d5d9">cave::AudioManager::m_ALcontext</a></div><div class="ttdeci">static ALCcontext * m_ALcontext</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:22</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_a28b3a664a26bf1e1df0ee79cfba2c308"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a28b3a664a26bf1e1df0ee79cfba2c308">cave::AudioManager::loadSound</a></div><div class="ttdeci">static ALuint loadSound(std::string audioFilePath, std::string uniqueName)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:78</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_a368315f5648a31eb17ba8610062903cc"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a368315f5648a31eb17ba8610062903cc">cave::AudioManager::getALError</a></div><div class="ttdeci">static std::string getALError()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:30</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_a4ed19dd22715ddb4d2580a30a2ada309"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a4ed19dd22715ddb4d2580a30a2ada309">cave::AudioManager::ShutDown</a></div><div class="ttdeci">static void ShutDown()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:72</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_a659cbf550b671096f0d296aadd17e4d7"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a659cbf550b671096f0d296aadd17e4d7">cave::AudioManager::m_buffers</a></div><div class="ttdeci">static std::map&lt; std::string, ALuint &gt; m_buffers</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:20</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_a8e3d366bfae1b26aebdb6f7d25be7ecf"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a8e3d366bfae1b26aebdb6f7d25be7ecf">cave::AudioManager::updateListenerData</a></div><div class="ttdeci">static void updateListenerData()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:114</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_ace442e27100b3cd3088c574a51829753"><div class="ttname"><a href="classcave_1_1_audio_manager.html#ace442e27100b3cd3088c574a51829753">cave::AudioManager::AudioManager</a></div><div class="ttdeci">AudioManager()</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_ad1c544a2b8283c5aa2877ce78fe395c3"><div class="ttname"><a href="classcave_1_1_audio_manager.html#ad1c544a2b8283c5aa2877ce78fe395c3">cave::AudioManager::StartUp</a></div><div class="ttdeci">static void StartUp()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:53</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_ad2969be64eb164011faacc8886e1065c"><div class="ttname"><a href="classcave_1_1_audio_manager.html#ad2969be64eb164011faacc8886e1065c">cave::AudioManager::m_ALdevice</a></div><div class="ttdeci">static ALCdevice * m_ALdevice</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:21</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_manager_html_af6102a4b6ce5a1442e4f114875287654"><div class="ttname"><a href="classcave_1_1_audio_manager.html#af6102a4b6ce5a1442e4f114875287654">cave::AudioManager::m_masterVolume</a></div><div class="ttdeci">static float m_masterVolume</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:23</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html"><div class="ttname"><a href="classcave_1_1_audio_source.html">cave::AudioSource</a></div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:35</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_a003fc307b0c9583d44b8a29418aa95b5"><div class="ttname"><a href="classcave_1_1_audio_source.html#a003fc307b0c9583d44b8a29418aa95b5">cave::AudioSource::isPaused</a></div><div class="ttdeci">bool isPaused()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:167</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_a440835d16e0534bd871970b67ce8da63"><div class="ttname"><a href="classcave_1_1_audio_source.html#a440835d16e0534bd871970b67ce8da63">cave::AudioSource::AudioSource</a></div><div class="ttdeci">AudioSource()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:131</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_a6487873c5c9a2347f31e09336c58b58b"><div class="ttname"><a href="classcave_1_1_audio_source.html#a6487873c5c9a2347f31e09336c58b58b">cave::AudioSource::deleteSource</a></div><div class="ttdeci">void deleteSource()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:139</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_a6c660a80b084b8d67f613d6970af031d"><div class="ttname"><a href="classcave_1_1_audio_source.html#a6c660a80b084b8d67f613d6970af031d">cave::AudioSource::isPlaying</a></div><div class="ttdeci">bool isPlaying()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:161</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_a7a63733348f005d601be1d07167144e3"><div class="ttname"><a href="classcave_1_1_audio_source.html#a7a63733348f005d601be1d07167144e3">cave::AudioSource::setLooping</a></div><div class="ttdeci">void setLooping(bool setLoop)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:158</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_a8b36fe526a92461caa4a586bdf201829"><div class="ttname"><a href="classcave_1_1_audio_source.html#a8b36fe526a92461caa4a586bdf201829">cave::AudioSource::play</a></div><div class="ttdeci">void play(ALuint buffer)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:134</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_ab4a282e5308d06cf03c3a85f598c4ec2"><div class="ttname"><a href="classcave_1_1_audio_source.html#ab4a282e5308d06cf03c3a85f598c4ec2">cave::AudioSource::setVolume</a></div><div class="ttdeci">void setVolume(float volume)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:143</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_ab50eab1efb38429586e832fe1edc1174"><div class="ttname"><a href="classcave_1_1_audio_source.html#ab50eab1efb38429586e832fe1edc1174">cave::AudioSource::setVelocity</a></div><div class="ttdeci">void setVelocity(caveVec3f vel)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:155</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_ab55ae91c53d4aca1c6c65a199736e2ff"><div class="ttname"><a href="classcave_1_1_audio_source.html#ab55ae91c53d4aca1c6c65a199736e2ff">cave::AudioSource::continuePlaying</a></div><div class="ttdeci">void continuePlaying()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:181</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_abb0018c1e07dbab14f869438f6028fdb"><div class="ttname"><a href="classcave_1_1_audio_source.html#abb0018c1e07dbab14f869438f6028fdb">cave::AudioSource::getALSourceState</a></div><div class="ttdeci">std::string getALSourceState()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:12</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_ad1454a3d1fdda9229eaeec671adad55d"><div class="ttname"><a href="classcave_1_1_audio_source.html#ad1454a3d1fdda9229eaeec671adad55d">cave::AudioSource::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:178</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_ad9a781bd46d5d1c41711ee48e7fc890a"><div class="ttname"><a href="classcave_1_1_audio_source.html#ad9a781bd46d5d1c41711ee48e7fc890a">cave::AudioSource::isStopped</a></div><div class="ttdeci">bool isStopped()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:172</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_ae3ec576af57a304402b6a40f3cbe864c"><div class="ttname"><a href="classcave_1_1_audio_source.html#ae3ec576af57a304402b6a40f3cbe864c">cave::AudioSource::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:149</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_aee5590a5284c77bc89eafe56b3954393"><div class="ttname"><a href="classcave_1_1_audio_source.html#aee5590a5284c77bc89eafe56b3954393">cave::AudioSource::setPitch</a></div><div class="ttdeci">void setPitch(float pitch)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:146</div></div>
-<div class="ttc" id="aclasscave_1_1_audio_source_html_afb4d4075b022a892f799f1c90719a50e"><div class="ttname"><a href="classcave_1_1_audio_source.html#afb4d4075b022a892f799f1c90719a50e">cave::AudioSource::setPosition</a></div><div class="ttdeci">void setPosition(caveVec3f pos)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:152</div></div>
-<div class="ttc" id="anamespacecave_html"><div class="ttname"><a href="namespacecave.html">cave</a></div><div class="ttdef"><b>Definition:</b> Application.cpp:3</div></div>
-<div class="ttc" id="astructcave_1_1_wav_data_html"><div class="ttname"><a href="structcave_1_1_wav_data.html">cave::WavData</a></div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:65</div></div>
-<div class="ttc" id="astructcave_1_1_wav_data_html_a0384766555a8aad989896ef301bfaa93"><div class="ttname"><a href="structcave_1_1_wav_data.html#a0384766555a8aad989896ef301bfaa93">cave::WavData::totalPCMFrameCount</a></div><div class="ttdeci">drwav_uint64 totalPCMFrameCount</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:68</div></div>
-<div class="ttc" id="astructcave_1_1_wav_data_html_a13c36aaceb104890cbcf17e57262c6ce"><div class="ttname"><a href="structcave_1_1_wav_data.html#a13c36aaceb104890cbcf17e57262c6ce">cave::WavData::channels</a></div><div class="ttdeci">unsigned int channels</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:66</div></div>
-<div class="ttc" id="astructcave_1_1_wav_data_html_a1cf0a2fdda07a1cb4b17f4196cc78194"><div class="ttname"><a href="structcave_1_1_wav_data.html#a1cf0a2fdda07a1cb4b17f4196cc78194">cave::WavData::pcmData</a></div><div class="ttdeci">std::vector&lt; uint16_t &gt; pcmData</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:69</div></div>
-<div class="ttc" id="astructcave_1_1_wav_data_html_a811e1a1ec5487dcb233caf57a9e9aaf6"><div class="ttname"><a href="structcave_1_1_wav_data.html#a811e1a1ec5487dcb233caf57a9e9aaf6">cave::WavData::sampleRate</a></div><div class="ttdeci">unsigned int sampleRate</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:67</div></div>
-<div class="ttc" id="astructcave_1_1_wav_data_html_a9c0e1270f7c780f7f2a4cdff79ae85cb"><div class="ttname"><a href="structcave_1_1_wav_data.html#a9c0e1270f7c780f7f2a4cdff79ae85cb">cave::WavData::GetTotalSamples</a></div><div class="ttdeci">drwav_uint64 GetTotalSamples() const</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:70</div></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="structcave_1_1_wav_data.html">   62</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcave_1_1_wav_data.html">WavData</a> {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> channels = 0;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> sampleRate = 0;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        drwav_uint64 totalPCMFrameCount = 0;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        std::vector&lt;uint16_t&gt; pcmData;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        drwav_uint64 GetTotalSamples()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> totalPCMFrameCount * channels; }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    };</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html"><div class="ttname"><a href="classcave_1_1_audio_manager.html">cave::AudioManager</a></div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:17</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_a17a1f3ecc1df5cc43a15990c8b45d5d9"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a17a1f3ecc1df5cc43a15990c8b45d5d9">cave::AudioManager::m_ALcontext</a></div><div class="ttdeci">static ALCcontext * m_ALcontext</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:21</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_a28b3a664a26bf1e1df0ee79cfba2c308"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a28b3a664a26bf1e1df0ee79cfba2c308">cave::AudioManager::loadSound</a></div><div class="ttdeci">static ALuint loadSound(std::string audioFilePath, std::string uniqueName)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:77</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_a368315f5648a31eb17ba8610062903cc"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a368315f5648a31eb17ba8610062903cc">cave::AudioManager::getALError</a></div><div class="ttdeci">static std::string getALError()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:29</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_a4ed19dd22715ddb4d2580a30a2ada309"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a4ed19dd22715ddb4d2580a30a2ada309">cave::AudioManager::ShutDown</a></div><div class="ttdeci">static void ShutDown()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:71</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_a659cbf550b671096f0d296aadd17e4d7"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a659cbf550b671096f0d296aadd17e4d7">cave::AudioManager::m_buffers</a></div><div class="ttdeci">static std::map&lt; std::string, ALuint &gt; m_buffers</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:19</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_a8e3d366bfae1b26aebdb6f7d25be7ecf"><div class="ttname"><a href="classcave_1_1_audio_manager.html#a8e3d366bfae1b26aebdb6f7d25be7ecf">cave::AudioManager::updateListenerData</a></div><div class="ttdeci">static void updateListenerData()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:112</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_ad1c544a2b8283c5aa2877ce78fe395c3"><div class="ttname"><a href="classcave_1_1_audio_manager.html#ad1c544a2b8283c5aa2877ce78fe395c3">cave::AudioManager::StartUp</a></div><div class="ttdeci">static void StartUp()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:52</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_ad2969be64eb164011faacc8886e1065c"><div class="ttname"><a href="classcave_1_1_audio_manager.html#ad2969be64eb164011faacc8886e1065c">cave::AudioManager::m_ALdevice</a></div><div class="ttdeci">static ALCdevice * m_ALdevice</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:20</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_manager_html_af6102a4b6ce5a1442e4f114875287654"><div class="ttname"><a href="classcave_1_1_audio_manager.html#af6102a4b6ce5a1442e4f114875287654">cave::AudioManager::m_masterVolume</a></div><div class="ttdeci">static float m_masterVolume</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:22</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html"><div class="ttname"><a href="classcave_1_1_audio_source.html">cave::AudioSource</a></div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:34</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_a003fc307b0c9583d44b8a29418aa95b5"><div class="ttname"><a href="classcave_1_1_audio_source.html#a003fc307b0c9583d44b8a29418aa95b5">cave::AudioSource::isPaused</a></div><div class="ttdeci">bool isPaused()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:165</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_a6487873c5c9a2347f31e09336c58b58b"><div class="ttname"><a href="classcave_1_1_audio_source.html#a6487873c5c9a2347f31e09336c58b58b">cave::AudioSource::deleteSource</a></div><div class="ttdeci">void deleteSource()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:137</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_a6c660a80b084b8d67f613d6970af031d"><div class="ttname"><a href="classcave_1_1_audio_source.html#a6c660a80b084b8d67f613d6970af031d">cave::AudioSource::isPlaying</a></div><div class="ttdeci">bool isPlaying()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:159</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_a7a63733348f005d601be1d07167144e3"><div class="ttname"><a href="classcave_1_1_audio_source.html#a7a63733348f005d601be1d07167144e3">cave::AudioSource::setLooping</a></div><div class="ttdeci">void setLooping(bool setLoop)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:156</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_a8b36fe526a92461caa4a586bdf201829"><div class="ttname"><a href="classcave_1_1_audio_source.html#a8b36fe526a92461caa4a586bdf201829">cave::AudioSource::play</a></div><div class="ttdeci">void play(ALuint buffer)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:132</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_ab4a282e5308d06cf03c3a85f598c4ec2"><div class="ttname"><a href="classcave_1_1_audio_source.html#ab4a282e5308d06cf03c3a85f598c4ec2">cave::AudioSource::setVolume</a></div><div class="ttdeci">void setVolume(float volume)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:141</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_ab50eab1efb38429586e832fe1edc1174"><div class="ttname"><a href="classcave_1_1_audio_source.html#ab50eab1efb38429586e832fe1edc1174">cave::AudioSource::setVelocity</a></div><div class="ttdeci">void setVelocity(caveVec3f vel)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:153</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_ab55ae91c53d4aca1c6c65a199736e2ff"><div class="ttname"><a href="classcave_1_1_audio_source.html#ab55ae91c53d4aca1c6c65a199736e2ff">cave::AudioSource::continuePlaying</a></div><div class="ttdeci">void continuePlaying()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:179</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_abb0018c1e07dbab14f869438f6028fdb"><div class="ttname"><a href="classcave_1_1_audio_source.html#abb0018c1e07dbab14f869438f6028fdb">cave::AudioSource::getALSourceState</a></div><div class="ttdeci">std::string getALSourceState()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:11</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_ad1454a3d1fdda9229eaeec671adad55d"><div class="ttname"><a href="classcave_1_1_audio_source.html#ad1454a3d1fdda9229eaeec671adad55d">cave::AudioSource::pause</a></div><div class="ttdeci">void pause()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:176</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_ad9a781bd46d5d1c41711ee48e7fc890a"><div class="ttname"><a href="classcave_1_1_audio_source.html#ad9a781bd46d5d1c41711ee48e7fc890a">cave::AudioSource::isStopped</a></div><div class="ttdeci">bool isStopped()</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:170</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_ae3ec576af57a304402b6a40f3cbe864c"><div class="ttname"><a href="classcave_1_1_audio_source.html#ae3ec576af57a304402b6a40f3cbe864c">cave::AudioSource::setRadius</a></div><div class="ttdeci">void setRadius(float radius)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:147</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_aee5590a5284c77bc89eafe56b3954393"><div class="ttname"><a href="classcave_1_1_audio_source.html#aee5590a5284c77bc89eafe56b3954393">cave::AudioSource::setPitch</a></div><div class="ttdeci">void setPitch(float pitch)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:144</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_af6d5493194bb62916794c9629eca1b5d"><div class="ttname"><a href="classcave_1_1_audio_source.html#af6d5493194bb62916794c9629eca1b5d">cave::AudioSource::m_sourceId</a></div><div class="ttdeci">ALuint m_sourceId</div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:37</div></div>
+<div class="ttc" id="aclasscave_1_1_audio_source_html_afb4d4075b022a892f799f1c90719a50e"><div class="ttname"><a href="classcave_1_1_audio_source.html#afb4d4075b022a892f799f1c90719a50e">cave::AudioSource::setPosition</a></div><div class="ttdeci">void setPosition(caveVec3f pos)</div><div class="ttdef"><b>Definition:</b> AudioManager.cpp:150</div></div>
+<div class="ttc" id="astructcave_1_1_wav_data_html"><div class="ttname"><a href="structcave_1_1_wav_data.html">cave::WavData</a></div><div class="ttdef"><b>Definition:</b> AudioManager.hpp:62</div></div>
 <div class="ttc" id="astructcave_1_1cave_vec3f_html"><div class="ttname"><a href="structcave_1_1cave_vec3f.html">cave::caveVec3f</a></div><div class="ttdef"><b>Definition:</b> Utils.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_654f178923b1444d84ee2a4d88be6b27.html">Audio</a></li><li class="navelem"><b>AudioManager.hpp</b></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['utils_5fhpp_0',['UTILS_HPP',['../_utils_8hpp.html#ae88c0bd60abb73c305fbd8c886b04577',1,'Utils.hpp']]]
+  ['nominmax_0',['NOMINMAX',['../_common_8hpp.html#a9f918755b601cf4bffca775992e6fb90',1,'Common.hpp']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['font_0',['Font',['../classcave_1_1_font.html',1,'cave']]]
+  ['log_0',['Log',['../classcave_1_1_log.html',1,'cave']]]
 ];

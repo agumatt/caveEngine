@@ -40,7 +40,7 @@ namespace cave {
 		caveQuat() = default;
 	};
 
-	/**Colur.
+	/**Color rgba.
 *
 */
 	struct caveColour {

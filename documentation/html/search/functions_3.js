@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['engine_0',['Engine',['../classcave_1_1_engine.html#a553bd166972b2de27020e5511d8a8935',1,'cave::Engine::Engine(Application &amp;app)'],['../classcave_1_1_engine.html#abc90fc46c1e6ef14690d343dfafbbe7f',1,'cave::Engine::Engine(const Engine &amp;)=delete']]]
+  ['entitiesinsight_0',['entitiesInSight',['../structcave_1_1_event_utils.html#a9dd4728b9fd4271185bf323bbe1e0630',1,'cave::EventUtils']]],
+  ['entityreachedplayer_1',['entityReachedPlayer',['../structcave_1_1_event_utils.html#acb766cc6d4652aa8d2b721d23f02407c',1,'cave::EventUtils']]]
 ];

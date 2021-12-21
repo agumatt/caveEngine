@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>caveEngine: source/Rendering/SkeletalMeshComponent.hpp Source File</title>
+<title>caveEngine CC5512: Rendering/SkeletalMeshComponent.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -21,9 +25,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">caveEngine<span id="projectnumber">&#160;2.0</span>
+   <div id="projectname">caveEngine CC5512
    </div>
-   <div id="projectbrief">Motor de juegos desarrollado para CC5512</div>
+   <div id="projectbrief">Motor de juegos creado para el ramo</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_skeletal_mesh_component_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,58 +82,77 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_509ff950cc7218caff4e9ba3a11784bb.html">Rendering</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">SkeletalMeshComponent.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_skeletal_mesh_component_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef SKELETALMESHCOMPONENT_HPP</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_skeletal_mesh_component_8hpp.html#ad04901a6aac27d2a406d3342870f0745">    3</a></span><span class="preprocessor">#define SKELETALMESHCOMPONENT_HPP</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_rendering_manager_8hpp.html">RenderingManager.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define SKELETALMESHCOMPONENT_HPP</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;RenderingManager.hpp&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecave.html">cave</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>cave {</div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    </div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="structcave_1_1_skeletal_mesh_component.html">   12</a></span>    <span class="keyword">struct </span><a class="code hl_struct" href="structcave_1_1_skeletal_mesh_component.html">SkeletalMeshComponent</a> {</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="structcave_1_1_skeletal_mesh_component.html#a33d7f91edf259472821f293e57e9d412">   14</a></span>        <a class="code hl_class" href="classcave_1_1_model.html">Model</a> <a class="code hl_variable" href="structcave_1_1_skeletal_mesh_component.html#a33d7f91edf259472821f293e57e9d412">m_model</a>; </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="structcave_1_1_skeletal_mesh_component.html#a9a7cc3c6bb7e2b91cbc30a6aafb39b62">   15</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcave_1_1_skeletal_mesh_component.html#a9a7cc3c6bb7e2b91cbc30a6aafb39b62">m_initialized</a>;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a6f34b6df592b1a1572fe8ef808949400">SkeletalMeshComponent</a>(std::string meshFileName, std::string nodeName, std::string groupName = Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName = <span class="stringliteral">&quot;RootSceneNode&quot;</span>);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a393c3f4f7e472dc5fe08f9aeacc43206">setRotation</a>(<a class="code hl_struct" href="structcave_1_1cave_quat.html">caveQuat</a> rotation); </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a6420dbc5c5adfc4d97b2aba645ff40a3">setTranslation</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> translation);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a71fd19abc3977c37e7c20d1a1d9ab497">setScaling</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> scaling);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a82cde1827f719d53355fd3f5f9f5c221">setParentNodeName</a>(std::string parentNodeName);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    };</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="a_rendering_manager_8hpp_html"><div class="ttname"><a href="_rendering_manager_8hpp.html">RenderingManager.hpp</a></div></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="structcave_1_1_skeletal_mesh_component.html#a256fa3b5b9c8cbb1edf3c3943f25c2cf">   16</a></span>        <span class="keywordtype">bool</span> <a class="code hl_variable" href="structcave_1_1_skeletal_mesh_component.html#a256fa3b5b9c8cbb1edf3c3943f25c2cf">m_moving</a>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="structcave_1_1_skeletal_mesh_component.html#a7157ee093bf50642cc33a3905a0e1454">   17</a></span>        <a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> <a class="code hl_variable" href="structcave_1_1_skeletal_mesh_component.html#a7157ee093bf50642cc33a3905a0e1454">m_movementDirection</a>;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="structcave_1_1_skeletal_mesh_component.html#ab9cc110708a511cbd9eedf1a312c9d4c">   18</a></span>        <span class="keywordtype">float</span> <a class="code hl_variable" href="structcave_1_1_skeletal_mesh_component.html#ab9cc110708a511cbd9eedf1a312c9d4c">m_speed</a>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="structcave_1_1_skeletal_mesh_component.html#ab14a60d7117e5d4b44f366ac41fa0e89">   19</a></span>        std::vector&lt;std::string&gt; <a class="code hl_variable" href="structcave_1_1_skeletal_mesh_component.html#ab14a60d7117e5d4b44f366ac41fa0e89">m_animations</a>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <a class="code hl_struct" href="structcave_1_1_skeletal_mesh_component.html">SkeletalMeshComponent</a>(std::string meshFileName, std::string nodeName, std::string parentNodeName = <span class="stringliteral">&quot;RootSceneNode&quot;</span>);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a393c3f4f7e472dc5fe08f9aeacc43206">setRotation</a>(<a class="code hl_struct" href="structcave_1_1cave_quat.html">caveQuat</a> rotation); </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a6420dbc5c5adfc4d97b2aba645ff40a3">setTranslation</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> translation);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a71fd19abc3977c37e7c20d1a1d9ab497">setScaling</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> scaling);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a82cde1827f719d53355fd3f5f9f5c221">setParentNodeName</a>(std::string parentNodeName);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#af377f74ff2f7ddb624d0f1059c8a2135">moveMesh</a>(<a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> velocity, <span class="keywordtype">float</span> deltaTime);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a7fab6f699dcc6343b86b5e5f8dc53591">addAnimation</a>(std::string name, <span class="keywordtype">bool</span> enabled, <span class="keywordtype">bool</span> isLooping);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a3a086522715cf69e0d8eda3f27d7beaa">setAnimationEnabled</a>(std::string name, <span class="keywordtype">bool</span> enabled);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a8b0c5a93fd8a365b8f7a42514885ee74">setAnimIsLooping</a>(std::string name, <span class="keywordtype">bool</span> isLooping);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a19da29cd8f01231ffe6abe03ddf4aeb2">getAnimationEnabled</a>(std::string name);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a9da0016f361114b8ffca94d1b620176c">getAnimIsLooping</a>(std::string name);</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <a class="code hl_struct" href="structcave_1_1cave_vec3f.html">caveVec3f</a> <a class="code hl_function" href="structcave_1_1_skeletal_mesh_component.html#a25252bd1e1f93a1541ae7c10fc76e4f9">getMeshPosition</a>();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    };</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>}</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aclasscave_1_1_model_html"><div class="ttname"><a href="classcave_1_1_model.html">cave::Model</a></div><div class="ttdef"><b>Definition:</b> RenderingManager.hpp:27</div></div>
-<div class="ttc" id="anamespacecave_html"><div class="ttname"><a href="namespacecave.html">cave</a></div><div class="ttdef"><b>Definition:</b> Application.cpp:3</div></div>
 <div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html">cave::SkeletalMeshComponent</a></div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.hpp:12</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a19da29cd8f01231ffe6abe03ddf4aeb2"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a19da29cd8f01231ffe6abe03ddf4aeb2">cave::SkeletalMeshComponent::getAnimationEnabled</a></div><div class="ttdeci">bool getAnimationEnabled(std::string name)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:82</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a25252bd1e1f93a1541ae7c10fc76e4f9"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a25252bd1e1f93a1541ae7c10fc76e4f9">cave::SkeletalMeshComponent::getMeshPosition</a></div><div class="ttdeci">caveVec3f getMeshPosition()</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:26</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a256fa3b5b9c8cbb1edf3c3943f25c2cf"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a256fa3b5b9c8cbb1edf3c3943f25c2cf">cave::SkeletalMeshComponent::m_moving</a></div><div class="ttdeci">bool m_moving</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.hpp:16</div></div>
 <div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a33d7f91edf259472821f293e57e9d412"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a33d7f91edf259472821f293e57e9d412">cave::SkeletalMeshComponent::m_model</a></div><div class="ttdeci">Model m_model</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.hpp:14</div></div>
-<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a393c3f4f7e472dc5fe08f9aeacc43206"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a393c3f4f7e472dc5fe08f9aeacc43206">cave::SkeletalMeshComponent::setRotation</a></div><div class="ttdeci">void setRotation(caveQuat rotation)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:9</div></div>
-<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a6420dbc5c5adfc4d97b2aba645ff40a3"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a6420dbc5c5adfc4d97b2aba645ff40a3">cave::SkeletalMeshComponent::setTranslation</a></div><div class="ttdeci">void setTranslation(caveVec3f translation)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:12</div></div>
-<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a6f34b6df592b1a1572fe8ef808949400"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a6f34b6df592b1a1572fe8ef808949400">cave::SkeletalMeshComponent::SkeletalMeshComponent</a></div><div class="ttdeci">SkeletalMeshComponent(std::string meshFileName, std::string nodeName, std::string groupName=Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName=&quot;RootSceneNode&quot;)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:5</div></div>
-<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a71fd19abc3977c37e7c20d1a1d9ab497"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a71fd19abc3977c37e7c20d1a1d9ab497">cave::SkeletalMeshComponent::setScaling</a></div><div class="ttdeci">void setScaling(caveVec3f scaling)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:15</div></div>
-<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a82cde1827f719d53355fd3f5f9f5c221"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a82cde1827f719d53355fd3f5f9f5c221">cave::SkeletalMeshComponent::setParentNodeName</a></div><div class="ttdeci">void setParentNodeName(std::string parentNodeName)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:18</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a393c3f4f7e472dc5fe08f9aeacc43206"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a393c3f4f7e472dc5fe08f9aeacc43206">cave::SkeletalMeshComponent::setRotation</a></div><div class="ttdeci">void setRotation(caveQuat rotation)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:13</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a3a086522715cf69e0d8eda3f27d7beaa"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a3a086522715cf69e0d8eda3f27d7beaa">cave::SkeletalMeshComponent::setAnimationEnabled</a></div><div class="ttdeci">void setAnimationEnabled(std::string name, bool enabled)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:62</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a6420dbc5c5adfc4d97b2aba645ff40a3"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a6420dbc5c5adfc4d97b2aba645ff40a3">cave::SkeletalMeshComponent::setTranslation</a></div><div class="ttdeci">void setTranslation(caveVec3f translation)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:16</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a7157ee093bf50642cc33a3905a0e1454"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a7157ee093bf50642cc33a3905a0e1454">cave::SkeletalMeshComponent::m_movementDirection</a></div><div class="ttdeci">caveVec3f m_movementDirection</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.hpp:17</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a71fd19abc3977c37e7c20d1a1d9ab497"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a71fd19abc3977c37e7c20d1a1d9ab497">cave::SkeletalMeshComponent::setScaling</a></div><div class="ttdeci">void setScaling(caveVec3f scaling)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:19</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a7fab6f699dcc6343b86b5e5f8dc53591"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a7fab6f699dcc6343b86b5e5f8dc53591">cave::SkeletalMeshComponent::addAnimation</a></div><div class="ttdeci">void addAnimation(std::string name, bool enabled, bool isLooping)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:43</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a82cde1827f719d53355fd3f5f9f5c221"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a82cde1827f719d53355fd3f5f9f5c221">cave::SkeletalMeshComponent::setParentNodeName</a></div><div class="ttdeci">void setParentNodeName(std::string parentNodeName)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:22</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a8b0c5a93fd8a365b8f7a42514885ee74"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a8b0c5a93fd8a365b8f7a42514885ee74">cave::SkeletalMeshComponent::setAnimIsLooping</a></div><div class="ttdeci">void setAnimIsLooping(std::string name, bool isLooping)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:71</div></div>
 <div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a9a7cc3c6bb7e2b91cbc30a6aafb39b62"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a9a7cc3c6bb7e2b91cbc30a6aafb39b62">cave::SkeletalMeshComponent::m_initialized</a></div><div class="ttdeci">bool m_initialized</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.hpp:15</div></div>
-<div class="ttc" id="astructcave_1_1cave_quat_html"><div class="ttname"><a href="structcave_1_1cave_quat.html">cave::caveQuat</a></div><div class="ttdef"><b>Definition:</b> Utils.hpp:25</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_a9da0016f361114b8ffca94d1b620176c"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#a9da0016f361114b8ffca94d1b620176c">cave::SkeletalMeshComponent::getAnimIsLooping</a></div><div class="ttdeci">bool getAnimIsLooping(std::string name)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:93</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_ab14a60d7117e5d4b44f366ac41fa0e89"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#ab14a60d7117e5d4b44f366ac41fa0e89">cave::SkeletalMeshComponent::m_animations</a></div><div class="ttdeci">std::vector&lt; std::string &gt; m_animations</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.hpp:19</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_ab9cc110708a511cbd9eedf1a312c9d4c"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#ab9cc110708a511cbd9eedf1a312c9d4c">cave::SkeletalMeshComponent::m_speed</a></div><div class="ttdeci">float m_speed</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.hpp:18</div></div>
+<div class="ttc" id="astructcave_1_1_skeletal_mesh_component_html_af377f74ff2f7ddb624d0f1059c8a2135"><div class="ttname"><a href="structcave_1_1_skeletal_mesh_component.html#af377f74ff2f7ddb624d0f1059c8a2135">cave::SkeletalMeshComponent::moveMesh</a></div><div class="ttdeci">void moveMesh(caveVec3f velocity, float deltaTime)</div><div class="ttdef"><b>Definition:</b> SkeletalMeshComponent.cpp:32</div></div>
+<div class="ttc" id="astructcave_1_1cave_quat_html"><div class="ttname"><a href="structcave_1_1cave_quat.html">cave::caveQuat</a></div><div class="ttdef"><b>Definition:</b> Utils.hpp:27</div></div>
 <div class="ttc" id="astructcave_1_1cave_vec3f_html"><div class="ttname"><a href="structcave_1_1cave_vec3f.html">cave::caveVec3f</a></div><div class="ttdef"><b>Definition:</b> Utils.hpp:10</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_1b0e926a0431d9f734411ceeac6bd06a.html">Rendering</a></li><li class="navelem"><b>SkeletalMeshComponent.hpp</b></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
+  </ul>
+</div>
 </body>
 </html>

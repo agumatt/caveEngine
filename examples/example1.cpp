@@ -12,7 +12,7 @@ namespace cave {
 			// create plane
 			
 			RenderingUtils::createPlane(caveVec3f(0.0f, 0.0f,1.0f), caveVec3f(0.0f, -25.0f, 0.0f),"planeBottom", 1.0f, 1.0f, 450.0f, 450.0f, "Sinbad/Gold");
-			RenderingUtils::setSkyBox("Examples/CloudyNoonSkyBox");
+			RenderingUtils::setSkyBox("Examples/SpaceSkyBox");
 			//SkeletalMeshComponent& sinbad1mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad1");
 			//SkeletalMeshComponent& sinbad2mesh = EntityComponentManager::getComponent<SkeletalMeshComponent>("sinbad2");
 			//sinbad1mesh.addAnimation("IdleBase", true, true);

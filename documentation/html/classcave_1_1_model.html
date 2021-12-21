@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>caveEngine: cave::Model Class Reference</title>
+<title>caveEngine CC5512: cave::Model Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -21,9 +25,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">caveEngine<span id="projectnumber">&#160;2.0</span>
+   <div id="projectname">caveEngine CC5512
    </div>
-   <div id="projectbrief">Motor de juegos desarrollado para CC5512</div>
+   <div id="projectbrief">Motor de juegos creado para el ramo</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('classcave_1_1_model.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,11 +82,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespacecave.html">cave</a></li><li class="navelem"><a class="el" href="classcave_1_1_model.html">Model</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -89,10 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:acc6079e31e562bb3a556afa453f92de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7458388cb6c58e6fd9e5927fa2301e31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_model.html#a7458388cb6c58e6fd9e5927fa2301e31">setTransformInheritance</a> (bool inheritScale, bool inheritRotation)</td></tr>
 <tr class="separator:a7458388cb6c58e6fd9e5927fa2301e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66562b8aa9e69c041f2c7d9b72215e17"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_model.html#a66562b8aa9e69c041f2c7d9b72215e17">Model</a> ()</td></tr>
-<tr class="separator:a66562b8aa9e69c041f2c7d9b72215e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e2569f7d1637a9296e0e44d8807ce11"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcave_1_1_model.html#a5e2569f7d1637a9296e0e44d8807ce11">Model</a> (std::string meshFileName, std::string nodeName, std::string groupName=Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, std::string parentNodeName=&quot;RootSceneNode&quot;)</td></tr>
-<tr class="separator:a5e2569f7d1637a9296e0e44d8807ce11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1caad9a0a654584809121585a8ea6ef9"><td class="memItemLeft" align="right" valign="top"><a id="a1caad9a0a654584809121585a8ea6ef9" name="a1caad9a0a654584809121585a8ea6ef9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Model</b> (std::string meshFileName, std::string nodeName, std::string parentNodeName=&quot;RootSceneNode&quot;)</td></tr>
+<tr class="separator:a1caad9a0a654584809121585a8ea6ef9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -117,65 +132,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Esta clase representa un modelo a renderizar. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a66562b8aa9e69c041f2c7d9b72215e17" name="a66562b8aa9e69c041f2c7d9b72215e17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66562b8aa9e69c041f2c7d9b72215e17">&#9670;&nbsp;</a></span>Model() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">cave::Model::Model </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5e2569f7d1637a9296e0e44d8807ce11" name="a5e2569f7d1637a9296e0e44d8807ce11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e2569f7d1637a9296e0e44d8807ce11">&#9670;&nbsp;</a></span>Model() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">cave::Model::Model </td>
-          <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>meshFileName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>nodeName</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>groupName</em> = <code>Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::string&#160;</td>
-          <td class="paramname"><em>parentNodeName</em> = <code>&quot;RootSceneNode&quot;</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="acc6079e31e562bb3a556afa453f92de4" name="acc6079e31e562bb3a556afa453f92de4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc6079e31e562bb3a556afa453f92de4">&#9670;&nbsp;</a></span>setParentNodeName()</h2>
 
@@ -418,13 +375,17 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>source/Rendering/<a class="el" href="_rendering_manager_8hpp_source.html">RenderingManager.hpp</a></li>
-<li>source/Rendering/<a class="el" href="_rendering_manager_8cpp.html">RenderingManager.cpp</a></li>
+<li>Rendering/<a class="el" href="_rendering_manager_8hpp_source.html">RenderingManager.hpp</a></li>
+<li>Rendering/RenderingManager.cpp</li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><b>cave</b></li><li class="navelem"><a class="el" href="classcave_1_1_model.html">Model</a></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
+  </ul>
+</div>
 </body>
 </html>

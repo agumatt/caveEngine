@@ -26,9 +26,9 @@ namespace cave {
 
 		void configureTextElement(std::string& textElementName, float fontSize, std::string fontName, caveColour colour);/**<Configura elemento de texto seteando la fuente, su tamaño y color */
 		
-		void displayText(std::string& textElementName, std::string& caption);
+		void displayText(std::string& textElementName, std::string& caption);/**< Muestra el texto caption en el textElement indicado */
 
-		void hideTextContainer();
+		void hideTextContainer();/**< Esconde el contenedor de textElements asociado al textComponent */
 
 
 	};

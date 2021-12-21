@@ -6,13 +6,13 @@
 namespace cave {
 
 	struct EventRegistryComponent {
-		std::vector<std::string> m_events;
+		std::vector<std::string> m_events;/**< Vector con los eventos asociados al componente */
 
-		bool containsEvent(std::string event);
+		bool containsEvent(std::string event); /**< Indica si el componente posee un evento */
 
-		void addEvent(std::string event);
+		void addEvent(std::string event); /**< Agrega un evento al contenedor */
 
-		void removeEvent(std::string event);
+		void removeEvent(std::string event); /**< Elimina un evento del contenedor */
 
 		EventRegistryComponent();
 	};

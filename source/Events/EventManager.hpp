@@ -29,7 +29,11 @@ namespace cave {
 		static void processEvents(float deltaTime);
 
 	private:
+		/**Procesa los eventos gatillados.
+		*/
 		static void handleActiveEvents();
+		/**Checkea si un evento ha sido gatillado para activarlo.
+		*/
 		static void checkForEventTriggers(float deltaTime);
 		
 

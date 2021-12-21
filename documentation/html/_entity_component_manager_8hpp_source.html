@@ -5,10 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.2"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>caveEngine: source/EntityComponent/EntityComponentManager.hpp Source File</title>
+<title>caveEngine CC5512: EntityComponent/EntityComponentManager.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -21,9 +25,9 @@
  <tbody>
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
-   <div id="projectname">caveEngine<span id="projectnumber">&#160;2.0</span>
+   <div id="projectname">caveEngine CC5512
    </div>
-   <div id="projectbrief">Motor de juegos desarrollado para CC5512</div>
+   <div id="projectbrief">Motor de juegos creado para el ramo</div>
   </td>
  </tr>
  </tbody>
@@ -47,6 +51,23 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
+$(document).ready(function(){initNavTree('_entity_component_manager_8hpp_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,85 +82,86 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_b2f33c71d4aa5e7af42a1ca61ff5af1b.html">source</a></li><li class="navelem"><a class="el" href="dir_7e6cb506f70e4754e1c05a177d850f4a.html">EntityComponent</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle"><div class="title">EntityComponentManager.hpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="_entity_component_manager_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#ifndef ENTITYCOMPONENTMANAGER_HPP</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno"><a class="line" href="_entity_component_manager_8hpp.html#aa2c119cb090d29ceb7a02fa46593812a">    3</a></span><span class="preprocessor">#define ENTITYCOMPONENTMANAGER_HPP</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;../../thirdParty/entt/entt.hpp&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../Rendering/RenderingManager.hpp&quot;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../Rendering/SkeletalMeshComponent.hpp&quot;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;../Audio/AudioSourceComponent.hpp&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacecave.html">cave</a> {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html">   15</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcave_1_1_entity_component_manager.html">EntityComponentManager</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">   19</a></span>        <span class="keyword">static</span> entt::registry <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>; </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">   20</a></span>        <span class="keyword">static</span> std::map&lt;std::string, entt::entity&gt; <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>; </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#a7b09e4732e6e89ddeb15c62323bdc573">StartUp</a>();</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#a6dabbbf6198ff990f584ed667676c37f">createEntity</a>(std::string uniqueName); </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component, <span class="keyword">typename</span>... Args&gt;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#ac4dd4e221863f36d244ca3209732c2d0">   27</a></span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ac4dd4e221863f36d244ca3209732c2d0">addComponent</a>(std::string entityName, Args&amp;&amp; ...args) { </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.emplace_or_replace&lt;Component&gt;(<a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>[entityName], std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        }</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component&gt;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#ad8f52418beac40ea15e889c86827afb5">   33</a></span>        <span class="keyword">static</span> Component&amp; <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ad8f52418beac40ea15e889c86827afb5">getComponent</a>(std::string entityName) { </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.get&lt;Component&gt;(<a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>[entityName]);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        }</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component&gt;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#a7826b217ac2a9e924c15600b2dd20f86">   38</a></span>        <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#a7826b217ac2a9e924c15600b2dd20f86">getEntityView</a>() { </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.view&lt;Component&gt;();</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ad82d3a449b476839de46766e1695f9ac">initEntities</a>(); </div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ad2ffc1f09a47f8f3f132ce2fda0406ed">updateEntities</a>(); </div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component&gt;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#ac021f43b3b7b989b19eb71778618fcb2">   48</a></span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ac021f43b3b7b989b19eb71778618fcb2">deleteComponent</a>(std::string entityName) { </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            entt::entity entity = <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>[entityName];</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.remove&lt;Component&gt;(entity);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ab8e9a12f4906ccfd37f686db85a26a40">deleteEntity</a>(std::string entityName); </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    };</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#define ENTITYCOMPONENTMANAGER_HPP</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;../Rendering/CameraComponent.hpp&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;../Rendering/SkeletalMeshComponent.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;../Rendering/TextComponent.hpp&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;../Audio/AudioSourceComponent.hpp&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;../Events/EventRegistryComponent.hpp&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &quot;../../thirdParty/entt/entt.hpp&quot;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>cave {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_class" href="classcave_1_1_entity_component_manager.html">EntityComponentManager</a> {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">   20</a></span>        <span class="keyword">static</span> entt::registry <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>; </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">   21</a></span>        <span class="keyword">static</span> std::map&lt;std::string, entt::entity&gt; <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>; </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#a7b09e4732e6e89ddeb15c62323bdc573">StartUp</a>();</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#a6dabbbf6198ff990f584ed667676c37f">createEntity</a>(std::string uniqueName); </div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component, <span class="keyword">typename</span>... Args&gt;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#ac4dd4e221863f36d244ca3209732c2d0">   28</a></span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ac4dd4e221863f36d244ca3209732c2d0">addComponent</a>(std::string entityName, Args&amp;&amp; ...args) { </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.emplace_or_replace&lt;Component&gt;(<a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>[entityName], std::forward&lt;Args&gt;(args)...);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        }</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component&gt;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#ad8f52418beac40ea15e889c86827afb5">   34</a></span>        <span class="keyword">static</span> Component&amp; <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ad8f52418beac40ea15e889c86827afb5">getComponent</a>(std::string entityName) { </div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.get&lt;Component&gt;(<a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>[entityName]);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        }</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component&gt;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#a7826b217ac2a9e924c15600b2dd20f86">   39</a></span>        <span class="keyword">static</span> <span class="keyword">auto</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#a7826b217ac2a9e924c15600b2dd20f86">getEntityView</a>() { </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            <span class="keywordflow">return</span> <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.view&lt;Component&gt;();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        }</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        </div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ad82d3a449b476839de46766e1695f9ac">initEntities</a>(); </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#a5cc26d2d414f8e4f5919b579e6c42841">updateEntities</a>(<span class="keywordtype">float</span> timeStep); </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> Component&gt;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classcave_1_1_entity_component_manager.html#ac021f43b3b7b989b19eb71778618fcb2">   49</a></span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ac021f43b3b7b989b19eb71778618fcb2">deleteComponent</a>(std::string entityName) { </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            entt::entity entity = <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">m_entities</a>[entityName];</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <a class="code hl_variable" href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">m_Registry</a>.remove&lt;Component&gt;(entity);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ab8e9a12f4906ccfd37f686db85a26a40">deleteEntity</a>(std::string entityName); </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keyword">static</span> std::string <a class="code hl_function" href="classcave_1_1_entity_component_manager.html#ac120416c9c1524a6d2291962b85f1e53">getEntityName</a>(entt::entity entity); </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    };</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>}</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html">cave::EntityComponentManager</a></div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:15</div></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>}</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html">cave::EntityComponentManager</a></div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:16</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a5cc26d2d414f8e4f5919b579e6c42841"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a5cc26d2d414f8e4f5919b579e6c42841">cave::EntityComponentManager::updateEntities</a></div><div class="ttdeci">static void updateEntities(float timeStep)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:30</div></div>
 <div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a6dabbbf6198ff990f584ed667676c37f"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a6dabbbf6198ff990f584ed667676c37f">cave::EntityComponentManager::createEntity</a></div><div class="ttdeci">static void createEntity(std::string uniqueName)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:12</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a7826b217ac2a9e924c15600b2dd20f86"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a7826b217ac2a9e924c15600b2dd20f86">cave::EntityComponentManager::getEntityView</a></div><div class="ttdeci">static auto getEntityView()</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:38</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a7826b217ac2a9e924c15600b2dd20f86"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a7826b217ac2a9e924c15600b2dd20f86">cave::EntityComponentManager::getEntityView</a></div><div class="ttdeci">static auto getEntityView()</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:39</div></div>
 <div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a7b09e4732e6e89ddeb15c62323bdc573"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a7b09e4732e6e89ddeb15c62323bdc573">cave::EntityComponentManager::StartUp</a></div><div class="ttdeci">static void StartUp()</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:8</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a84d7147a4267458bf99548e37fa3e8ef"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">cave::EntityComponentManager::m_Registry</a></div><div class="ttdeci">static entt::registry m_Registry</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:19</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a9282794cc27089b7a8a8a9e52da6d7ea"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">cave::EntityComponentManager::m_entities</a></div><div class="ttdeci">static std::map&lt; std::string, entt::entity &gt; m_entities</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:20</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ab8e9a12f4906ccfd37f686db85a26a40"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ab8e9a12f4906ccfd37f686db85a26a40">cave::EntityComponentManager::deleteEntity</a></div><div class="ttdeci">static void deleteEntity(std::string entityName)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:40</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ac021f43b3b7b989b19eb71778618fcb2"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ac021f43b3b7b989b19eb71778618fcb2">cave::EntityComponentManager::deleteComponent</a></div><div class="ttdeci">static void deleteComponent(std::string entityName)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:48</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ac4dd4e221863f36d244ca3209732c2d0"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ac4dd4e221863f36d244ca3209732c2d0">cave::EntityComponentManager::addComponent</a></div><div class="ttdeci">static void addComponent(std::string entityName, Args &amp;&amp;...args)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:27</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ad2ffc1f09a47f8f3f132ce2fda0406ed"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ad2ffc1f09a47f8f3f132ce2fda0406ed">cave::EntityComponentManager::updateEntities</a></div><div class="ttdeci">static void updateEntities()</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:30</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a84d7147a4267458bf99548e37fa3e8ef"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a84d7147a4267458bf99548e37fa3e8ef">cave::EntityComponentManager::m_Registry</a></div><div class="ttdeci">static entt::registry m_Registry</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:20</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_a9282794cc27089b7a8a8a9e52da6d7ea"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#a9282794cc27089b7a8a8a9e52da6d7ea">cave::EntityComponentManager::m_entities</a></div><div class="ttdeci">static std::map&lt; std::string, entt::entity &gt; m_entities</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:21</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ab8e9a12f4906ccfd37f686db85a26a40"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ab8e9a12f4906ccfd37f686db85a26a40">cave::EntityComponentManager::deleteEntity</a></div><div class="ttdeci">static void deleteEntity(std::string entityName)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:67</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ac021f43b3b7b989b19eb71778618fcb2"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ac021f43b3b7b989b19eb71778618fcb2">cave::EntityComponentManager::deleteComponent</a></div><div class="ttdeci">static void deleteComponent(std::string entityName)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:49</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ac120416c9c1524a6d2291962b85f1e53"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ac120416c9c1524a6d2291962b85f1e53">cave::EntityComponentManager::getEntityName</a></div><div class="ttdeci">static std::string getEntityName(entt::entity entity)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:73</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ac4dd4e221863f36d244ca3209732c2d0"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ac4dd4e221863f36d244ca3209732c2d0">cave::EntityComponentManager::addComponent</a></div><div class="ttdeci">static void addComponent(std::string entityName, Args &amp;&amp;...args)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:28</div></div>
 <div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ad82d3a449b476839de46766e1695f9ac"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ad82d3a449b476839de46766e1695f9ac">cave::EntityComponentManager::initEntities</a></div><div class="ttdeci">static void initEntities()</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.cpp:17</div></div>
-<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ad8f52418beac40ea15e889c86827afb5"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ad8f52418beac40ea15e889c86827afb5">cave::EntityComponentManager::getComponent</a></div><div class="ttdeci">static Component &amp; getComponent(std::string entityName)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:33</div></div>
-<div class="ttc" id="anamespacecave_html"><div class="ttname"><a href="namespacecave.html">cave</a></div><div class="ttdef"><b>Definition:</b> Application.cpp:3</div></div>
+<div class="ttc" id="aclasscave_1_1_entity_component_manager_html_ad8f52418beac40ea15e889c86827afb5"><div class="ttname"><a href="classcave_1_1_entity_component_manager.html#ad8f52418beac40ea15e889c86827afb5">cave::EntityComponentManager::getComponent</a></div><div class="ttdeci">static Component &amp; getComponent(std::string entityName)</div><div class="ttdef"><b>Definition:</b> EntityComponentManager.hpp:34</div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_4408d59202feafcb9b5bdf6fa516c8dd.html">EntityComponent</a></li><li class="navelem"><b>EntityComponentManager.hpp</b></li>
+    <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.2 </li>
+  </ul>
+</div>
 </body>
 </html>
