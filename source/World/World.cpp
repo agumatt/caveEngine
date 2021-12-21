@@ -6,7 +6,6 @@ namespace cave {
 		m_running(true),
 		m_renderingManager()
 	{
-		std::cout << "World creado.";
 		RenderingManager::StartUp();
 		EntityComponentManager::StartUp();
 		AudioManager::StartUp();
@@ -15,8 +14,13 @@ namespace cave {
 		
 	}
 	
-	World::~World() {
+	void World::EndApplication() noexcept {
+		m_running = false;
+	}
 
+	World::~World() {
+		m_application.UserShutDown(*this);
+		RenderingManager::m_context->closeApp();
 	}
 	
 	float minimumFrameTime = 15.0f / 1000.0f;
@@ -27,7 +31,6 @@ namespace cave {
 	float eventsAccTime = 0;
 	void World::StartMainLoop() noexcept {
 		std::chrono::time_point<std::chrono::steady_clock> startTime = std::chrono::steady_clock::now();
-		std::cout << "MainLoop iniciado.";
 		while (m_running)
 		{
 			

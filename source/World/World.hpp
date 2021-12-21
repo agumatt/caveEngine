@@ -23,6 +23,7 @@ namespace cave {
 		~World();
 		void StartMainLoop() noexcept;
 		void Update(float timeStep) noexcept;
+		void EndApplication() noexcept;
 
 		Application& m_application;
 		bool m_running;
